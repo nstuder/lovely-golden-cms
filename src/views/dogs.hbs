@@ -1,0 +1,5 @@
+<p>DOGS</p>
+{{#each dogs as |dog|}}
+    <h1>{{dog.name}}</h1>
+    {{> components/atoms/image image=dog.headImage}}
+{{/each}}

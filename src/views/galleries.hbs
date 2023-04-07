@@ -1,0 +1,8 @@
+<section class="row">
+{{#each galleries as |gallery|}}
+    <a class="col-md-6 block" href="gallerie/{{gallery.name}}">
+        <h2 class="text-center">{{gallery.name}}</h2>
+        {{> components/atoms/image image=gallery.gallery.[0].image}}
+    </a>
+{{/each}}
+</section>

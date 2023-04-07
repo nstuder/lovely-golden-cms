@@ -1,0 +1,54 @@
+import { Block, Field } from 'payload/types'
+
+export const Image: Field[] = [
+	{
+		name: 'image',
+		label: {
+			en: 'Image', de: 'Bild'
+		},
+		type: 'upload',
+		relationTo: 'media',
+		required: true,
+	},
+]
+
+export const Images: Field[] = [
+	{
+		name: 'images', // required
+		type: 'array', // required
+		label: {
+			en: 'Images', de: 'Bilder'
+		},
+		fields: Image
+	}
+]
+
+export const Gallery: Field[] = [
+	{
+		name: 'gallery', // required
+		type: 'array', // required
+		labels: {
+			plural: {
+				en: 'Images', de: 'Bilder'
+			},
+			singular: {
+				de: 'Bild', en: 'Image'
+			}
+		},
+		fields: Image
+	}
+]
+
+
+export const ImagesBlock: Block = {
+	slug: 'images',
+	labels: {
+		singular: {
+			en: 'Image', de: 'Bild'
+		},
+		plural: {
+			en: 'Images', de: 'Bilder'
+		}
+	},
+	fields: Images
+}

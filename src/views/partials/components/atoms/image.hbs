@@ -1,0 +1,13 @@
+<img loading="lazy"
+    src="{{image.url}}" 
+    alt="{{image.alt}}"
+    title="{{image.alt}}"
+    width="{{image.width}}" 
+    height="{{image.height}}"
+    class="img-fluid mx-auto"
+    srcset="{{#eq image.sizes.small undefined}}{{image.sizes.small.url}} {{image.sizes.small.width}}w,{{/eq}}
+			{{#eq image.sizes.medium undefined}}{{image.sizes.medium.url}} {{image.sizes.medium.width}}w,{{/eq}}
+			{{#eq image.sizes.large undefined}}{{image.sizes.large.url}} {{image.sizes.large.width}}w,{{/eq}}
+			{{#eq image.sizes.extraLarge undefined}}{{image.sizes.extraLarge.url}} {{image.sizes.extraLarge.width}}w,{{/eq}}
+            {{image.url}} {{image.width}}w"
+/>
