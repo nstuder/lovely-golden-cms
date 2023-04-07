@@ -167,3 +167,4 @@ dist
 
 media/**
 build/**
+src/public/styles/**
