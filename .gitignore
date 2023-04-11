@@ -168,3 +168,9 @@ dist
 media/**
 build/**
 src/public/styles/**
+data/**
+src/public/js/main.js
+
+src/public/js/
+
+src/public/styles/

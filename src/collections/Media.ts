@@ -14,27 +14,51 @@ const Media: CollectionConfig = {
 	upload: {
 		adminThumbnail: 'thumbnail',
 		staticDir: path.resolve(__dirname, '../../media'),
-		mimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/svg', 'image/gif'],
+		mimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/svg', 'image/gif', 'image/webp'],
 		imageSizes: [
 			{
 				name: 'small',
 				width: 480,
 				height: undefined,
+				formatOptions: {
+					format: 'webp',
+					options: {
+						quality: 65,
+					}
+				}
 			},
 			{
 				name: 'medium',
 				width: 768,
 				height: undefined,
+				formatOptions: {
+					format: 'webp',
+					options: {
+						quality: 65,
+					}
+				}
 			},
 			{
 				name: 'large',
 				width: 1280,
 				height: undefined,
+				formatOptions: {
+					format: 'webp',
+					options: {
+						quality: 65,
+					}
+				}
 			},
 			{
 				name: 'extraLarge',
 				width: 1920,
 				height: undefined,
+				formatOptions: {
+					format: 'webp',
+					options: {
+						quality: 65,
+					}
+				}
 			}
 		],
 	},

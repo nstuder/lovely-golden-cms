@@ -20,6 +20,11 @@ const Litters: CollectionConfig = {
 	fields: [
 		...MetaFields,
 		{
+			name: 'slug',
+			type: 'text',
+			required: true,
+		},
+		{
 			type: 'tabs', // required
 			tabs: [ // required
 				{

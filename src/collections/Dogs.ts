@@ -99,14 +99,14 @@ const Dogs: CollectionConfig = {
 					label: 'Prüfungen', // required
 					fields: [
 						{
-							name: 'isActive',
+							name: 'isExamsActive',
 							label: {
 								de: 'Active', en: 'active'
 							},
 							type: 'checkbox'
 						},
 						{
-							name: 'text',
+							name: 'textExams',
 							type: 'richText'
 						}
 					],
@@ -115,7 +115,7 @@ const Dogs: CollectionConfig = {
 					label: 'Ausstellungen', // required
 					fields: [
 						{
-							name: 'isActive',
+							name: 'isShowsActive',
 							label: {
 								de: 'Active', en: 'active'
 							},
@@ -128,7 +128,7 @@ const Dogs: CollectionConfig = {
 					label: 'Nachzucht', // required
 					fields: [
 						{
-							name: 'isActive',
+							name: 'isBreedActive',
 							label: {
 								de: 'Active', en: 'active'
 							},

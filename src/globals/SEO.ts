@@ -1,4 +1,5 @@
 import { GlobalConfig } from 'payload/types'
+import { Image } from '../blocks/Image'
 
 const SEO: GlobalConfig = {
 	slug: 'seo',
@@ -31,6 +32,7 @@ const SEO: GlobalConfig = {
 			type: 'text',
 			label: 'Default Meta Description',
 		},
+		...Image,
 		{
 			name: 'structuredData',
 			type: 'code',

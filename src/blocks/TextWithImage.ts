@@ -19,7 +19,7 @@ export const TextWithImage: Block = {
 			defaultValue: false,
 		},
 		{
-			name: 'Content',
+			name: 'content',
 			type: 'richText',
 			required: true,
 			localized: true,

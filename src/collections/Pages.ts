@@ -15,7 +15,7 @@ const Pages: CollectionConfig = {
 			type: 'text',
 		},
 		{
-			name: 'path',
+			name: 'slug',
 			type: 'text',
 			required: true,
 		},
