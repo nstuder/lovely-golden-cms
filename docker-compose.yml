@@ -10,6 +10,17 @@ services:
       - ./media:/home/node/media
     depends_on:
       - mongo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gorgeous.rule=Host(`new.lovely-golden.de`)"
+      - "traefik.http.routers.gorgeous.entrypoints=web, websecure"
+      - "traefik.http.routers.gorgeous.tls=true"
+      - "traefik.http.routers.gorgeous.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.test-compress.compress=true"
+      - "traefik.http.middlewares.test-http-cache.plugin.httpCache.maxTtl=300"
+    networks:
+      - default
+      - traefik
     environment:
       MONGODB_URI: mongodb://mongo:27017/payload
       PORT: 3000
@@ -17,7 +28,7 @@ services:
       PAYLOAD_SECRET: TESTING
 
   mongo:
-    image: mongo:latest
+    image: mongo:4
     container_name: mongo
     ports:
       - "27017:27017"
@@ -28,4 +39,7 @@ services:
     logging:
       driver: none
 
+networks:
+  traefik:
+    external: true
 
