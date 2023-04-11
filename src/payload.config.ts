@@ -13,7 +13,7 @@ import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
 
 export default buildConfig({
-	serverURL: 'http://localhost:3000',
+	serverURL: 'https://new.lovely-golden.de',
 	admin: {
 		user: Users.slug,
 	},
