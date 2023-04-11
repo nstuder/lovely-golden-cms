@@ -2,8 +2,10 @@ import express from 'express'
 import { engine } from 'express-handlebars'
 import payload from 'payload'
 import path from 'path'
-import * as dotenv from 'dotenv' 
+import * as dotenv from 'dotenv'
 dotenv.config()
+
+const NEWS_LIMIT = 3
 
 const app = express()
 const start = async () => {
@@ -29,6 +31,9 @@ const start = async () => {
 					return options.fn(this)
 				}
 				return options.inverse(this)
+			},
+			toLocalDate: (a: string) => {
+				return (new Date(a)).toLocaleDateString('de-DE')
 			}
 		}
 	}))
@@ -51,59 +56,116 @@ const start = async () => {
 	// Add your own express routes here
 	app.get('/', async (req, res) => {
 		const home = await payload.findGlobal({ slug: 'home', locale: 'de' })
-		res.render('home', await withContext(home))
+		const news = await payload.find({ collection: 'news', locale: 'de', limit: 5, sort: '-publishedAt' }).then(data => data.docs)
+		res.render('home', await withContext({ ...home, news }))
 	})
 
-	app.get('/hunde', async (req, res) => {
+	app.get('/hunde', async (req, res, next) => {
 		const dogs = await payload.find({ collection: 'dogs', locale: 'de' })
 			.then(data => data.docs)
-		res.render('dogs', await withContext({dogs: dogs}))
+		const dogsInCategories = {
+			breed: dogs.filter(d => d.type === 'fzucht' || d.type === 'rzucht'),
+			young: dogs.filter(d => d.type === 'young'),
+			retirement: dogs.filter(d => d.type === 'retirement'),
+			dead: dogs.filter(d => d.type === 'dead'),
+		}
+		res.render('dogs', await withContext(dogsInCategories))
 	})
 
-	app.get('/hunde/:id', async (req, res) => {
+	app.get('/hunde/:id', async (req, res, next) => {
 		const dog = await payload.find({
 			collection: 'dogs', locale: 'de',
-			where: { name: { equals: req.params.id } }
+			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
-		res.render('dog', await withContext(dog))
+		if (dog) {
+			res.render('dog', await withContext(dog))
+		} else {
+			next()
+		}
 	})
 
-	app.get('/wuerfe', async (req, res) => {
+	app.get('/wuerfe', async (req, res, next) => {
 		const litters = await payload.find({ collection: 'litters', locale: 'de' })
 			.then(data => data.docs)
 		res.render('litter', await withContext(litters))
 	})
 
-	app.get('/wuerfe/:id', async (req, res) => {
+	app.get('/wuerfe/:id', async (req, res, next) => {
 		const litter = await payload.find({
 			collection: 'litters', locale: 'de',
-			where: { name: { equals: req.params.id } }
+			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
-		res.render('litter', await withContext(litter))
+		if (litter) {
+			res.render('litter', await withContext(litter))
+		}
+		next()
+	})
+
+	app.get('/aktuelles', async (req, res, next) => {
+		const news = await payload.find({ collection: 'news', locale: 'de', sort: '-publishedAt', limit: NEWS_LIMIT })
+			.then(data => data)
+		if (news.docs) {
+			const pages = Array.from({ length: news.totalPages }, (_, index) => ({ isActive: false, number: index + 1 }))
+			const { prevPage, nextPage, docs } = news
+			res.render('news', await withContext({
+				news: docs,
+				nextPage,
+				prevPage,
+				pages,
+			}))
+		} else {
+			next()
+		}
+	})
+
+	app.get('/aktuelles/:id', async (req, res, next) => {
+		const page = parseInt(req.params.id, 10)
+		const news = await payload.find({
+			collection: 'news', locale: 'de', sort: '-publishedAt',
+			page: page, limit: NEWS_LIMIT
+		})
+		if (news.docs) {
+			const { prevPage, nextPage, docs, page } = news
+			const pages = Array.from({ length: news.totalPages }, (_, index) => ({ isActive: (index + 1) === page, number: index + 1 }))
+			res.render('news', await withContext({
+				news: docs,
+				nextPage,
+				prevPage,
+				pages,
+			}))
+		} else {
+			next()
+		}
 	})
 
 	app.get('/gallerie', async (req, res) => {
 		const galleries = await payload.find({ collection: 'gallery', locale: 'de' })
 			.then(data => data.docs)
-		res.render('galleries', await withContext({galleries: galleries}))
+		res.render('galleries', await withContext({ galleries: galleries }))
 	})
 
-	app.get('/gallerie/:id', async (req, res) => {
+	app.get('/gallerie/:id', async (req, res, next) => {
 		const gallery = await payload.find({
 			collection: 'gallery', locale: 'de',
-			where: { name: { equals: req.params.id } }
+			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
-		res.render('gallery', await withContext(gallery))
+		if (gallery) {
+			res.render('gallery', await withContext(gallery))
+		}
+		next()
 	})
 
 	app.get('/*', async (req, res) => {
 		const path = req.path
 		const page = await payload.find({
 			collection: 'pages', locale: 'de',
-			where: { path: { equals: path } }
+			where: { slug: { like: path } }
 		}).then(data => data.docs[0])
-			.catch(() => res.render('404'))
-		res.render('page', await withContext(page))
+		if (page) {
+			res.render('page', await withContext(page))
+		} else {
+			res.render('404', await withContext({}))
+		}
 	})
 
 	app.listen(3000)
