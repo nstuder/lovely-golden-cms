@@ -25,7 +25,7 @@
             {{#eq node.type 'li'}}<li>{{> components/ritchText ritchText=node.children}}</li>{{/eq}}
             {{#eq node.type 'indent'}}<p>{{> components/ritchText ritchText=node.children}}</p>{{/eq}}
             {{#eq node.type 'link'}}<a href="{{node.url}}">{{> components/ritchText ritchText=node.children}}</a>{{/eq}}
-            {{#eq node.type 'upload'}}{{> components/atoms/image image=node.value}}{{/eq}}
+            {{#eq node.type 'upload'}}{{> components/atoms/image image=node.value class="shadow mx-auto"}}{{/eq}}
         {{else}}
             <p>{{> components/ritchText ritchText=node.children}}</p>
         {{/if}}

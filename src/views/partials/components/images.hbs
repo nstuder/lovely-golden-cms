@@ -1,5 +1,7 @@
-{{#each images as |node|}}
-<div class="col-6">
-    {{> components/atoms/image image=node.image}}
+<div class="row justify-content-center align-items-center">
+{{#each images}}
+<div class="col-lg-6">
+    {{> components/atoms/image image=image class="shadow"}}
 </div>
 {{/each}}
+</div>

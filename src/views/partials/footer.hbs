@@ -1,1 +1,13 @@
-<footer>{{global.footer.footnote}}</footer>
+<footer class="page-footer bg-primary p-2">
+    <div class="d-flex justify-content-evenly">
+        {{#each global.configuration.clubs as |club|}}
+        <a href="{{club.link}}" class="mw-50">
+            {{> components/atoms/image image=club.image}}
+        </a>
+        {{/each}}
+    </div>
+    <div class="text-center text-white p-3">
+        {{global.configuration.footnote}}
+        <a class="text-white" href="/datenschutz">Datenschutz</a>
+    </div>
+</footer>

@@ -1,10 +1,10 @@
 <div class="row">
     {{#if right}}
-    <div class="col-6">{{> components/ritchText ritchText=content}}</div>
-    <div class="col-6">{{> components/atoms/image image=img}}</div>
+    <div class="col-md-6">{{> components/ritchText ritchText=content}}</div>
+    <div class="col-md-6">{{> components/atoms/image image=img class="shadow mx-auto"}}</div>
     {{/if}}
     {{#unless right}}
-    <div class="col-6">{{> components/atoms/image image=img}}</div>
-    <div class="col-6">{{> components/ritchText ritchText=content}}</div>
+    <div class="col-md-6">{{> components/atoms/image image=img}}</div>
+    <div class="col-md-6">{{> components/ritchText ritchText=content class="shadow mx-auto"}}</div>
     {{/unless}}
 </div>

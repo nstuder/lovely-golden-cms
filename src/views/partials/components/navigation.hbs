@@ -1,5 +1,42 @@
-<ul>
-{{#each items as |item|}}
-    <li><a href="{{item.page-external}}">{{item.label}}</a></li>
-{{/each}}
-</ul>
+<nav class="navbar sticky-top navbar-expand-lg font-weight-bold navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            Navigation
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav"
+            aria-controls="mainnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainnav">
+            <ul class="navbar-nav mr-auto">
+                {{#each items as |item|}}
+
+                {{#eq item.type 'link'}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{#eq item.linkType 'external'}}{{item.pageExtern}}{{/eq}}{{#eq item.linkType 'internal'}}{{item.pageIntern.value.slug}}{{/eq}}">
+                        {{item.label}}
+                    </a>
+                </li>
+                {{/eq}}
+
+                {{#eq item.type 'subMenu'}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{item.label}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {{#each item.subMenu.items as |subItem|}}
+                        <a class="dropdown-item" href="{{#eq subItem.linkType 'external'}}{{subItem.slugExtern}}{{/eq}}{{#eq subItem.linkType 'internal'}}{{subItem.slugIntern.value.slug}}{{/eq}}">
+                            {{subItem.label}}
+                        </a>
+                        {{/each}}
+                    </div>
+                </li>
+                {{/eq}}
+
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</nav>

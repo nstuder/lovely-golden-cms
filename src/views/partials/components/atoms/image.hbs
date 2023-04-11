@@ -4,10 +4,10 @@
     title="{{image.alt}}"
     width="{{image.width}}" 
     height="{{image.height}}"
-    class="img-fluid mx-auto"
-    srcset="{{#eq image.sizes.small undefined}}{{image.sizes.small.url}} {{image.sizes.small.width}}w,{{/eq}}
-			{{#eq image.sizes.medium undefined}}{{image.sizes.medium.url}} {{image.sizes.medium.width}}w,{{/eq}}
-			{{#eq image.sizes.large undefined}}{{image.sizes.large.url}} {{image.sizes.large.width}}w,{{/eq}}
-			{{#eq image.sizes.extraLarge undefined}}{{image.sizes.extraLarge.url}} {{image.sizes.extraLarge.width}}w,{{/eq}}
-            {{image.url}} {{image.width}}w"
+    class="img-fluid {{class}}"
+    {{attributes}}
+    srcset="{{#if image.sizes.small.url}}{{image.sizes.small.url}} {{image.sizes.small.width}}w,{{/if}}
+			{{#if image.sizes.medium.url}}{{image.sizes.medium.url}} {{image.sizes.medium.width}}w,{{/if}}
+			{{#if image.sizes.large.url}}{{image.sizes.large.url}} {{image.sizes.large.width}}w,{{/if}}
+			{{#if image.sizes.extraLarge.url}}{{image.sizes.extraLarge.url}} {{image.sizes.extraLarge.width}}w{{/if}}"
 />

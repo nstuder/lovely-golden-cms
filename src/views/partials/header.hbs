@@ -1,2 +1,25 @@
 {{> components/navigation items=global.navigation.items}}
-<header>header</header>
+<header class="head">
+    <div id="carouselDogs" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators d-none d-sm-flex">
+            {{#each global.configuration.images as |image|}}
+            <li data-bs-target="#carouselDogs" data-bs-slide-to="{{@index}}" class="{{#eq @index 0}}active{{/eq}}"></li>
+            {{/each}}
+        </ol>
+        <div class="carousel-inner">
+            {{#each global.configuration.images as |image|}}
+            <div class="carousel-item {{#eq @index 0}}active{{/eq}}">
+                {{> components/atoms/image image=image.image}}
+            </div>
+            {{/each}}
+        </div>
+        <a class="carousel-control-prev" href="#carouselDogs" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselDogs" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+</header>

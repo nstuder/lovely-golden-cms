@@ -1,8 +1,4 @@
-<h1 class="text-center">{{name}}</h1>
-<section class="row">
-{{#each gallery as |image|}}
-    <div class="col-md-6">
-    {{> components/atoms/image image=image.image}}
-    </div>
-{{/each}}
+<section class="container-fluid">
+<h1>{{name}}</h1>
+{{> components/organisms/gallery images=gallery}}
 </section>

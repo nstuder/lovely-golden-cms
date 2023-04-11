@@ -1,36 +1,15 @@
-<h4 class="main-font-small">Ahnentafel:</h4>
 <div class="row align-items-center container-fluid">
     <div class="col-md-4">
-        <img
-            loading="lazy"
-            class="img-fluid mx-auto d-none d-md-block w-75"
-            src="{{father.fatherImage.url}}"
-            alt="{{father.name}}"
-        />
-        <img
-            loading="lazy"
-            class="img-fluid mx-auto d-block d-md-none w-100"
-            src="{{father.fatherImage.url}}"
-            alt="{{father.name}}"
-        />
-        <h5>{{father.name}}</h5>
+        {{> components/atoms/image image=mother.fatherImage class="shadow mx-auto d-none d-md-block w-75"}}
+        {{> components/atoms/image image=mother.fatherImage class="shadow mx-auto d-block d-md-none w-100"}}
+        <p class="fs-5 text-center">{{father.name}}</p>
         <br />
-        <img
-            loading="lazy"
-            class="img-fluid mx-auto d-none d-md-block w-75"
-            src="{{mother.motherImage.url}}"
-            alt="{{mother.name}}"
-        />
-        <img
-            loading="lazy"
-            class="img-fluid mx-auto d-block d-md-none w-100"
-            src="{{mother.motherImage.url}}"
-            alt="{{mother.name}}"
-        />
-        <h5>{{mother.name}}</h5>
+        {{> components/atoms/image image=mother.motherImage class="shadow mx-auto d-none d-md-block w-75"}}
+        {{> components/atoms/image image=mother.motherImage class="shadow mx-auto d-block d-md-none w-100"}}
+        <p class="fs-5 text-center">{{mother.name}}</p>
     </div>
     <div class="table-responsive col-md-8">
-        <table class="table table-striped table-bordered text-center">
+        <table class="table table-striped table-bordered border-primary text-center">
             <thead>
                 <tr>
                     <th>Vater</th>

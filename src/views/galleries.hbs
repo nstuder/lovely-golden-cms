@@ -1,8 +1,9 @@
-<section class="row">
+<h1>Galerie</h1>
+<section class="row justify-content-center">
 {{#each galleries as |gallery|}}
-    <a class="col-md-6 block" href="gallerie/{{gallery.name}}">
-        <h2 class="text-center">{{gallery.name}}</h2>
-        {{> components/atoms/image image=gallery.gallery.[0].image}}
+    <a class="col-md-6 block text-center text-decoration-none" href="gallerie/{{gallery.name}}">
+        {{> components/atoms/image image=gallery.gallery.[0].image class="shadow image-hover"}}
+        <h2>{{gallery.name}}</h2>
     </a>
 {{/each}}
 </section>

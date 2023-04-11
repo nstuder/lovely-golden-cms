@@ -1,0 +1,47 @@
+<div class="row g-2 justify-content-evenly align-items-center">
+    {{#each images as |image|}}
+    <figure class="col-lg-4 col-xxl-3 d-lg-block d-none">
+        <a data-bs-toggle="modal" data-bs-target="#modal_gallery">
+            <div data-bs-target="#carousel_gallery" loading="lazy" data-bs-slide-to="{{@index}}">
+                {{> components/atoms/image class="shadow image-hover mx-auto d-block"}}
+            </div>
+        </a>
+    </figure>
+    <div class="d-lg-none d-block col-sm-6">
+        {{> components/atoms/image class="shadow mx-auto d-block"}}
+    </div>
+    {{/each}}
+</div>
+
+<div class="modal fade" id="modal_gallery" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+        <div class="modal-content bg-transparent">
+            <div class="modal-header">
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="carousel_gallery" class="carousel slide mh-100" data-bs-ride="carousel">
+                <ol class="carousel-indicators">
+                    {{#each images as |image|}}
+                    <li data-bs-target="#carousel_gallery" data-bs-slide-to="{{@index}}"
+                        class="{{#eq @index 0 }}active{{/eq}}"></li>
+                    {{/each}}
+                </ol>
+                <div class="carousel-inner">
+                    {{#each images as |image|}}
+                    <div class="carousel-item carousel-item-modal {{#eq @index 0 }}active{{/eq}}">
+                        {{> components/atoms/image class="mx-auto"}}
+                    </div>
+                    {{/each}}
+                </div>
+                <a class="carousel-control-prev" href="#carousel_gallery" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel_gallery" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

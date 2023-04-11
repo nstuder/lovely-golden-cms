@@ -1,1 +1,89 @@
 <h1>{{name}}</h1>
+<div class="row align-items-center container-fluid">
+    <div class="col-md-8">
+        {{> components/atoms/image image=collage}}
+    </div>
+    <div class="col-md-3">
+        {{> components/ritchText ritchText=description}}
+    </div>
+</div>
+<div class="bg-primary mt-3">
+    <ul class="nav nav-tabs font-weight-bold text-white justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#ahnentafel">
+                Ahnentafel
+            </a>
+        </li>
+        {{#each tabs as |tab|}}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#{{tab.name}}">
+                {{tab.name}}
+            </a>
+        </li>
+        {{/each}}
+        {{#if isActive}}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#gesundheit">
+                Gesundheitsergebnisse
+            </a>
+        </li>
+        {{/if}}
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="ahnentafel">
+        <h3>Ahnentafel</h3>
+        {{> components/pedigree}}
+    </div>
+    {{#each tabs as |tab|}}
+    <div class="tab-pane" id="{{tab.name}}">
+        <h3>{{tab.name}}</h3>
+        <div class="container text-left">
+            <div class="timeline ps-md-0 ps-2">
+                {{#each news}}
+                <article>
+                    <div class="my-2 fs-5">
+                        <strong class="d-inline">
+                            {{title}}
+                        </strong>
+                        <p class="d-inline float-end text-primary">
+                            {{toLocalDate publishedAt}}
+                        </p>
+                    </div>
+                    {{> components/content-block content=content}}
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{#if isActive}}
+    <div class="tab-pane container" id="gesundheit">
+        <h3>Gesundheitsergebnisse</h3>
+        <div class="table-responsiv">
+            <table class="table table-striped table-bordered table-responsiv border-primary text-center">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>R/H</th>
+                        <th>Gesundheitsergebnisse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each puppies}}
+                    <tr>
+                        <td>
+                            {{name}}
+                        </td>
+                        <td>{{gender}}</td>
+                        <td>
+                            {{health}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/if}}
+</div>
