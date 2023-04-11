@@ -12,10 +12,10 @@ services:
       - mongo
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gorgeous.rule=Host(`new.lovely-golden.de`)"
-      - "traefik.http.routers.gorgeous.entrypoints=web, websecure"
-      - "traefik.http.routers.gorgeous.tls=true"
-      - "traefik.http.routers.gorgeous.tls.certresolver=myresolver"
+      - "traefik.http.routers.lovely.rule=Host(`new.lovely-golden.de`)"
+      - "traefik.http.routers.lovely.entrypoints=web, websecure"
+      - "traefik.http.routers.lovely.tls=true"
+      - "traefik.http.routers.lovely.tls.certresolver=myresolver"
       - "traefik.http.middlewares.test-compress.compress=true"
       - "traefik.http.middlewares.test-http-cache.plugin.httpCache.maxTtl=300"
     networks:
