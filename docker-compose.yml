@@ -5,10 +5,9 @@ services:
     image: payload-cms
     ports:
       - "3000:3000"
-    build:
-      dockerfile: .
+    build: .
     volumes:
-      - ./media:media
+      - ./media:/home/node/media
     depends_on:
       - mongo
     environment:
@@ -19,15 +18,14 @@ services:
 
   mongo:
     image: mongo:latest
+    container_name: mongo
     ports:
       - "27017:27017"
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - data:/data/db
+      - ./data:/data/db
     logging:
       driver: none
 
-volumes:
-  data:
-  node_modules:
+

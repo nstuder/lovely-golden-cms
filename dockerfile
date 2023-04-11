@@ -1,26 +1,18 @@
-FROM node:18-alpine as base
-
-FROM base as builder
+FROM node:18-bullseye-slim 
 
 WORKDIR /home/node
 COPY package*.json ./
 
 COPY . .
-RUN yarn install
-RUN yarn build
-
-FROM base as runtime
+RUN npm ci
+RUN npm run build
 
 ENV NODE_ENV=production
+ENV PAYLOAD_CONFIG_PATH=/home/node/dist/payload.config.js
 
 WORKDIR /home/node
-COPY package*.json  ./
-
-RUN yarn install --production
-COPY --from=builder /home/node/dist ./dist
-COPY --from=builder /home/node/build ./build
 
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+CMD ["npm", "run", "serve"]
 
