@@ -21,19 +21,16 @@ services:
     networks:
       - default
       - traefik
-    environment:
-      MONGODB_URI: mongodb://mongo:27017/payload
-      PORT: 3000
-      NODE_ENV: production
-      PAYLOAD_SECRET: TESTING
+    env_file:
+      - .env
 
   mongo:
     image: mongo:4.4.20
     container_name: mongo
     ports:
       - "27017:27017"
-    command:
-      - --storageEngine=wiredTiger
+    env_file:
+      - .env
     volumes:
       - data:/data/db
 
