@@ -28,7 +28,7 @@ services:
       PAYLOAD_SECRET: TESTING
 
   mongo:
-    image: mongo:4
+    image: mongo:4.4.20
     container_name: mongo
     ports:
       - "27017:27017"
@@ -36,8 +36,6 @@ services:
       - --storageEngine=wiredTiger
     volumes:
       - data:/data/db
-    logging:
-      driver: none
 
 volumes: 
   data:
