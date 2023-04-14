@@ -1,12 +1,14 @@
 <h1>{{name}}</h1>
-<div class="row align-items-center container-fluid">
-    <div class="col-md-8">
-        {{> components/atoms/image image=collage}}
+<section class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            {{> components/atoms/image image=collage}}
+        </div>
+        <div class="col-md-3">
+            {{> components/ritchText ritchText=description}}
+        </div>
     </div>
-    <div class="col-md-3">
-        {{> components/ritchText ritchText=description}}
-    </div>
-</div>
+</section>
 <div class="bg-primary mt-3">
     <ul class="nav nav-tabs font-weight-bold text-white justify-content-center">
         <li class="nav-item">
@@ -31,14 +33,14 @@
     </ul>
 </div>
 <div class="tab-content">
-    <div class="tab-pane active" id="ahnentafel">
+    <div class="tab-pane active container-fluid" id="ahnentafel">
         <h3>Ahnentafel</h3>
         {{> components/pedigree}}
     </div>
     {{#each tabs as |tab|}}
-    <div class="tab-pane" id="{{tab.name}}">
+    <div class="tab-pane container" id="{{tab.name}}">
         <h3>{{tab.name}}</h3>
-        <div class="container text-left">
+        <div class="text-left">
             <div class="timeline ps-md-0 ps-2">
                 {{#each news}}
                 <article>
