@@ -8,7 +8,6 @@ export const Image: Field[] = [
 		},
 		type: 'upload',
 		relationTo: 'media',
-		required: true,
 	},
 ]
 
@@ -19,7 +18,17 @@ export const Images: Field[] = [
 		label: {
 			en: 'Images', de: 'Bilder'
 		},
-		fields: Image
+		fields: [
+			...Image,
+			{
+				name: 'altAsCaption',
+				type: 'checkbox',
+				label: {
+					en: 'Alt Text als Untertitel anzeigen', de: 'use Alt Text as Caption'
+				},
+				defaultValue: false,
+			}
+		]
 	}
 ]
 

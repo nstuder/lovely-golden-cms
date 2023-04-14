@@ -59,6 +59,15 @@ const Dogs: CollectionConfig = {
 			]
 		},
 		{
+			name: 'teaserImage',
+			label: {
+				en: 'Teaser Image', de: 'Teaser Bild'
+			},
+			type: 'upload',
+			relationTo: 'media',
+			required: true,
+		},
+		{
 			name: 'headImage',
 			label: {
 				en: 'Head Image', de: 'Kopf Bild'
