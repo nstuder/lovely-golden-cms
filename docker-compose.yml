@@ -16,8 +16,8 @@ services:
       - "traefik.http.routers.lovely.entrypoints=web, websecure"
       - "traefik.http.routers.lovely.tls=true"
       - "traefik.http.routers.lovely.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.test-compress.compress=true"
-      - "traefik.http.middlewares.test-http-cache.plugin.httpCache.maxTtl=300"
+      - "traefik.http.middlewares.lovely.compress=true"
+      - "traefik.http.middlewares.lovely.plugin.httpCache.maxTtl=300"
     networks:
       - default
       - traefik
