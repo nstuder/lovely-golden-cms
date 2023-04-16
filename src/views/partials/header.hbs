@@ -9,7 +9,7 @@
         <div class="carousel-inner">
             {{#each global.configuration.images as |image|}}
             <div class="carousel-item {{#eq @index 0}}active{{/eq}}">
-                {{> components/atoms/image image=image.image}}
+                {{> components/atoms/image image=image.image class="w-100"}}
             </div>
             {{/each}}
         </div>

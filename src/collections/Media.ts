@@ -4,9 +4,11 @@ import path from 'path'
 const Media: CollectionConfig = {
 	slug: 'media',
 	admin: {
-		useAsTitle: 'filename',
+		useAsTitle: 'alt',
 		description: 'Uploads are set to read-only for this demo.',
-		group: 'Content'
+		group: 'Content',
+		defaultColumns: ['id', 'alt', 'filename'],
+		listSearchableFields: ['filename'],
 	},
 	access: {
 		read: () => true,
@@ -23,7 +25,7 @@ const Media: CollectionConfig = {
 				formatOptions: {
 					format: 'webp',
 					options: {
-						quality: 65,
+						quality: 75,
 					}
 				}
 			},
@@ -34,7 +36,7 @@ const Media: CollectionConfig = {
 				formatOptions: {
 					format: 'webp',
 					options: {
-						quality: 65,
+						quality: 75,
 					}
 				}
 			},
@@ -45,7 +47,7 @@ const Media: CollectionConfig = {
 				formatOptions: {
 					format: 'webp',
 					options: {
-						quality: 65,
+						quality: 75,
 					}
 				}
 			},
@@ -56,7 +58,7 @@ const Media: CollectionConfig = {
 				formatOptions: {
 					format: 'webp',
 					options: {
-						quality: 65,
+						quality: 75,
 					}
 				}
 			}
