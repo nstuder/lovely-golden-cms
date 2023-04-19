@@ -15,8 +15,13 @@ export const Images: Field[] = [
 	{
 		name: 'images', // required
 		type: 'array', // required
-		label: {
-			en: 'Images', de: 'Bilder'
+		labels: {
+			plural: {
+				en: 'Images', de: 'Bilder'
+			},
+			singular: {
+				de: 'Bild', en: 'Image'
+			}
 		},
 		fields: [
 			...Image,
@@ -53,7 +58,7 @@ export const ImagesBlock: Block = {
 	slug: 'images',
 	labels: {
 		singular: {
-			en: 'Image', de: 'Bild'
+			en: 'Images', de: 'Bilder'
 		},
 		plural: {
 			en: 'Images', de: 'Bilder'
