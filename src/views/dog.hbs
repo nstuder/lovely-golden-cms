@@ -60,10 +60,10 @@
     {{#if isShowsActive}}
     <div class="tab-pane container-xxl" id="ausstellung">
         <h3>Ausstellungsergebnisse</h3>
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-4 d-md-block d-none">
                 {{#each images as |image|}}
-                    {{> components/atoms/image class="shadow"}}
+                    {{> components/atoms/image class="shadow w-100 mb-2"}}
                 {{/each}}
             </div>
             <div class="table-responsive col-md-8">

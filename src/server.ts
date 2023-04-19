@@ -2,6 +2,7 @@ import express from 'express'
 import { engine } from 'express-handlebars'
 import payload from 'payload'
 import path from 'path'
+import robots from 'express-robots-txt'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -52,6 +53,36 @@ const start = async () => {
 	})
 
 	app.use('/assets', express.static(path.join(__dirname, 'public')))
+
+	app.use(robots({
+		UserAgent: '*',
+		Disallow: '/',
+		CrawlDelay: '5',
+		Sitemap: 'https://new.lovely-golden/sitemap.xml',
+	}))
+
+	app.get('/sitemap.xml', async (req, res) => {
+		const navigation = await await payload.findGlobal({ slug: 'navigation', locale: 'de' })
+		const pageUrls = navigation.items.flatMap(item => {
+			if (item.type == 'link') {
+				if (item.linkType == 'external') {
+					return item.pageExtern
+				} else {
+					return item.pageIntern.value.slug
+				}
+			} else if (item.type == 'subMenu') {
+				return item.subMenu.items.map(subItem => {
+					if (subItem.linkType == 'external') {
+						return subItem.slugExtern
+					} else {
+						return subItem.slugIntern.value.slug
+					}
+				})
+			}
+		}).map(url => 'http://new.lovely-golden' + url)
+		res.setHeader("Content-Type", "application/xml")
+		res.render('sitemap', {layout: false, urls: pageUrls})
+	})
 
 	// Add your own express routes here
 	app.get('/', async (req, res) => {
