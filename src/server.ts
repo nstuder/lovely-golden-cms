@@ -34,7 +34,7 @@ const start = async () => {
 				return options.inverse(this)
 			},
 			toLocalDate: (a: string) => {
-				return (new Date(a)).toLocaleDateString('de-DE')
+				return (new Date(a)).toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' })
 			}
 		}
 	}))
