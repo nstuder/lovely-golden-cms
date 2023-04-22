@@ -80,7 +80,7 @@ const start = async () => {
 				})
 			}
 		}).map(url => 'http://new.lovely-golden' + url)
-		res.setHeader("Content-Type", "application/xml")
+		res.setHeader('Content-Type', 'application/xml')
 		res.render('sitemap', {layout: false, urls: pageUrls})
 	})
 

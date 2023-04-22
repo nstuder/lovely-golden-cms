@@ -14,6 +14,7 @@ export const NewsFields: Field[] = [
 		admin: {
 			date: {
 				pickerAppearance: 'dayOnly',
+				displayFormat: 'dd.MM.yyyy',
 			}
 		}
 	},

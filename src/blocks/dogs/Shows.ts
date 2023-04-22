@@ -33,6 +33,7 @@ export const Shows: Field[] = [
 				admin: {
 					date: {
 						pickerAppearance: 'dayOnly',
+						displayFormat: 'dd.MM.yyyy',
 					}
 				}
 			},
