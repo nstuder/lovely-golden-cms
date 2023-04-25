@@ -1,7 +1,7 @@
-# breeding-website-cms
+# lovely-golden CMS
 
-Template for Breeding Webseite useing Payload CMS, Express.js & Handlebars
+Offical Webseite for lovely-golden.de useing Payload CMS, Express.js, Handlebars & Bootstrap 5
 
 ## How to Use
 
-`yarn dev` will start up your application and reload on any changes.
+`npm run dev` will start up your application and reload on any changes.
