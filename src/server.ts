@@ -6,7 +6,7 @@ import robots from 'express-robots-txt'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const NEWS_LIMIT = 3
+const NEWS_LIMIT = 10
 
 const app = express()
 const start = async () => {
@@ -15,13 +15,23 @@ const start = async () => {
 			...data,
 			...{
 				global: {
-					seo: await payload.findGlobal({ slug: 'seo', locale: 'de' }),
 					navigation: await payload.findGlobal({ slug: 'navigation', locale: 'de' }),
 					configuration: await payload.findGlobal({ slug: 'configuration', locale: 'de' })
 				}
 			}
 		}
 	}
+
+	const withMeta = async (context, data) => {
+		return {
+			...(await context),
+			meta: {
+				...(await payload.findGlobal({ slug: 'seo', locale: 'de' })),
+				...data,
+			}
+		}
+	}
+
 
 	app.engine('hbs', engine({
 		defaultLayout: 'main',
@@ -58,7 +68,7 @@ const start = async () => {
 		UserAgent: '*',
 		Disallow: '/',
 		CrawlDelay: '5',
-		Sitemap: 'https://new.lovely-golden/sitemap.xml',
+		Sitemap: process.env.BASE_URL + '/sitemap.xml',
 	}))
 
 	app.get('/sitemap.xml', async (req, res) => {
@@ -79,19 +89,19 @@ const start = async () => {
 					}
 				})
 			}
-		}).map(url => 'http://new.lovely-golden' + url)
+		}).map(url => process.env.BASE_URL + url)
 		res.setHeader('Content-Type', 'application/xml')
-		res.render('sitemap', {layout: false, urls: pageUrls})
+		res.render('sitemap', { layout: false, urls: pageUrls })
 	})
 
 	// Add your own express routes here
 	app.get('/', async (req, res) => {
 		const home = await payload.findGlobal({ slug: 'home', locale: 'de' })
 		const news = await payload.find({ collection: 'news', locale: 'de', limit: 5, sort: '-publishedAt' }).then(data => data.docs)
-		res.render('home', await withContext({ ...home, news }))
+		res.render('home', await withMeta(withContext({ ...home, news }), {}))
 	})
 
-	app.get('/hunde', async (req, res, next) => {
+	app.get('/hunde', async (req, res) => {
 		const dogs = await payload.find({ collection: 'dogs', locale: 'de' })
 			.then(data => data.docs)
 		const dogsInCategories = {
@@ -100,7 +110,11 @@ const start = async () => {
 			retirement: dogs.filter(d => d.type === 'retirement'),
 			dead: dogs.filter(d => d.type === 'dead'),
 		}
-		res.render('dogs', await withContext(dogsInCategories))
+		res.render('dogs', await withMeta(withContext(dogsInCategories), {
+			metaTitle: 'Hunde',
+			metaDescription: 'Hunde - Moments of Love',
+			pageUrl: `${process.env.BASE_URL}/hunde`
+		}))
 	})
 
 	app.get('/hunde/:id', async (req, res, next) => {
@@ -109,16 +123,26 @@ const start = async () => {
 			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
 		if (dog) {
-			res.render('dog', await withContext(dog))
+			res.render('dog', await withMeta(withContext(dog), {
+				metaTitle: `${dog.breedingName} - ${dog.name}`,
+				metaDescription: dog.metaDescription,
+				image: dog.teaserImage,
+				pageUrl: `${process.env.BASE_URL}${dog.slug}`
+			}))
 		} else {
 			next()
 		}
 	})
 
-	app.get('/wuerfe', async (req, res, next) => {
+	app.get('/wuerfe', async (req, res) => {
 		const litters = await payload.find({ collection: 'litters', locale: 'de' })
 			.then(data => data.docs)
 		res.render('litter', await withContext(litters))
+		res.render('litter', await withMeta(withContext(litters), {
+			metaTitle: 'Würfe',
+			metaDescription: 'Würfe - Moments of Love',
+			pageUrl: `${process.env.BASE_URL}/wuerfe`
+		}))
 	})
 
 	app.get('/wuerfe/:id', async (req, res, next) => {
@@ -127,7 +151,12 @@ const start = async () => {
 			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
 		if (litter) {
-			res.render('litter', await withContext(litter))
+			res.render('litter', await withMeta(withContext(litter), {
+				metaTitle: litter.name,
+				metaDescription: litter.metaDescription ? litter.metaDescription : litter.name,
+				image: litter.collage,
+				pageUrl: `${process.env.BASE_URL}${litter.slug}`
+			}))
 		}
 		next()
 	})
@@ -138,11 +167,15 @@ const start = async () => {
 		if (news.docs) {
 			const pages = Array.from({ length: news.totalPages }, (_, index) => ({ isActive: false, number: index + 1 }))
 			const { prevPage, nextPage, docs } = news
-			res.render('news', await withContext({
+			res.render('news', await withMeta(withContext({
 				news: docs,
 				nextPage,
 				prevPage,
 				pages,
+			}), {
+				metaTitle: 'Aktuelles',
+				metaDescription: 'Aktuelles',
+				pageUrl: `${process.env.BASE_URL}/aktuelles`
 			}))
 		} else {
 			next()
@@ -158,21 +191,29 @@ const start = async () => {
 		if (news.docs) {
 			const { prevPage, nextPage, docs, page } = news
 			const pages = Array.from({ length: news.totalPages }, (_, index) => ({ isActive: (index + 1) === page, number: index + 1 }))
-			res.render('news', await withContext({
+			res.render('news', await withMeta(withContext({
 				news: docs,
 				nextPage,
 				prevPage,
 				pages,
+			}), {
+				metaTitle: 'Aktuelles',
+				metaDescription: 'Aktuelles',
+				pageUrl: `${process.env.BASE_URL}/aktuelles`
 			}))
 		} else {
 			next()
 		}
 	})
 
-	app.get('/gallerie', async (req, res) => {
+	app.get('/galerie', async (req, res) => {
 		const galleries = await payload.find({ collection: 'gallery', locale: 'de' })
 			.then(data => data.docs)
-		res.render('galleries', await withContext({ galleries: galleries }))
+		res.render('galleries', await withMeta(withContext({ galleries: galleries }), {
+			metaTitle: 'Galerie',
+			metaDescription: 'Galerie',
+			pageUrl: `${process.env.BASE_URL}/galerie`
+		}))
 	})
 
 	app.get('/gallerie/:id', async (req, res, next) => {
@@ -181,9 +222,14 @@ const start = async () => {
 			where: { slug: { like: req.params.id } }
 		}).then(data => data.docs[0])
 		if (gallery) {
-			res.render('gallery', await withContext(gallery))
+			res.render('gallery', await withMeta(withContext(gallery), {
+				metaTitle: gallery.name,
+				metaDescription: gallery.name,
+				pageUrl: `${process.env.BASE_URL}${gallery.slug}`
+			}))
+		} else {
+			next()
 		}
-		next()
 	})
 
 	app.get('/*', async (req, res) => {
@@ -193,7 +239,11 @@ const start = async () => {
 			where: { slug: { like: path } }
 		}).then(data => data.docs[0])
 		if (page) {
-			res.render('page', await withContext(page))
+			res.render('page', await withMeta(await withContext(page), {
+				metaTitle: page.metaTitle,
+				metaDescription: page.metaDescription,
+				pageUrl: `${process.env.BASE_URL}${page.slug}`
+			}))
 		} else {
 			res.render('404', await withContext({}))
 		}
