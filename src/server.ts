@@ -66,7 +66,6 @@ const start = async () => {
 
 	app.use(robots({
 		UserAgent: '*',
-		Disallow: '/',
 		CrawlDelay: '5',
 		Sitemap: process.env.BASE_URL + '/sitemap.xml',
 	}))
