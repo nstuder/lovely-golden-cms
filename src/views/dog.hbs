@@ -9,39 +9,38 @@
             {{> components/atoms/image image=headImage class="d-block d-md-none mb-2 shadow w-100"}}
             {{> components/ritchText ritchText=description}}
             {{> components/atoms/image image=standImage class="d-block d-md-none shadow w-100"}}
-
         </div>
     </div>
 </section>
 <div class="bg-primary mt-3">
     <ul class="nav nav-tabs font-weight-bold justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#galerie">
+            <a class="nav-link active" data-bs-toggle="tab" href="#Galerie">
                 Galerie
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#ahnentafel">
+            <a class="nav-link" data-bs-toggle="tab" href="#Ahnentafel">
                 Ahnentafel
             </a>
         </li>
         {{#if isShowsActive}}
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#ausstellung">
+            <a class="nav-link" data-bs-toggle="tab" href="#Ausstellungsergebnisse">
                 Ausstellungsergebnisse
             </a>
         </li>
         {{/if}}
         {{#if isExamsActive}}
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#formwert">
+            <a class="nav-link" data-bs-toggle="tab" href="#Prüfungen">
                 Prüfungen
             </a>
         </li>
         {{/if}}
         {{#if isBreedActive}}
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#nachzucht">
+            <a class="nav-link" data-bs-toggle="tab" href="#Nachzucht">
                 Nachzucht
             </a>
         </li>
@@ -49,16 +48,16 @@
     </ul>
 </div>
 <div class="tab-content">
-    <div class="tab-pane active container-fluid" id="galerie">
+    <div class="tab-pane active container-fluid" id="Galerie">
         <h3>Galerie</h3>
         {{> components/organisms/gallery images=gallery}}
     </div>
-    <div class="tab-pane container-xxl" id="ahnentafel">
+    <div class="tab-pane container-xxl" id="Ahnentafel">
         <h3>Ahnentafel</h3>
         {{> components/pedigree}}
     </div>
     {{#if isShowsActive}}
-    <div class="tab-pane container-xxl" id="ausstellung">
+    <div class="tab-pane container-xxl" id="Ausstellungsergebnisse">
         <h3>Ausstellungsergebnisse</h3>
         <div class="row align-items-center">
             <div class="col-md-4 d-md-block d-none">
@@ -92,12 +91,12 @@
     </div>
     {{/if}}
     {{#if isExamsActive}}
-    <div class="tab-pane container" id="formwert">
+    <div class="tab-pane container" id="Prüfungen">
         {{> components/ritchText ritchText=textExams}}
     </div>
     {{/if}}
     {{#if isBreedActive}}
-    <div class="tab-pane container" id="nachzucht">
+    <div class="tab-pane container" id="Nachzucht">
         <h3>Nachzucht</h3>
         {{> components/content-block}}
     </div>
