@@ -16,7 +16,17 @@ const NewsCollection: CollectionConfig = {
 		useAsTitle: 'title',
 		defaultColumns: ['title', 'publishedAt']
 	},
-	fields: NewsFields
+	fields: [
+		...NewsFields,
+		{
+			name: 'link',
+			type: 'text',
+			label: {
+				de: 'Link', en: 'Link'
+			},
+			defaultValue: '/aktuelles'
+		}
+	]
 }
 
 export default NewsCollection

@@ -1,10 +1,12 @@
 <h1>{{title}}</h1>
 <section class="container">
-{{> components/ritchText ritchText=content}}
-<h3 class="mt-5">Aktuelles</h3>
-{{#each news}}
-<p class="text-center fs-5 mb-0">
-    <a href="/aktuelles" class="link-dark"><strong>{{toLocalDate publishedAt}}</strong> {{title}}</a>
+    {{> components/ritchText ritchText=content}}
+    <h3 class="mt-5">Aktuelles</h3>
+    {{#each news}}
+    <p class="text-center fs-5 mb-0">
+        <a href="{{#if link}}{{link}}{{else}}/aktuelles{{/if}}" 
+            class="link-dark">
+            <strong>{{toLocalDate publishedAt}}</strong> {{title}}</a>
     </p>
-{{/each}}
+    {{/each}}
 </section>
