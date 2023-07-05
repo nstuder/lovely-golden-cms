@@ -23,13 +23,16 @@ export const Images: Field[] = [
 				de: 'Bild', en: 'Image'
 			}
 		},
+		admin: {
+			initCollapsed: true,
+		},
 		fields: [
 			...Image,
 			{
 				name: 'altAsCaption',
 				type: 'checkbox',
 				label: {
-					en: 'Alt Text als Untertitel anzeigen', de: 'use Alt Text as Caption'
+					de: 'Alt Text als Untertitel anzeigen', en: 'use Alt Text as Caption'
 				},
 				defaultValue: false,
 			}

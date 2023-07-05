@@ -53,6 +53,7 @@ export const Shows: Field[] = [
 			}
 		],
 		admin: {
+			initCollapsed: true,
 			components: {
 				RowLabel: ({ data }) => {
 					return `${data.date ? new Date(data?.date).toLocaleDateString() : ''}: ${data?.location || ''}`

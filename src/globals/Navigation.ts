@@ -21,6 +21,7 @@ const Navigation: GlobalConfig = {
 			},
 			type: 'array',
 			admin: {
+				initCollapsed: true,
 				components: {
 					RowLabel: ({ data }) => {
 						return data.label

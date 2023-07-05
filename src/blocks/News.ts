@@ -35,6 +35,7 @@ export const NewsArray: Field = {
 		en: 'News', de: 'Neuigkeiten',
 	},
 	admin: {
+		initCollapsed: true,
 		components: {
 			RowLabel: ({ data }) => {
 				return data.title
