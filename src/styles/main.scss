@@ -16,9 +16,9 @@
 
 // 2. Include any default variable overrides here
 
-$body-bg: #e8dedf;
+$body-bg: #F8EeEf; // #e8dedf;
 $body-color: #111;
-$primary: rgba(153, 102, 153, 0.8);
+$primary: rgba(153, 102, 153, 0.9);
 // $headings-font-family: "Gabrielle", serif;
 
 $dropdown-border-radius: 0;
@@ -30,12 +30,19 @@ $nav-link-hover-color: #fff;
 $nav-tabs-border-color: $body-bg;
 $nav-tabs-border-radius: 0;
 $nav-tabs-border-width: 0px;
+$navbar-dark-color: rgba(#FFF, .9);
+$navbar-dark-hover-color: rgba(#FFF, .75);
+
 
 $modal-header-border-width: 0;
 $pagination-border-radius: 0;
 
+
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
+
+$figure-caption-font-size:          $font-size-base;
+$figure-caption-color:              $black;
 
 // 4. Include any default map overrides here
 
@@ -68,13 +75,13 @@ $pagination-border-radius: 0;
 // 8. Add additional custom code here
 
 h1 {
-  font-size: 5rem;
+  font-size: 4.5rem;
 }
 h2 {
-  font-size: 4rem;
+  font-size: 3.5rem;
 }
 h3 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 h1,
 h2,
@@ -92,6 +99,10 @@ h4,
 h5,
 h6 {
   text-align: center;
+}
+
+.main-font {
+  font-family: "Gabrielle", serif;
 }
 
 .timeline {
