@@ -15,7 +15,7 @@ const Media: CollectionConfig = {
 	},
 	upload: {
 		adminThumbnail: 'thumbnail',
-		staticDir: path.resolve(__dirname, '../../media'),
+		staticDir: path.resolve(__dirname, '../../../media'),
 		mimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/svg', 'image/gif', 'image/webp'],
 		imageSizes: [
 			{
