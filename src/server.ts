@@ -51,6 +51,13 @@ const start = async () => {
 
 	app.set('view engine', 'hbs')
 	app.set('views', path.join(__dirname, 'views'))
+	console.log(process.env.NODE_ENV === 'production')
+	if (process.env.NODE_ENV === 'production') {
+		app.use((req, res, next) => {
+			if (!req.headers.host.match(/^www/)) res.redirect(301, 'https://www.' + req.headers.host + req.url)
+			else next()
+		});
+	}
 
 	// Initialize Payload
 	await payload.init({
