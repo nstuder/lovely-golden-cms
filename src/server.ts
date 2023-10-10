@@ -98,7 +98,7 @@ const start = async () => {
 		}).map(url => process.env.BASE_URL + url)
 
 		const galleryUrls = (await payload.find({ collection: 'gallery', locale: 'de' })
-			.then(data => data.docs)).map(doc => `${process.env.BASE_URL}/gallerie/${doc.slug}`)
+			.then(data => data.docs)).map(doc => `${process.env.BASE_URL}${doc.slug}`)
 		const dogUrls = (await payload.find({ collection: 'dogs', locale: 'de' })
 			.then(data => data.docs)).map(doc => `${process.env.BASE_URL}${doc.slug}`)
 
