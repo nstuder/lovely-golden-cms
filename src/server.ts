@@ -89,8 +89,14 @@ const start = async () => {
 				})
 			}
 		}).map(url => process.env.BASE_URL + url)
+
+		const galleryUrls = (await payload.find({ collection: 'gallery', locale: 'de' })
+			.then(data => data.docs)).map(doc => `${process.env.BASE_URL}/gallerie/${doc.slug}`)
+		const dogUrls = (await payload.find({ collection: 'dogs', locale: 'de' })
+			.then(data => data.docs)).map(doc => `${process.env.BASE_URL}${doc.slug}`)
+
 		res.setHeader('Content-Type', 'application/xml')
-		res.render('sitemap', { layout: false, urls: pageUrls })
+		res.render('sitemap', { layout: false, urls: [...pageUrls, ...galleryUrls, ...dogUrls] })
 	})
 
 	// Add your own express routes here
