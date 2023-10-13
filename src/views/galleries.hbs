@@ -2,7 +2,7 @@
 <section class="container-fluid">
     <div class="row justify-content-center">
     {{#each galleries as |gallery|}}
-        <a class="col-md-6 block text-center text-decoration-none" href="gallerie/{{gallery.name}}">
+        <a class="col-md-6 block text-center text-decoration-none" href="galerie/{{gallery.name}}">
             {{> components/atoms/image image=gallery.gallery.[0].image class="shadow image-hover"}}
             <h2>{{gallery.name}}</h2>
         </a>
