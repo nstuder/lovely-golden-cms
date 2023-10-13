@@ -7,17 +7,19 @@ import Tab from 'bootstrap/js/dist/tab'
 
 var hash = decodeURI(new URL(location.href).hash)
 if (location.hash) {
-    var currentTab = document.querySelector('[href="' + hash + '"]');
-    var curTab = Tab.getOrCreateInstance(currentTab);
-    curTab.show();
+    var currentTab = document.querySelector('[href="' + hash + '"]')
+    var curTab = Tab.getOrCreateInstance(currentTab)
+    curTab.show()
 }
 
-var url = location.href.replace(/\/$/, '');
-var selectableTabList = [].slice.call(document.querySelectorAll('a[data-bs-toggle="tab"]'));
+var url = location.href.replace(/\/$/, '')
+var selectableTabList = [].slice.call(
+    document.querySelectorAll('a[data-bs-toggle="tab"]')
+)
 selectableTabList.forEach((selectableTab) => {
-  selectableTab.addEventListener('click', function () {
-    var hash = selectableTab.getAttribute('href');
-    var newUrl = url.split('#')[0] + hash;
-    history.replaceState(null, null, newUrl);
-  });
-});
+    selectableTab.addEventListener('click', function () {
+        var hash = selectableTab.getAttribute('href')
+        var newUrl = url.split('#')[0] + hash
+        history.replaceState(null, null, newUrl)
+    })
+})

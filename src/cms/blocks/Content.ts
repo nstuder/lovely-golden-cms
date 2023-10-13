@@ -5,18 +5,13 @@ import { RichText } from './Text'
 import { TextWithImage } from './TextWithImage'
 
 export const ContentFields: Field[] = [
-	{
-		name: 'content',
-		label: {
-			de: 'Inhalt', 
-			en: 'Content'
-		},
-		type: 'blocks',
-		blocks: [
-			RichText,
-			ImagesBlock,
-			TextWithImage,
-			Pedigree,
-		],
-	},
+    {
+        name: 'content',
+        label: {
+            de: 'Inhalt',
+            en: 'Content',
+        },
+        type: 'blocks',
+        blocks: [RichText, ImagesBlock, TextWithImage, Pedigree],
+    },
 ]

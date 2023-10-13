@@ -1,6 +1,8 @@
-{{#each content as |node|}}
-    {{#eq node.blockType 'richtext'}}{{> components/ritchText ritchText=node.content}}{{/eq}}
-    {{#eq node.blockType 'pedigree'}}{{> components/pedigree father=node.father mother=node.mother}}{{/eq}}
-    {{#eq node.blockType 'text-with-image'}}{{> components/text-with-image content=node.content img=node.image right=node.right}}{{/eq}}
-    {{#eq node.blockType 'images'}}{{> components/images images=node.images}}{{/eq}}
-{{/each}}
+{{#each content as |node|}} {{#eq node.blockType 'richtext'
+}}{{> components/ritchText ritchText=node.content}}{{/eq}}
+{{#eq node.blockType 'pedigree'
+}}{{> components/pedigree father=node.father mother=node.mother}}{{/eq}}
+{{#eq node.blockType 'text-with-image'
+}}{{> components/text-with-image content=node.content img=node.image right=node.right
+}}{{/eq}} {{#eq node.blockType 'images'
+}}{{> components/images images=node.images}}{{/eq}} {{/each}}

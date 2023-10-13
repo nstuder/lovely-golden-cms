@@ -1,43 +1,42 @@
 version: '3'
 
 services:
-  payload:
-    image: payload-cms
-    ports:
-      - "3000:3000"
-    build: .
-    volumes:
-      - ./media:/home/node/media
-    depends_on:
-      - mongo
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.lovely.rule=Host(`www.lovely-golden.de`, `lovely-golden.de`)"
-      - "traefik.http.routers.lovely.entrypoints=web, websecure"
-      - "traefik.http.routers.lovely.tls=true"
-      - "traefik.http.routers.lovely.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.lovely.compress=true"
-      - "traefik.http.middlewares.lovely.plugin.httpCache.maxTtl=300"
-    networks:
-      - default
-      - traefik
-    env_file:
-      - .env
+    payload:
+        image: payload-cms
+        ports:
+            - '3000:3000'
+        build: .
+        volumes:
+            - ./media:/home/node/media
+        depends_on:
+            - mongo
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.lovely.rule=Host(`www.lovely-golden.de`, `lovely-golden.de`)'
+            - 'traefik.http.routers.lovely.entrypoints=web, websecure'
+            - 'traefik.http.routers.lovely.tls=true'
+            - 'traefik.http.routers.lovely.tls.certresolver=myresolver'
+            - 'traefik.http.middlewares.lovely.compress=true'
+            - 'traefik.http.middlewares.lovely.plugin.httpCache.maxTtl=300'
+        networks:
+            - default
+            - traefik
+        env_file:
+            - .env
 
-  mongo:
-    image: mongo:4.4.20
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    env_file:
-      - .env
-    volumes:
-      - data:/data/db
+    mongo:
+        image: mongo:4.4.20
+        container_name: mongo
+        ports:
+            - '27017:27017'
+        env_file:
+            - .env
+        volumes:
+            - data:/data/db
 
-volumes: 
-  data:
+volumes:
+    data:
 
 networks:
-  traefik:
-    external: true
-
+    traefik:
+        external: true

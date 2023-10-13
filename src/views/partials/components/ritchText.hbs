@@ -1,36 +1,53 @@
 {{#each ritchText as |node|}}
-    {{#if node.text}} 
-        {{#if node.bold}}
-            <strong>{{node.text}}</strong>
-        {{else if node.italic}}
-            <i>{{node.text}}</i>
-        {{else if node.code}}
-            <code>{{node.text}}</code>
-        {{else if node.underline}}
-            <u>{{node.text}}</u>
-        {{else}}
-            {{node.text}}
-        {{/if}}
-    {{else}}
-        {{#if node.type}}
-            {{#eq node.type 'h1'}}<h1>{{> components/ritchText ritchText=node.children}}</h1>{{/eq}} 
-            {{#eq node.type 'h2'}}<h2>{{> components/ritchText ritchText=node.children}}</h2>{{/eq}} 
-            {{#eq node.type 'h3'}}<h3>{{> components/ritchText ritchText=node.children}}</h3>{{/eq}} 
-            {{#eq node.type 'h4'}}<h4>{{> components/ritchText ritchText=node.children}}</h4>{{/eq}} 
-            {{#eq node.type 'h5'}}<h5>{{> components/ritchText ritchText=node.children}}</h5>{{/eq}} 
-            {{#eq node.type 'h6'}}<h6>{{> components/ritchText ritchText=node.children}}</h6>{{/eq}}
-            {{#eq node.type 'quote'}}<blockquote>{{> components/ritchText ritchText=node.children}}</blockquote>{{/eq}}
-            {{#eq node.type 'ul'}}<ul>{{> components/ritchText ritchText=node.children}}</ul>{{/eq}}
-            {{#eq node.type 'ol'}}<ol>{{> components/ritchText ritchText=node.children}}</ol>{{/eq}}
-            {{#eq node.type 'li'}}<li>{{> components/ritchText ritchText=node.children}}</li>{{/eq}}
-            {{#eq node.type 'indent'}}<p>{{> components/ritchText ritchText=node.children}}</p>{{/eq}}
-            {{#eq node.type 'link'}}<a href="{{node.url}}">{{> components/ritchText ritchText=node.children}}</a>{{/eq}}
-            {{#eq node.type 'upload'}}
-                {{> components/atoms/image image=node.value class="shadow mx-auto d-none d-md-block w-75"}}
-                {{> components/atoms/image image=node.value class="shadow mx-auto d-block d-md-none w-100"}}
-            {{/eq}}
-        {{else}}
-            <p>{{> components/ritchText ritchText=node.children}}</p>
-        {{/if}}
-    {{/if}}
+{{#if node.text}}
+{{#if node.bold}}
+<strong>{{ node.text }}</strong>
+{{else if node.italic}}
+<i>{{ node.text }}</i>
+{{else if node.code}}
+<code>{{ node.text }}</code>
+{{else if node.underline}}
+<u>{{ node.text }}</u>
+{{else}}
+{{ node.text }}
+{{/if}}
+{{else}}
+{{#if node.type}}
+{{#eq node.type 'h1'}}
+<h1>{{> components/ritchText ritchText=node.children}}</h1>
+{{/eq}} {{#eq node.type 'h2'}}
+<h2>{{> components/ritchText ritchText=node.children}}</h2>
+{{/eq}} {{#eq node.type 'h3'}}
+<h3>{{> components/ritchText ritchText=node.children}}</h3>
+{{/eq}} {{#eq node.type 'h4'}}
+<h4>{{> components/ritchText ritchText=node.children}}</h4>
+{{/eq}} {{#eq node.type 'h5'}}
+<h5>{{> components/ritchText ritchText=node.children}}</h5>
+{{/eq}} {{#eq node.type 'h6'}}
+<h6>{{> components/ritchText ritchText=node.children}}</h6>
+{{/eq}} {{#eq node.type 'quote'}}
+<blockquote>{{> components/ritchText ritchText=node.children}}</blockquote>
+{{/eq}} {{#eq node.type 'ul'}}
+<ul>
+    {{> components/ritchText ritchText=node.children}}
+</ul>
+{{/eq}} {{#eq node.type 'ol'}}
+<ol>
+    {{> components/ritchText ritchText=node.children}}
+</ol>
+{{/eq}} {{#eq node.type 'li'}}
+<li>{{> components/ritchText ritchText=node.children}}</li>
+{{/eq}} {{#eq node.type 'indent'}}
+<p>{{> components/ritchText ritchText=node.children}}</p>
+{{/eq}} {{#eq node.type 'link'
+}}<a href="{{ node.url }}">{{> components/ritchText ritchText=node.children}}</a
+>{{/eq}}
+{{#eq node.type 'upload'}}
+{{> components/atoms/image image=node.value class="shadow mx-auto d-none d-md-block w-75"}}
+{{> components/atoms/image image=node.value class="shadow mx-auto d-block d-md-none w-100"}}
+{{/eq}}
+{{else}}
+<p>{{> components/ritchText ritchText=node.children}}</p>
+{{/if}}
+{{/if}}
 {{/each}}

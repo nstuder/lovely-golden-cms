@@ -1,11 +1,27 @@
-<nav class="navbar sticky-top navbar-expand-lg font-weight-bold navbar-dark bg-primary">
+<nav
+    class="navbar sticky-top navbar-expand-lg font-weight-bold navbar-dark bg-primary"
+>
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img class="mr-2" style="margin-top: -0.5rem;" height="34" width="40" src="/assets/img/logo-dark-medium.svg" alt="log">
+            <img
+                class="mr-2"
+                style="margin-top: -0.5rem"
+                height="34"
+                width="40"
+                src="/assets/img/logo-dark-medium.svg"
+                alt="log"
+            />
             <span class="main-font fs-2">Moments of Love</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav"
-            aria-controls="mainnav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainnav"
+            aria-controls="mainnav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse mt-2" id="mainnav">
@@ -14,22 +30,42 @@
 
                 {{#eq item.type 'link'}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{#eq item.linkType 'external'}}{{item.pageExtern}}{{/eq}}{{#eq item.linkType 'internal'}}{{item.pageIntern.value.slug}}{{/eq}}">
-                        {{item.label}}
+                    <a
+                        class="nav-link"
+                        href="{{#eq item.linkType 'external'}}{{
+                            item.pageExtern
+                        }}{{/eq}}{{#eq item.linkType 'internal'}}{{
+                            item.pageIntern.value.slug
+                        }}{{/eq}}"
+                    >
+                        {{ item.label }}
                     </a>
                 </li>
                 {{/eq}}
 
                 {{#eq item.type 'subMenu'}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-{{item.label}}" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{item.label}}
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown-{{ item.label }}"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        {{ item.label }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {{#each item.subMenu.items as |subItem|}}
-                        <a class="dropdown-item" href="{{#eq subItem.linkType 'external'}}{{subItem.slugExtern}}{{/eq}}{{#eq subItem.linkType 'internal'}}{{subItem.slugIntern.value.slug}}{{/eq}}">
-                            {{subItem.label}}
+                        <a
+                            class="dropdown-item"
+                            href="{{#eq subItem.linkType 'external'}}{{
+                                subItem.slugExtern
+                            }}{{/eq}}{{#eq subItem.linkType 'internal'}}{{
+                                subItem.slugIntern.value.slug
+                            }}{{/eq}}"
+                        >
+                            {{ subItem.label }}
                         </a>
                         {{/each}}
                     </div>

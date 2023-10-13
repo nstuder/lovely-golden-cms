@@ -4,7 +4,7 @@
     <article>
         <div class="my-2 fs-5">
             <strong class="d-inline">
-                {{title}}
+                {{ title }}
             </strong>
             <p class="d-inline float-end text-primary">
                 {{toLocalDate publishedAt}}
@@ -18,18 +18,27 @@
     <ul class="pagination justify-content-center">
         {{#if prevPage}}
         <li class="page-item">
-            <a class="page-link" href="/aktuelles/{{prevPage}}" aria-label="Previous">
+            <a
+                class="page-link"
+                href="/aktuelles/{{ prevPage }}"
+                aria-label="Previous"
+            >
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         {{/if}}
         {{#each pages}}
-        <li class="page-item {{#if isActive}}active{{/if}}"><a class="page-link"
-                href="/aktuelles/{{number}}">{{number}}</a></li>
+        <li class="page-item {{#if isActive}}active{{/if}}">
+            <a class="page-link" href="/aktuelles/{{ number }}">{{ number }}</a>
+        </li>
         {{/each}}
         {{#if nextPage}}
         <li class="page-item">
-            <a class="page-link" href="/aktuelles/{{nextPage}}" aria-label="Next">
+            <a
+                class="page-link"
+                href="/aktuelles/{{ nextPage }}"
+                aria-label="Next"
+            >
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

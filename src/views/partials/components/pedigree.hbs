@@ -2,14 +2,16 @@
     <div class="col-md-4">
         {{> components/atoms/image image=father.fatherImage class="shadow mx-auto d-none d-md-block w-75"}}
         {{> components/atoms/image image=father.fatherImage class="shadow mx-auto d-block d-md-none w-100"}}
-        <p class="fs-5 text-center">{{father.name}}</p>
+        <p class="fs-5 text-center">{{ father.name }}</p>
         <br />
         {{> components/atoms/image image=mother.motherImage class="shadow mx-auto d-none d-md-block w-75"}}
         {{> components/atoms/image image=mother.motherImage class="shadow mx-auto d-block d-md-none w-100"}}
-        <p class="fs-5 text-center">{{mother.name}}</p>
+        <p class="fs-5 text-center">{{ mother.name }}</p>
     </div>
     <div class="table-responsive col-md-8">
-        <table class="table table-striped table-bordered border-primary text-center">
+        <table
+            class="table table-striped table-bordered border-primary text-center"
+        >
             <thead>
                 <tr>
                     <th>Vater</th>
@@ -20,24 +22,24 @@
             <tbody>
                 <tr>
                     <td class="align-middle" rowspan="4">
-                        {{father.name}}
+                        {{ father.name }}
                     </td>
                     <td cfatherme="align-middle" rowspan="2">
-                        {{father.grandfather.name}}
+                        {{ father.grandfather.name }}
                     </td>
-                    <td>{{father.grandfather.greatGrandparents.father}}</td>
+                    <td>{{ father.grandfather.greatGrandparents.father }}</td>
                 </tr>
                 <tr>
-                    <td>{{father.grandfather.greatGrandparents.mother}}</td>
+                    <td>{{ father.grandfather.greatGrandparents.mother }}</td>
                 </tr>
                 <tr>
                     <td class="align-middle" rowspan="2">
-                        {{father.grandmother.name}}
+                        {{ father.grandmother.name }}
                     </td>
-                    <td>{{father.grandmother.greatGrandparents.father}}</td>
+                    <td>{{ father.grandmother.greatGrandparents.father }}</td>
                 </tr>
                 <tr>
-                    <td>{{father.grandmother.greatGrandparents.mother}}</td>
+                    <td>{{ father.grandmother.greatGrandparents.mother }}</td>
                 </tr>
             </tbody>
             <thead>
@@ -50,24 +52,24 @@
             <tbody>
                 <tr>
                     <td class="align-middle" rowspan="4">
-                        {{mother.name}}
+                        {{ mother.name }}
                     </td>
                     <td class="align-middle" rowspan="2">
-                        {{mother.grandfather.name}}
+                        {{ mother.grandfather.name }}
                     </td>
-                    <td>{{mother.grandfather.greatGrandparents.father}}</td>
+                    <td>{{ mother.grandfather.greatGrandparents.father }}</td>
                 </tr>
                 <tr>
-                    <td>{{mother.grandfather.greatGrandparents.mother}}</td>
+                    <td>{{ mother.grandfather.greatGrandparents.mother }}</td>
                 </tr>
                 <tr>
                     <td class="align-middle" rowspan="2">
-                        {{mother.grandmother.name}}
+                        {{ mother.grandmother.name }}
                     </td>
-                    <td>{{mother.grandmother.greatGrandparents.father}}</td>
+                    <td>{{ mother.grandmother.greatGrandparents.father }}</td>
                 </tr>
                 <tr>
-                    <td>{{mother.grandmother.greatGrandparents.mother}}</td>
+                    <td>{{ mother.grandmother.greatGrandparents.mother }}</td>
                 </tr>
             </tbody>
         </table>

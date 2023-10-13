@@ -1,13 +1,16 @@
 <footer class="page-footer bg-primary p-2">
     <div class="row justify-content-evenly">
         {{#each global.configuration.clubs as |club|}}
-        <a href="{{club.link}}" class="col-3 col-md-2 block d-flex justify-content-center align-items-center">
+        <a
+            href="{{ club.link }}"
+            class="col-3 col-md-2 block d-flex justify-content-center align-items-center"
+        >
             {{> components/atoms/image image=club.image class="h-50 block w-auto"}}
         </a>
         {{/each}}
     </div>
     <div class="text-center text-white p-3">
-        {{global.configuration.footnote}}
+        {{ global.configuration.footnote }}
         <a class="text-white" href="/datenschutz">Datenschutz</a>
     </div>
 </footer>

@@ -1,10 +1,11 @@
-<img loading="lazy"
-    src="{{image.url}}" 
-    alt="{{image.alt}}"
-    title="{{image.alt}}"
-    width="{{image.width}}" 
-    height="{{image.height}}"
-    class="img-fluid {{class}}"
+<img
+    loading="lazy"
+    src="{{ image.url }}"
+    alt="{{ image.alt }}"
+    title="{{ image.alt }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    class="img-fluid {{ class }}"
     {{attributes}}
     srcset="{{#if image.sizes.small.url}}{{image.sizes.small.url}} {{image.sizes.small.width}}w,{{/if}}
 			{{#if image.sizes.medium.url}}{{image.sizes.medium.url}} {{image.sizes.medium.width}}w,{{/if}}

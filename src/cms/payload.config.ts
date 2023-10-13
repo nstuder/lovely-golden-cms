@@ -13,42 +13,26 @@ import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
 
 export default buildConfig({
-	serverURL: process.env.BASE_URL,
-	admin: {
-		user: Users.slug,
-	},
-	globals: [
-		Navigation,
-		Home,
-		Configuration,
-		SEO
-	],
-	collections: [
-		Users,
-		Pages,
-		Dogs,
-		News,
-		Litters,
-		Media,
-		Gallery
-	],
-	localization: {
-		locales: [
-			'en',
-			'de',
-		],
-		defaultLocale: 'de',
-		fallback: true,
-	},
-	typescript: {
-		outputFile: path.resolve(__dirname, 'payload-types.ts'),
-	},
-	graphQL: {
-		schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-	},
-	upload: {
-		limits: {
-			fileSize: 6000000, // 6MB, written in bytes
-		},
-	},
+    serverURL: process.env.BASE_URL,
+    admin: {
+        user: Users.slug,
+    },
+    globals: [Navigation, Home, Configuration, SEO],
+    collections: [Users, Pages, Dogs, News, Litters, Media, Gallery],
+    localization: {
+        locales: ['en', 'de'],
+        defaultLocale: 'de',
+        fallback: true,
+    },
+    typescript: {
+        outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    },
+    graphQL: {
+        schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+    },
+    upload: {
+        limits: {
+            fileSize: 6000000, // 6MB, written in bytes
+        },
+    },
 })

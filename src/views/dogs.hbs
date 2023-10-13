@@ -1,52 +1,52 @@
 <section class="container">
-<h1>Unsere Hunde</h1>
-<div class="row text-center justify-content-center">
-    {{#if breed}}
-    <h2 class="col-12 mt-5">Zuchthunde</h2>
-    {{#each breed}}
-    <div class="col-md-6">
-        <a href="{{slug}}" class="text-decoration-none">
-            {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
-            <h3>{{name}}</h3>
-        </a>
-    </div>
-    {{/each}}
-    {{/if}}
+    <h1>Unsere Hunde</h1>
+    <div class="row text-center justify-content-center">
+        {{#if breed}}
+        <h2 class="col-12 mt-5">Zuchthunde</h2>
+        {{#each breed}}
+        <div class="col-md-6">
+            <a href="{{ slug }}" class="text-decoration-none">
+                {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
+                <h3>{{ name }}</h3>
+            </a>
+        </div>
+        {{/each}}
+        {{/if}}
 
-    {{#if young}}
-    <h2 class="col-12 mt-5">Youngster</h2>
-    {{#each young}}
-    <div class="col-md-6">
-        <a href="{{slug}}" class="text-decoration-none">
-            {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
-            <h3>{{name}}</h3>
-        </a>
-    </div>
-    {{/each}}
-    {{/if}}
+        {{#if young}}
+        <h2 class="col-12 mt-5">Youngster</h2>
+        {{#each young}}
+        <div class="col-md-6">
+            <a href="{{ slug }}" class="text-decoration-none">
+                {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
+                <h3>{{ name }}</h3>
+            </a>
+        </div>
+        {{/each}}
+        {{/if}}
 
-    {{#if retirement}}
-    <h2 class="col-12 mt-5">Im Ruhestand</h2>
-    {{#each retirement}}
-    <div class="col-md-6">
-        <a href="{{slug}}" class="text-decoration-none">
-            {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
-            <h3>{{name}}</h3>
-        </a>
-    </div>
-    {{/each}}
-    {{/if}}
+        {{#if retirement}}
+        <h2 class="col-12 mt-5">Im Ruhestand</h2>
+        {{#each retirement}}
+        <div class="col-md-6">
+            <a href="{{ slug }}" class="text-decoration-none">
+                {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
+                <h3>{{ name }}</h3>
+            </a>
+        </div>
+        {{/each}}
+        {{/if}}
 
-    {{#if dead}}
-    <h2 class="col-12 mt-5">In Memoriam</h2>
-    {{#each dead}}
-    <div class="col-md-6">
-        <a href="{{slug}}" class="text-decoration-none">
-        {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
-        <h3>{{name}}</h3>
-        </a>
+        {{#if dead}}
+        <h2 class="col-12 mt-5">In Memoriam</h2>
+        {{#each dead}}
+        <div class="col-md-6">
+            <a href="{{ slug }}" class="text-decoration-none">
+                {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
+                <h3>{{ name }}</h3>
+            </a>
+        </div>
+        {{/each}}
+        {{/if}}
     </div>
-    {{/each}}
-    {{/if}}
-</div>
 </section>
