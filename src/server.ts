@@ -61,7 +61,7 @@ const start = async () => {
 
     app.use('/hunde', dogRouter)
     app.use('/wuerfe', litterRouter)
-    app.get('/aktuelles', newsRouter)
+    app.use('/aktuelles', newsRouter)
     app.use('/galerie', galleryRouter)
 
     app.get('/*', siteRoute)

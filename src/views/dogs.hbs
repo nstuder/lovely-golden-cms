@@ -1,9 +1,21 @@
 <section class="container">
     <h1>Unsere Hunde</h1>
     <div class="row text-center justify-content-center">
-        {{#if breed}}
-        <h2 class="col-12 mt-5">Zuchthunde</h2>
-        {{#each breed}}
+        {{#if rbreed}}
+        <h2 class="col-12 mt-5">Zuchtrüden</h2>
+        {{#each rbreed}}
+        <div class="col-md-6">
+            <a href="{{ slug }}" class="text-decoration-none">
+                {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
+                <h3>{{ name }}</h3>
+            </a>
+        </div>
+        {{/each}}
+        {{/if}}
+
+        {{#if fbreed}}
+        <h2 class="col-12 mt-5">Zuchthündinnen</h2>
+        {{#each fbreed}}
         <div class="col-md-6">
             <a href="{{ slug }}" class="text-decoration-none">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}

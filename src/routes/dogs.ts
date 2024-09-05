@@ -9,7 +9,8 @@ dogRouter.get('/', async (req, res) => {
         .find({ collection: 'dogs', locale: 'de' })
         .then((data) => data.docs)
     const dogsInCategories = {
-        breed: dogs.filter((d) => d.type === 'fzucht' || d.type === 'rzucht'),
+        rbreed: dogs.filter((d) => d.type === 'rzucht'),
+        fbreed: dogs.filter((d) => d.type === 'fzucht'),
         young: dogs.filter((d) => d.type === 'young'),
         retirement: dogs.filter((d) => d.type === 'retirement'),
         dead: dogs.filter((d) => d.type === 'dead'),

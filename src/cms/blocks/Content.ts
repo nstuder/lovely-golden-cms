@@ -11,6 +11,9 @@ export const ContentFields: Field[] = [
             de: 'Inhalt',
             en: 'Content',
         },
+        admin: {
+            initCollapsed: true,
+        },
         type: 'blocks',
         blocks: [RichText, ImagesBlock, TextWithImage, Pedigree],
     },
