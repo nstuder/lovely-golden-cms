@@ -11,12 +11,20 @@ import Home from './globals/Home'
 import Gallery from './collections/Gallery'
 import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
+import { slateEditor } from '@payloadcms/richtext-slate'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { webpackBundler } from '@payloadcms/bundler-webpack'
 
 export default buildConfig({
     serverURL: process.env.BASE_URL,
+    db: mongooseAdapter({
+        url: process.env.MONGODB_URI,
+    }),
     admin: {
         user: Users.slug,
+        bundler: webpackBundler(),
     },
+    editor: slateEditor({}),
     globals: [Navigation, Home, Configuration, SEO],
     collections: [Users, Pages, Dogs, News, Litters, Media, Gallery],
     localization: {

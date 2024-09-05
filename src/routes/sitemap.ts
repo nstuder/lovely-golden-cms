@@ -1,11 +1,11 @@
 import payload from 'payload'
 
 export const sitemapRoute = async (req, res) => {
-    const navigation = await await payload.findGlobal({
+    const navigation = await payload.findGlobal({
         slug: 'navigation',
         locale: 'de',
     })
-    const pageUrls = navigation.items
+    const pageUrls = (navigation.items as any)
         .flatMap((item) => {
             if (item.type == 'link') {
                 if (item.linkType == 'external') {
