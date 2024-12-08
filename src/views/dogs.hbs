@@ -5,7 +5,7 @@
         <h2 class="col-12 mt-5">Zuchtrüden</h2>
         {{#each rbreed}}
         <div class="col-md-6">
-            <a href="{{ slug }}" class="text-decoration-none">
+            <a href="{{ slug }}" class="text-decoration-none" aria-label="{{ name }}">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
                 <h3>{{ name }}</h3>
             </a>
@@ -17,7 +17,7 @@
         <h2 class="col-12 mt-5">Zuchthündinnen</h2>
         {{#each fbreed}}
         <div class="col-md-6">
-            <a href="{{ slug }}" class="text-decoration-none">
+            <a href="{{ slug }}" class="text-decoration-none" aria-label="{{ name }}">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
                 <h3>{{ name }}</h3>
             </a>
@@ -29,7 +29,7 @@
         <h2 class="col-12 mt-5">Youngster</h2>
         {{#each young}}
         <div class="col-md-6">
-            <a href="{{ slug }}" class="text-decoration-none">
+            <a href="{{ slug }}" class="text-decoration-none" aria-label="{{ name }}">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
                 <h3>{{ name }}</h3>
             </a>
@@ -41,7 +41,7 @@
         <h2 class="col-12 mt-5">Im Ruhestand</h2>
         {{#each retirement}}
         <div class="col-md-6">
-            <a href="{{ slug }}" class="text-decoration-none">
+            <a href="{{ slug }}" class="text-decoration-none" aria-label="{{ name }}">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
                 <h3>{{ name }}</h3>
             </a>
@@ -53,7 +53,7 @@
         <h2 class="col-12 mt-5">In Memoriam</h2>
         {{#each dead}}
         <div class="col-md-6">
-            <a href="{{ slug }}" class="text-decoration-none">
+            <a href="{{ slug }}" class="text-decoration-none" aria-label="{{ name }}">
                 {{> components/atoms/image image=teaserImage class="shadow image-hover mx-auto d-block w-100"}}
                 <h3>{{ name }}</h3>
             </a>
