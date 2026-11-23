@@ -1,4 +1,4 @@
-import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-mongodb'
+import type { MigrateUpArgs } from '@payloadcms/db-mongodb'
 import { migrateRelationshipsV2_V3 } from '@payloadcms/db-mongodb/migration-utils'
 
 /**
@@ -19,6 +19,6 @@ export async function up({ req }: MigrateUpArgs): Promise<void> {
     })
 }
 
-export async function down(_args: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
     // Not reversible: the converted IDs stay valid for Payload 3.
 }

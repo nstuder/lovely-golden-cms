@@ -1,4 +1,4 @@
-import { Image } from '@/components/Image'
+import { GalleriesOverviewTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
 import { getClient, LOCALE } from '@/lib/payload'
 
@@ -17,26 +17,5 @@ export default async function GalleriesPage() {
         pagination: false,
     })
 
-    return (
-        <>
-            <h1>Galerie</h1>
-            <section className="container-fluid">
-                <div className="row justify-content-center">
-                    {galleries.map((gallery) => (
-                        <a
-                            key={gallery.id}
-                            className="col-md-6 block text-center text-decoration-none"
-                            href={`/galerie/${gallery.name}`}
-                        >
-                            <Image
-                                image={gallery.gallery?.[0]?.image}
-                                className="shadow image-hover"
-                            />
-                            <h2>{gallery.name}</h2>
-                        </a>
-                    ))}
-                </div>
-            </section>
-        </>
-    )
+    return <GalleriesOverviewTemplate galleries={galleries} />
 }

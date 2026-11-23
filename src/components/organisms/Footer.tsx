@@ -1,5 +1,5 @@
 import type { Configuration } from '@/cms/payload-types'
-import { Image } from './Image'
+import { Image } from '@/components/atoms'
 
 /** Club logos + footnote (partials/footer.hbs). */
 export const Footer = ({ configuration }: { configuration: Configuration }) => (

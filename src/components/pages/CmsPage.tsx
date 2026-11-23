@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import { ContentBlocks } from '@/components/ContentBlocks'
-import { buildMetadata } from './metadata'
-import { findBySlug } from './payload'
+import { ContentPageTemplate } from '@/components/templates'
+import { buildMetadata } from '@/lib/metadata'
+import { findBySlug } from '@/lib/payload'
 
 const getPage = (path: string) => findBySlug('pages', path, path)
 
@@ -20,10 +20,5 @@ export const cmsPageMetadata = async (path: string) => {
 export const CmsPage = async ({ path }: { path: string }) => {
     const page = await getPage(path)
     if (!page) notFound()
-    return (
-        <section className="container">
-            <h1>{page.title}</h1>
-            <ContentBlocks content={page.content} />
-        </section>
-    )
+    return <ContentPageTemplate title={page.title} content={page.content} />
 }

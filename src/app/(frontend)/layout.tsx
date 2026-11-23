@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { BootstrapClient } from '@/components/BootstrapClient'
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
+import { BootstrapClient } from '@/components/behaviors/BootstrapClient'
+import { SiteTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
 import { getLayoutGlobals, getSeo } from '@/lib/payload'
 
@@ -49,11 +48,12 @@ export default async function FrontendLayout({
                 )}
             </head>
             <body>
-                <Header navigation={navigation} configuration={configuration} />
-                <main id="inhalt" className="my-3">
+                <SiteTemplate
+                    navigation={navigation}
+                    configuration={configuration}
+                >
                     {children}
-                </main>
-                <Footer configuration={configuration} />
+                </SiteTemplate>
                 <BootstrapClient />
             </body>
         </html>

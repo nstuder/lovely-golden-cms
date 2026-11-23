@@ -1,5 +1,4 @@
-import { RichText } from '@/components/RichText'
-import { toLocalDate } from '@/lib/format'
+import { HomeTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
 import { getClient, LOCALE } from '@/lib/payload'
 
@@ -17,24 +16,5 @@ export default async function HomePage() {
         }),
     ])
 
-    return (
-        <>
-            <h1>{home.title}</h1>
-            <section className="container">
-                <RichText content={home.content} />
-                <h3 className="mt-5">Aktuelles</h3>
-                {news.docs.map((entry) => (
-                    <p className="text-center fs-5 mb-0" key={entry.id}>
-                        <a
-                            href={entry.link || '/aktuelles'}
-                            className="link-dark"
-                        >
-                            <strong>{toLocalDate(entry.publishedAt)}</strong>{' '}
-                            {entry.title}
-                        </a>
-                    </p>
-                ))}
-            </section>
-        </>
-    )
+    return <HomeTemplate home={home} news={news.docs} />
 }

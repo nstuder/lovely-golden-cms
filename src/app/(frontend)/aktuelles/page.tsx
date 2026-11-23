@@ -1,4 +1,4 @@
-import { NewsPage, newsMetadata } from '@/lib/newsPage'
+import { NewsPage, newsMetadata } from '@/components/pages'
 
 export const generateMetadata = newsMetadata
 

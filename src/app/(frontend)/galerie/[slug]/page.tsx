@@ -1,5 +1,5 @@
-import { Gallery } from '@/components/Gallery'
-import { CmsPage, cmsPageMetadata } from '@/lib/cmsPage'
+import { CmsPage, cmsPageMetadata } from '@/components/pages'
+import { GalleryDetailTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
 import { decodeParam, findBySlug } from '@/lib/payload'
 
@@ -26,10 +26,5 @@ export default async function GalleryPage(props: Props) {
     const { gallery, path } = await load(props)
     if (!gallery) return <CmsPage path={path} />
 
-    return (
-        <section className="container-fluid">
-            <h1>{gallery.name}</h1>
-            <Gallery images={gallery.gallery} />
-        </section>
-    )
+    return <GalleryDetailTemplate gallery={gallery} />
 }

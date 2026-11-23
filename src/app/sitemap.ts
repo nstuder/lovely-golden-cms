@@ -1,14 +1,8 @@
 import type { MetadataRoute } from 'next'
+import { internalSlug } from '@/lib/links'
 import { getClient, LOCALE } from '@/lib/payload'
 
 export const dynamic = 'force-dynamic'
-
-type LinkTarget = { value?: unknown } | null | undefined
-
-const slugOf = (link: LinkTarget) =>
-    link?.value && typeof link.value === 'object' && 'slug' in link.value
-        ? (link.value.slug as string)
-        : undefined
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const payload = await getClient()
@@ -26,13 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         if (item.type === 'link') {
             return item.linkType === 'external'
                 ? item.pageExtern
-                : slugOf(item.pageIntern)
+                : internalSlug(item.pageIntern)
         }
         if (item.type === 'subMenu') {
             return (item.subMenu?.items ?? []).map((subItem) =>
                 subItem.linkType === 'external'
                     ? subItem.slugExtern
-                    : slugOf(subItem.slugIntern)
+                    : internalSlug(subItem.slugIntern)
             )
         }
         return []

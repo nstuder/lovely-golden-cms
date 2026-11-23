@@ -1,5 +1,9 @@
-import { CmsPage, cmsPageMetadata } from '@/lib/cmsPage'
-import { NewsPage, newsMetadata } from '@/lib/newsPage'
+import {
+    CmsPage,
+    cmsPageMetadata,
+    NewsPage,
+    newsMetadata,
+} from '@/components/pages'
 import { decodeParam } from '@/lib/payload'
 
 type Props = { params: Promise<{ page: string }> }

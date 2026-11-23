@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from 'react'
 import type { Media } from '@/cms/payload-types'
-import { Image } from './Image'
+import { ResponsiveImage } from '@/components/atoms'
 
 type SlateNode = {
     text?: string
@@ -56,18 +56,7 @@ const renderNode = (node: SlateNode): ReactNode => {
         case 'link':
             return <a href={node.url}>{children}</a>
         case 'upload':
-            return (
-                <>
-                    <Image
-                        image={node.value}
-                        className="shadow mx-auto d-none d-md-block w-75"
-                    />
-                    <Image
-                        image={node.value}
-                        className="shadow mx-auto d-block d-md-none w-100"
-                    />
-                </>
-            )
+            return <ResponsiveImage image={node.value} />
         case undefined:
             return <p>{children}</p>
         default:

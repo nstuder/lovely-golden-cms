@@ -1,4 +1,4 @@
-import { CmsPage, cmsPageMetadata } from '@/lib/cmsPage'
+import { CmsPage, cmsPageMetadata } from '@/components/pages'
 import { decodeParam } from '@/lib/payload'
 
 type Props = { params: Promise<{ slug: string[] }> }
