@@ -1,4 +1,4 @@
-import { Field } from 'payload/types'
+import type { Field } from 'payload'
 import { Pedigree } from './dogs/Pedigree'
 import { ImagesBlock } from './Image'
 import { RichText } from './Text'

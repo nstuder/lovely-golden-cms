@@ -1,28 +1,37 @@
-import { buildConfig } from 'payload/config'
+import { buildConfig } from 'payload'
 import path from 'path'
+import { fileURLToPath } from 'url'
+import sharp from 'sharp'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { slateEditor } from '@payloadcms/richtext-slate'
+import { de } from '@payloadcms/translations/languages/de'
+import { en } from '@payloadcms/translations/languages/en'
 import Users from './collections/Users'
 import Dogs from './collections/Dogs'
 import News from './collections/News'
 import Litters from './collections/Litters'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
+import Gallery from './collections/Gallery'
 import Navigation from './globals/Navigation'
 import Home from './globals/Home'
-import Gallery from './collections/Gallery'
 import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
-import { slateEditor } from '@payloadcms/richtext-slate'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { webpackBundler } from '@payloadcms/bundler-webpack'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 export default buildConfig({
     serverURL: process.env.BASE_URL,
+    secret: process.env.PAYLOAD_SECRET || '',
     db: mongooseAdapter({
-        url: process.env.MONGODB_URI,
+        url: process.env.MONGODB_URI || '',
     }),
     admin: {
         user: Users.slug,
-        bundler: webpackBundler(),
+        importMap: {
+            baseDir: dirname,
+        },
     },
     editor: slateEditor({}),
     globals: [Navigation, Home, Configuration, SEO],
@@ -32,15 +41,20 @@ export default buildConfig({
         defaultLocale: 'de',
         fallback: true,
     },
+    i18n: {
+        fallbackLanguage: 'de',
+        supportedLanguages: { de, en },
+    },
     typescript: {
-        outputFile: path.resolve(__dirname, 'payload-types.ts'),
+        outputFile: path.resolve(dirname, 'payload-types.ts'),
     },
     graphQL: {
-        schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+        schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
     },
     upload: {
         limits: {
             fileSize: 6000000, // 6MB, written in bytes
         },
     },
+    sharp,
 })

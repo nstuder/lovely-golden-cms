@@ -1,4 +1,4 @@
-import { Field } from 'payload/types'
+import type { Field } from 'payload'
 import { ContentFields } from './Content'
 
 export const NewsFields: Field[] = [
@@ -40,9 +40,7 @@ export const NewsArray: Field = {
     admin: {
         initCollapsed: true,
         components: {
-            RowLabel: ({ data }) => {
-                return data.title
-            },
+            RowLabel: '/components/RowLabels#TitleRowLabel',
         },
     },
     type: 'array',

@@ -1,3 +1,7 @@
 build
 data
-dist
+media
+.next
+public/assets/styles
+src/cms/payload-types.ts
+src/app/(payload)

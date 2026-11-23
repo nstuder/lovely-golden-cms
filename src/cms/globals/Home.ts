@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from 'payload'
 
 const Home: GlobalConfig = {
     slug: 'home',

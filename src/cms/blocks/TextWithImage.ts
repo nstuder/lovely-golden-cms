@@ -1,4 +1,4 @@
-import { Block } from 'payload/types'
+import type { Block } from 'payload'
 import { Image } from './Image'
 
 export const TextWithImage: Block = {

@@ -1,5 +1,7 @@
-dist/**
-build/**
-media/**
-node_modules/**
-data/**
+node_modules
+.next
+build
+data
+dist
+media
+public/assets/styles

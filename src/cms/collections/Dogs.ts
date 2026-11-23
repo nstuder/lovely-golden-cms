@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { pedigreeFields } from '../blocks/dogs/Pedigree'
 import { Shows } from '../blocks/dogs/Shows'
 import { Gallery } from '../blocks/Image'

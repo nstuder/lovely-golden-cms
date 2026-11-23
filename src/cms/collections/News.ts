@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { NewsFields } from '../blocks/News'
 
 // Example Collection - For reference only, this must be added to payload.config.ts to be used.

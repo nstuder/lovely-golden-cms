@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from 'payload'
 import { Image, Images } from '../blocks/Image'
 
 const Configuration: GlobalConfig = {

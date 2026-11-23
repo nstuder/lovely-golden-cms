@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { ContentFields } from '../blocks/Content'
 import { MetaFields } from '../blocks/Meta'
 

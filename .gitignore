@@ -175,3 +175,7 @@ src/public/js/
 
 src/public/styles/
 /.idea/
+
+# Next.js
+next-env.d.ts
+public/assets/styles/

@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { pedigreeFields } from '../blocks/dogs/Pedigree'
 import { MetaFields } from '../blocks/Meta'
 import { NewsArray } from '../blocks/News'
@@ -101,9 +101,8 @@ const Litters: CollectionConfig = {
                             },
                             admin: {
                                 components: {
-                                    RowLabel: ({ data }) => {
-                                        return data.name
-                                    },
+                                    RowLabel:
+                                        '/components/RowLabels#NameRowLabel',
                                 },
                             },
                             fields: [
@@ -147,9 +146,8 @@ const Litters: CollectionConfig = {
                             type: 'array',
                             admin: {
                                 components: {
-                                    RowLabel: ({ data }) => {
-                                        return data.name
-                                    },
+                                    RowLabel:
+                                        '/components/RowLabels#NameRowLabel',
                                 },
                             },
                             fields: [

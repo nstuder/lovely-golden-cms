@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import path from 'path'
 
 const Media: CollectionConfig = {
@@ -15,7 +15,9 @@ const Media: CollectionConfig = {
     },
     upload: {
         adminThumbnail: 'thumbnail',
-        staticDir: path.resolve(__dirname, '../../../media'),
+        // Same folder as before (/home/node/media in Docker), resolved from the working dir
+        // because `__dirname` points into the Next.js build output.
+        staticDir: path.resolve(process.cwd(), 'media'),
         mimeTypes: [
             'image/png',
             'image/jpeg',

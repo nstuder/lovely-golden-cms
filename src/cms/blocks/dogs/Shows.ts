@@ -1,4 +1,4 @@
-import { Field } from 'payload/types'
+import type { Field } from 'payload'
 import { Images } from '../Image'
 
 export const Shows: Field[] = [
@@ -62,13 +62,7 @@ export const Shows: Field[] = [
         admin: {
             initCollapsed: true,
             components: {
-                RowLabel: ({ data }) => {
-                    return `${
-                        data.date
-                            ? new Date(data?.date).toLocaleDateString()
-                            : ''
-                    }: ${data?.location || ''}`
-                },
+                RowLabel: '/components/RowLabels#ShowRowLabel',
             },
         },
     },

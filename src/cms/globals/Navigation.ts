@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from 'payload'
 
 const Navigation: GlobalConfig = {
     slug: 'navigation',
@@ -26,9 +26,7 @@ const Navigation: GlobalConfig = {
             admin: {
                 initCollapsed: true,
                 components: {
-                    RowLabel: ({ data }) => {
-                        return data.label
-                    },
+                    RowLabel: '/components/RowLabels#LabelRowLabel',
                 },
             },
             fields: [
@@ -119,9 +117,8 @@ const Navigation: GlobalConfig = {
                             },
                             admin: {
                                 components: {
-                                    RowLabel: ({ data }) => {
-                                        return data.label
-                                    },
+                                    RowLabel:
+                                        '/components/RowLabels#LabelRowLabel',
                                 },
                             },
                             fields: [
