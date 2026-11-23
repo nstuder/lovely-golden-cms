@@ -1,14 +1,24 @@
 #!/bin/bash
 
 # --- Configuration ---
-WEB_CONTAINER_NAME="lovely-golden_payload_1"  # The container where your .env is
-MONGO_CONTAINER_NAME="mongo"                  # Your MongoDB container name
+# Run this script from the project directory (where docker-compose.yml and .env are).
+# Containers are looked up by their docker-compose service name, so the actual
+# container names (e.g. "lovely-golden-payload-1") don't matter.
+WEB_SERVICE="payload"                         # The service where your .env is
+MONGO_SERVICE="mongo"                         # Your MongoDB service
 IMAGE_VOLUME_PATH="/home/node/media"          # The path inside your web container to the image directory volume
 BACKUP_DIR="$HOME/backups/lovely-golden"      # Directory on your host machine to store backups
 # ---------------------
 
 # Exit immediately if a command exits with a non-zero status
-set -e
+set -eo pipefail
+
+WEB_CONTAINER_NAME=$(docker compose ps -q "$WEB_SERVICE")
+MONGO_CONTAINER_NAME=$(docker compose ps -q "$MONGO_SERVICE")
+if [ -z "$WEB_CONTAINER_NAME" ] || [ -z "$MONGO_CONTAINER_NAME" ]; then
+    echo "🚨 ERROR: containers for services '$WEB_SERVICE' / '$MONGO_SERVICE' not running. Run this script from the project directory. Aborting."
+    exit 1
+fi
 
 # 1. Ensure the backup directory exists
 echo "Ensuring backup directory exists at: $BACKUP_DIR"
@@ -27,7 +37,7 @@ MONGO_USERNAME=$(grep -E 'MONGO_INITDB_ROOT_USERNAME=' .env | cut -d '=' -f 2- |
 MONGO_PASSWORD=$(grep -E 'MONGO_INITDB_ROOT_PASSWORD=' .env | cut -d '=' -f 2- | tr -d '\r')
 MONGO_DATABASE="payload"
 
-if [ -z "$MONGO_USERNAME" ] || [ -z "$MONGO_PASSWORD" ] || [ -z "$MONGO_DATABASE"]; then
+if [ -z "$MONGO_USERNAME" ] || [ -z "$MONGO_PASSWORD" ] || [ -z "$MONGO_DATABASE" ]; then
     echo "🚨 ERROR: MONGO_USERNAME or MONGO_PASSWORD or MONGO_DATABASE not found or empty in .env. Aborting."
     exit 1
 fi

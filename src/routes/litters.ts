@@ -8,7 +8,6 @@ litterRouter.get('/', async (req, res) => {
     const litters = await payload
         .find({ collection: 'litters', locale: 'de' })
         .then((data) => data.docs)
-    res.render('litter', await withContext(litters))
     res.render(
         'litter',
         await withMeta(withContext(litters), {
@@ -39,8 +38,9 @@ litterRouter.get('/:id', async (req, res, next) => {
                 pageUrl: `${process.env.BASE_URL}${litter.slug}`,
             })
         )
+    } else {
+        next()
     }
-    next()
 })
 
 export { litterRouter }

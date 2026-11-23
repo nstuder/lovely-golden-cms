@@ -9,8 +9,13 @@
             version: main
             update: yes
 
-      - name: Create and start services
-        community.docker.docker_compose:
+      # Only rebuild/restart the website. MongoDB keeps running untouched.
+      - name: Build and restart website
+        community.docker.docker_compose_v2:
             project_src: /home/nstuder/lovely-golden
-            build: true
+            services:
+                - payload
+            dependencies: false
+            build: always
+            state: present
         register: output
