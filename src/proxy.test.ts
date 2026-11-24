@@ -25,6 +25,13 @@ describe('proxy', () => {
         expect(response.headers.get('x-middleware-next')).toBe('1')
     })
 
+    it('passes requests by IP address through instead of failing', () => {
+        vi.stubEnv('NODE_ENV', 'production')
+        const response = proxy(request('http://89.58.32.230:3000/favicon.ico'))
+        expect(response.headers.get('location')).toBeNull()
+        expect(response.headers.get('x-middleware-next')).toBe('1')
+    })
+
     it('does not redirect during development', () => {
         vi.stubEnv('NODE_ENV', 'development')
         const response = proxy(request('http://localhost:3000/'))
