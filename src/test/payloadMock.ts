@@ -9,7 +9,9 @@ import { vi } from 'vitest'
  * so that the real data helpers in `src/lib` run without a database.
  */
 export const payloadMock = {
+    auth: vi.fn(),
     find: vi.fn(),
+    findByID: vi.fn(),
     findGlobal: vi.fn(),
 }
 

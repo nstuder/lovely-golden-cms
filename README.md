@@ -32,6 +32,14 @@ Environment (`.env`): `MONGODB_URI`, `PAYLOAD_SECRET`, `BASE_URL`.
 Every level only uses components from lower levels (or its own level). Each level
 has an `index.ts`, so imports look like `import { Image } from '@/components/atoms'`.
 
+## Live Preview
+
+Pages, dogs, litters, galleries, news and the home page have a live preview in
+the admin (eye icon in the document view). It shows the document with the
+website's templates and updates while typing, before saving. The preview page
+(`/live-preview/<collection>/<id>`) is only available to logged in admins and is
+not indexed.
+
 ## Tests
 
 Tests live next to the code (`*.test.ts(x)`). Components are rendered with

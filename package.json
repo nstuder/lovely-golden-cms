@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@payloadcms/db-mongodb": "3.94.1",
+        "@payloadcms/live-preview-react": "3.94.1",
         "@payloadcms/next": "3.94.1",
         "@payloadcms/richtext-slate": "3.94.1",
         "@payloadcms/translations": "3.94.1",

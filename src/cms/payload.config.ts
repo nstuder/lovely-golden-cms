@@ -17,6 +17,7 @@ import Navigation from './globals/Navigation'
 import Home from './globals/Home'
 import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
+import { livePreviewConfig } from './livePreview'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,6 +33,7 @@ export default buildConfig({
         importMap: {
             baseDir: dirname,
         },
+        livePreview: livePreviewConfig,
     },
     editor: slateEditor({}),
     globals: [Navigation, Home, Configuration, SEO],
