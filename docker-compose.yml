@@ -23,7 +23,7 @@ services:
             - .env
 
     mongo:
-        image: mongo:4.4.20
+        image: mongo:8.0.38
         container_name: mongo
         # no published port: only reachable for the website via the default network
         env_file:
