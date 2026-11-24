@@ -6,8 +6,7 @@ type PedigreeBlock = Extract<
 >
 
 export type PedigreeParent =
-    | Partial<PedigreeBlock['father']>
-    | Partial<PedigreeBlock['mother']>
+    Partial<PedigreeBlock['father']> | Partial<PedigreeBlock['mother']>
 
 type Props = {
     father?: PedigreeParent | null

@@ -36,8 +36,8 @@ export const livePreviewPath = ({
     const path = global
         ? `/live-preview/globals/${global}`
         : collection && id !== undefined
-        ? `/live-preview/${collection}/${id}`
-        : undefined
+          ? `/live-preview/${collection}/${id}`
+          : undefined
     if (!path) return undefined
     return locale ? `${path}?locale=${encodeURIComponent(locale)}` : path
 }
