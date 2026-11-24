@@ -25,8 +25,7 @@ services:
     mongo:
         image: mongo:4.4.20
         container_name: mongo
-        ports:
-            - '27017:27017'
+        # no published port: only reachable for the website via the default network
         env_file:
             - .env
         volumes:
