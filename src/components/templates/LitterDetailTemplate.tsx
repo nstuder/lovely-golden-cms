@@ -12,9 +12,9 @@ import {
 const HealthResults = ({ puppies }: { puppies: Litter['puppies'] }) => (
     <>
         <h3>Gesundheitsergebnisse</h3>
-        <div className="table-responsiv">
+        <div className="table-responsive">
             <DataTable
-                className="table table-striped table-bordered table-responsiv border-primary text-center"
+                className="table table-striped table-bordered border-primary text-center"
                 headers={['Name', 'R/H', 'Gesundheitsergebnisse']}
                 rows={(puppies ?? []).map((puppy, i) => ({
                     key: puppy.id ?? String(i),
