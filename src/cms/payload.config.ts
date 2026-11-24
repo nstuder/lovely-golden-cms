@@ -50,8 +50,9 @@ export default buildConfig({
     typescript: {
         outputFile: path.resolve(dirname, 'payload-types.ts'),
     },
+    // not used by the website or the admin (both use the REST API)
     graphQL: {
-        schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
+        disable: true,
     },
     upload: {
         limits: {

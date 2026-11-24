@@ -17,7 +17,8 @@ const Users: CollectionConfig = {
         },
     },
     access: {
-        read: () => true,
+        // only logged in admins may list users (was public: emails + sessions)
+        read: ({ req }) => Boolean(req.user),
     },
     fields: [
         // Email added by default

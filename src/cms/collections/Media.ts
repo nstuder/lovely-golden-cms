@@ -1,11 +1,22 @@
 import type { CollectionConfig } from 'payload'
 import path from 'path'
 
+/**
+ * Browsers may keep uploads for a week. A new upload never overwrites an
+ * existing file name (Payload appends -1, -2, …), so URLs don't go stale.
+ */
+export const setMediaCacheHeaders = (headers: Headers) => {
+    headers.set(
+        'Cache-Control',
+        'public, max-age=604800, stale-while-revalidate=86400'
+    )
+    return headers
+}
+
 const Media: CollectionConfig = {
     slug: 'media',
     admin: {
         useAsTitle: 'alt',
-        description: 'Uploads are set to read-only for this demo.',
         group: 'Content',
         defaultColumns: ['id', 'alt', 'filename'],
         listSearchableFields: ['filename'],
@@ -15,6 +26,7 @@ const Media: CollectionConfig = {
     },
     upload: {
         adminThumbnail: 'thumbnail',
+        modifyResponseHeaders: ({ headers }) => setMediaCacheHeaders(headers),
         // Same folder as before (/home/node/media in Docker), resolved from the working dir
         // because `__dirname` points into the Next.js build output.
         staticDir: path.resolve(process.cwd(), 'media'),

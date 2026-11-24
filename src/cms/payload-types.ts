@@ -253,8 +253,6 @@ export interface Page {
   createdAt: string;
 }
 /**
- * Uploads are set to read-only for this demo.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
