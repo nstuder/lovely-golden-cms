@@ -21,7 +21,7 @@ export const securityHeaders = [
     },
 ]
 
-/** Fonts and images in public/assets rarely change (main.css does on every deploy). */
+/** Fonts and images in public/assets rarely change (the stylesheet is built by Next.js with a hashed name). */
 export const assetCacheHeaders = [
     { key: 'Cache-Control', value: 'public, max-age=2592000' },
 ]
@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
     output: 'standalone',
     // hides "X-Powered-By: Next.js, Payload"
     poweredByHeader: false,
+    // src/styles/main.scss: Bootstrap from node_modules, no warnings for its deprecated Sass
+    sassOptions: {
+        loadPaths: [path.resolve(dirname, 'node_modules')],
+        quietDeps: true,
+        silenceDeprecations: ['import'],
+    },
     async headers() {
         return [
             { source: '/:path*', headers: securityHeaders },

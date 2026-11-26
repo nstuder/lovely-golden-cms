@@ -6,7 +6,7 @@ Requires Node.js `^22.23.5`, `^24.22.3` or `>=26.13.1`.
 
 ## How to Use
 
-- `npm run dev` – Next.js dev server (website + admin at `/admin`) and SCSS watcher
+- `npm run dev` – Next.js dev server (website + admin at `/admin`)
 - `npm run build` / `npm start` – production build / server
 - `npm test` / `npm run test:watch` – unit & component tests (Vitest + Testing Library)
 - `npm run lint` – ESLint (formatting is left to Prettier: `npx prettier --write .`)
@@ -28,7 +28,7 @@ Environment (`.env`): `MONGODB_URI`, `PAYLOAD_SECRET`, `BASE_URL`.
     - `pages` – shared pages that load their own data (CMS page fallback, paginated news)
     - `behaviors` – client-side code without markup (Bootstrap JS)
 - `src/lib` – data helpers (Payload client, metadata, links, formatting)
-- `src/styles` – SCSS, compiled to `public/assets/styles/main.css`
+- `src/styles` – SCSS, imported by the frontend layout and compiled by Next.js
 
 Every level only uses components from lower levels (or its own level). Each level
 has an `index.ts`, so imports look like `import { Image } from '@/components/atoms'`.
@@ -53,6 +53,24 @@ Shared test data is in `src/test/fixtures.ts`.
 `cd deploy && ansible-playbook -i hosts deploy-playbook.yml` pulls `main` on the
 server and rebuilds/restarts the website container (MongoDB keeps running).
 Backups: `./backup.sh` on the server (database dump + uploads).
+
+Both containers restart after a crash or reboot (`restart: unless-stopped`) and
+have a healthcheck (website: `/healthz`, checks the database too). The website
+runs as user `node` (uid 1000), so `media/` must belong to uid 1000; the
+playbook takes care of that.
+
+Secrets are never part of the image (`.dockerignore`):
+
+- `.env` (website): `PAYLOAD_SECRET`, `BASE_URL`, `MONGODB_URI`. Payload uses
+  its own MongoDB user with `readWrite` on the `payload` database only.
+- `mongo.env` (MongoDB only): `MONGO_INITDB_ROOT_USERNAME/PASSWORD`, used by
+  `backup.sh` and for maintenance.
+
+`deploy/mongo-app-user.sh` set this up once (creates the user, splits the
+files). Running it again sets a new password for the app user.
+
+Caching: the website caches its CMS queries (`src/lib/payload.ts`); every
+change in the admin clears that cache (`src/cms/revalidate.ts`).
 
 MongoDB runs as `mongo:8.0.38` (upgraded from 4.4 with `deploy/mongo-upgrade.sh`,
 which steps through 5.0, 6.0 and 7.0). Neither MongoDB nor the website publish a

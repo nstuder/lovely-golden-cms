@@ -38,7 +38,7 @@ describe('next.config', () => {
         }
     )
 
-    it('caches fonts and images from public/assets, not the stylesheet', async () => {
+    it('caches fonts and images from public/assets', async () => {
         expect(
             (await headersFor('/assets/fonts/gabrielle-webfont.woff2'))[
                 'Cache-Control'
@@ -50,7 +50,7 @@ describe('next.config', () => {
             ]
         ).toBe('public, max-age=2592000')
         expect(
-            (await headersFor('/assets/styles/main.css'))['Cache-Control']
+            (await headersFor('/robots.txt'))['Cache-Control']
         ).toBeUndefined()
     })
 
