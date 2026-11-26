@@ -38,21 +38,25 @@ const litterTabs = (litter: Litter): Tab[] =>
                 </>
             ),
         },
-        ...(litter.tabs ?? []).map((tab) => ({
-            id: tab.name,
-            label: tab.name,
-            className: 'container',
-            content: (
-                <>
-                    <h3>{tab.name}</h3>
-                    <div className="text-left">
-                        <div className="timeline ps-md-0 ps-2">
-                            <NewsTimeline news={tab.news} />
-                        </div>
-                    </div>
-                </>
-            ),
-        })),
+        // a tab without name has no id to switch to
+        ...(litter.tabs ?? []).map(
+            (tab) =>
+                !!tab.name && {
+                    id: tab.name,
+                    label: tab.name,
+                    className: 'container',
+                    content: (
+                        <>
+                            <h3>{tab.name}</h3>
+                            <div className="text-left">
+                                <div className="timeline ps-md-0 ps-2">
+                                    <NewsTimeline news={tab.news} />
+                                </div>
+                            </div>
+                        </>
+                    ),
+                }
+        ),
         litter.isActive && {
             id: 'Gesundheitsergebnisse',
             label: 'Gesundheitsergebnisse',
@@ -68,7 +72,11 @@ export const LitterDetailTemplate = ({ litter }: { litter: Litter }) => (
         <section className="container-xxl">
             <div className="row align-items-center">
                 <div className="col-md-8">
-                    <Image image={litter.collage} className="shadow" />
+                    <Image
+                        image={litter.collage}
+                        sizes="(min-width: 768px) 67vw, 100vw"
+                        className="shadow"
+                    />
                 </div>
                 <div className="col-md-3">
                     <RichText content={litter.description} />

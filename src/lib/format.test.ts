@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toLocalDate } from './format'
+import { escapeJsonForScript, toLocalDate } from './format'
 
 describe('toLocalDate', () => {
     it('formats as German date', () => {
@@ -14,5 +14,16 @@ describe('toLocalDate', () => {
         expect(toLocalDate(null)).toBe('')
         expect(toLocalDate(undefined)).toBe('')
         expect(toLocalDate('')).toBe('')
+    })
+})
+
+describe('escapeJsonForScript', () => {
+    it('cannot close the script tag and stays the same JSON', () => {
+        const json = JSON.stringify({
+            name: '</script><script>alert(1)</script>',
+        })
+        const escaped = escapeJsonForScript(json)
+        expect(escaped).not.toContain('</script>')
+        expect(JSON.parse(escaped)).toEqual(JSON.parse(json))
     })
 })

@@ -14,6 +14,21 @@ type SlateNode = {
     children?: SlateNode[]
 }
 
+/**
+ * Only relative, web, mail and phone links: no `javascript:` from pasted
+ * content. Browsers ignore tabs/newlines in URLs, so the check does too.
+ */
+export const safeHref = (url?: string) => {
+    if (!url) return undefined
+    // eslint-disable-next-line no-control-regex
+    const compact = url.replace(/[\u0000-\u0020]/g, '')
+    const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(compact)
+    if (!scheme) return url
+    return ['http', 'https', 'mailto', 'tel'].includes(scheme[1].toLowerCase())
+        ? url
+        : undefined
+}
+
 const renderLeaf = (node: SlateNode): ReactNode => {
     if (node.bold) return <strong>{node.text}</strong>
     if (node.italic) return <i>{node.text}</i>
@@ -54,7 +69,7 @@ const renderNode = (node: SlateNode): ReactNode => {
         case 'indent':
             return <p>{children}</p>
         case 'link':
-            return <a href={node.url}>{children}</a>
+            return <a href={safeHref(node.url)}>{children}</a>
         case 'upload':
             return <ResponsiveImage image={node.value} />
         case undefined:
