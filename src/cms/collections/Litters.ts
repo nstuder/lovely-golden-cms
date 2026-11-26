@@ -2,8 +2,8 @@ import type { CollectionConfig } from 'payload'
 import { pedigreeFields } from '../blocks/dogs/Pedigree'
 import { MetaFields } from '../blocks/Meta'
 import { NewsArray } from '../blocks/News'
+import { slugField } from '../blocks/Slug'
 
-// Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const Litters: CollectionConfig = {
     slug: 'litters',
     labels: {
@@ -21,11 +21,7 @@ const Litters: CollectionConfig = {
     },
     fields: [
         ...MetaFields,
-        {
-            name: 'slug',
-            type: 'text',
-            required: true,
-        },
+        slugField({ prefix: '/wuerfe/' }),
         {
             type: 'tabs', // required
             tabs: [

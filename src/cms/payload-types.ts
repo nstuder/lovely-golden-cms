@@ -173,6 +173,9 @@ export interface Page {
   metaKeywords?: string | null;
   metaDescription?: string | null;
   title?: string | null;
+  /**
+   * z. B. /kontakt
+   */
   slug: string;
   content?:
     | (
@@ -315,6 +318,9 @@ export interface Dog {
   metaKeywords?: string | null;
   metaDescription?: string | null;
   name: string;
+  /**
+   * z. B. /hunde/name
+   */
   slug: string;
   breedingName: string;
   type: 'fzucht' | 'rzucht' | 'young' | 'retirement' | 'dead';
@@ -566,6 +572,9 @@ export interface Litter {
   metaTitle?: string | null;
   metaKeywords?: string | null;
   metaDescription?: string | null;
+  /**
+   * z. B. /wuerfe/name
+   */
   slug: string;
   name?: string | null;
   collage?: (string | null) | Media;
@@ -717,6 +726,9 @@ export interface Litter {
 export interface Gallery {
   id: string;
   name?: string | null;
+  /**
+   * z. B. /galerie/name
+   */
   slug: string;
   metaTitle?: string | null;
   metaKeywords?: string | null;

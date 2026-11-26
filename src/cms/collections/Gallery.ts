@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { Gallery as GalleryBlock } from '../blocks/Image'
 import { MetaFields } from '../blocks/Meta'
+import { slugField } from '../blocks/Slug'
 
-// Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const Gallery: CollectionConfig = {
     slug: 'gallery',
     labels: {
@@ -24,16 +24,7 @@ const Gallery: CollectionConfig = {
             name: 'name',
             localized: true,
         },
-        {
-            name: 'slug',
-            label: {
-                de: 'Slug (Pfad in der URL)',
-                en: 'Slug (Path in URL)',
-            },
-            type: 'text',
-            required: true,
-            localized: true,
-        },
+        slugField({ prefix: '/galerie/', localized: true }),
         ...MetaFields,
         ...GalleryBlock,
     ],

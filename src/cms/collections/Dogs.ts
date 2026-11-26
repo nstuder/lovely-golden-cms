@@ -4,8 +4,8 @@ import { Shows } from '../blocks/dogs/Shows'
 import { Gallery } from '../blocks/Image'
 import { MetaFields } from '../blocks/Meta'
 import { ContentFields } from '../blocks/Content'
+import { slugField } from '../blocks/Slug'
 
-// Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const Dogs: CollectionConfig = {
     slug: 'dogs',
     labels: {
@@ -32,16 +32,7 @@ const Dogs: CollectionConfig = {
             },
             type: 'text',
         },
-        {
-            name: 'slug',
-            label: {
-                de: 'Slug (Pfad in der URL)',
-                en: 'Slug (Path in URL)',
-            },
-            type: 'text',
-            required: true,
-            localized: true,
-        },
+        slugField({ prefix: '/hunde/', localized: true }),
         {
             name: 'breedingName',
             required: true,

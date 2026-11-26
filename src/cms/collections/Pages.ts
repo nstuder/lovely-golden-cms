@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { ContentFields } from '../blocks/Content'
 import { MetaFields } from '../blocks/Meta'
+import { slugField } from '../blocks/Slug'
 
-// Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const Pages: CollectionConfig = {
     slug: 'pages',
     labels: {
@@ -11,7 +11,7 @@ const Pages: CollectionConfig = {
             de: 'Seite',
         },
         plural: {
-            en: 'Seite',
+            en: 'Pages',
             de: 'Seiten',
         },
     },
@@ -24,11 +24,7 @@ const Pages: CollectionConfig = {
             name: 'title',
             type: 'text',
         },
-        {
-            name: 'slug',
-            type: 'text',
-            required: true,
-        },
+        slugField(),
         ...ContentFields,
     ],
 }
