@@ -3,10 +3,14 @@ services:
         image: payload-cms
         # no published port: Traefik reaches the container via the traefik network
         build: .
+        # start again after a crash or a server reboot
+        restart: unless-stopped
         volumes:
+            # must belong to uid 1000 (the container runs as user node)
             - ./media:/home/node/media
         depends_on:
-            - mongo
+            mongo:
+                condition: service_healthy
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.lovely.rule=Host(`www.lovely-golden.de`, `lovely-golden.de`)'
@@ -19,17 +23,34 @@ services:
         networks:
             - default
             - traefik
+        # PAYLOAD_SECRET, BASE_URL, MONGODB_URI (app user, readWrite on its database only)
         env_file:
             - .env
 
     mongo:
         image: mongo:8.0.38
         container_name: mongo
+        restart: unless-stopped
         # no published port: only reachable for the website via the default network
+        # MONGO_INITDB_ROOT_USERNAME/PASSWORD: admin user, only for backups and maintenance
         env_file:
-            - .env
+            - mongo.env
         volumes:
             - data:/data/db
+        healthcheck:
+            test:
+                [
+                    'CMD',
+                    'mongosh',
+                    '--quiet',
+                    '--eval',
+                    'db.adminCommand("ping").ok',
+                ]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 30s
+            start_interval: 2s
 
 volumes:
     data:

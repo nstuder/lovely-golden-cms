@@ -1,7 +1,14 @@
+# secrets: passed at runtime via env_file, never baked into an image layer
+.env
+.env.*
+*.env
+.git
 node_modules
 .next
 build
 data
 dist
 media
-public/assets/styles
+coverage
+deploy
+backup.sh

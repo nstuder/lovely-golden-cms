@@ -9,6 +9,14 @@
             version: main
             update: yes
 
+      # The website runs as user node (uid 1000), new uploads must be writable for it.
+      # Runs as root in a throwaway container, so no sudo is needed on the host.
+      - name: Uploads belong to the container user
+        ansible.builtin.command: >
+            docker run --rm --user 0 -v /home/nstuder/lovely-golden/media:/media
+            node:24-bookworm-slim chown -R 1000:1000 /media
+        changed_when: false
+
       # Only rebuild/restart the website. MongoDB keeps running untouched.
       - name: Build and restart website
         community.docker.docker_compose_v2:

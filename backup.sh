@@ -32,9 +32,11 @@ echo "Extracting MongoDB credentials from .env file..."
 
 # This uses grep and awk to find the lines for the user and password,
 # and then extracts the value after the '=' sign.
-# Assumes .env is in the current directory and variables are like DB_USER=myuser
-MONGO_USERNAME=$(grep -E 'MONGO_INITDB_ROOT_USERNAME=' .env | cut -d '=' -f 2- | tr -d '\r')
-MONGO_PASSWORD=$(grep -E 'MONGO_INITDB_ROOT_PASSWORD=' .env | cut -d '=' -f 2- | tr -d '\r')
+# The root user lives in mongo.env (only the mongo container gets it), formerly in .env
+MONGO_ENV_FILE=mongo.env
+[ -f "$MONGO_ENV_FILE" ] || MONGO_ENV_FILE=.env
+MONGO_USERNAME=$(grep -E 'MONGO_INITDB_ROOT_USERNAME=' "$MONGO_ENV_FILE" | cut -d '=' -f 2- | tr -d '\r')
+MONGO_PASSWORD=$(grep -E 'MONGO_INITDB_ROOT_PASSWORD=' "$MONGO_ENV_FILE" | cut -d '=' -f 2- | tr -d '\r')
 MONGO_DATABASE="payload"
 
 if [ -z "$MONGO_USERNAME" ] || [ -z "$MONGO_PASSWORD" ] || [ -z "$MONGO_DATABASE" ]; then

@@ -25,6 +25,12 @@ describe('proxy', () => {
         expect(response.headers.get('x-middleware-next')).toBe('1')
     })
 
+    it('does not redirect the Docker healthcheck', () => {
+        vi.stubEnv('NODE_ENV', 'production')
+        const response = proxy(request('http://127.0.0.1:3000/healthz'))
+        expect(response.headers.get('location')).toBeNull()
+    })
+
     it('passes requests by IP address through instead of failing', () => {
         vi.stubEnv('NODE_ENV', 'production')
         const response = proxy(request('http://89.58.32.230:3000/favicon.ico'))
