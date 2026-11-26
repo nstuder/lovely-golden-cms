@@ -18,6 +18,10 @@ import Home from './globals/Home'
 import Configuration from './globals/Configuration'
 import SEO from './globals/SEO'
 import { livePreviewConfig } from './livePreview'
+import {
+    withCollectionRevalidation,
+    withGlobalRevalidation,
+} from './revalidate'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,8 +40,14 @@ export default buildConfig({
         livePreview: livePreviewConfig,
     },
     editor: slateEditor({}),
-    globals: [Navigation, Home, Configuration, SEO],
-    collections: [Users, Pages, Dogs, News, Litters, Media, Gallery],
+    // everything except the users is shown on the website (cached, see revalidate.ts)
+    globals: [Navigation, Home, Configuration, SEO].map(withGlobalRevalidation),
+    collections: [
+        Users,
+        ...[Pages, Dogs, News, Litters, Media, Gallery].map(
+            withCollectionRevalidation
+        ),
+    ],
     localization: {
         locales: ['en', 'de'],
         defaultLocale: 'de',

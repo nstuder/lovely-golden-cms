@@ -1,14 +1,14 @@
 import { CmsPage, cmsPageMetadata } from '@/components/pages'
 import { GalleryDetailTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { decodeParam, findBySlug } from '@/lib/payload'
+import { decodeParam, findBySlugOrRedirect } from '@/lib/payload'
 
 type Props = { params: Promise<{ slug: string }> }
 
 const load = async ({ params }: Props) => {
     const slug = decodeParam((await params).slug)
     const path = `/galerie/${slug}`
-    return { path, gallery: await findBySlug('gallery', slug, path) }
+    return { path, gallery: await findBySlugOrRedirect('gallery', path) }
 }
 
 export const generateMetadata = async (props: Props) => {

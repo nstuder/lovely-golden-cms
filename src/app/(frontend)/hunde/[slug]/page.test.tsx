@@ -28,7 +28,7 @@ describe('/hunde/[slug]', () => {
         expect(payloadMock.find).toHaveBeenCalledWith(
             expect.objectContaining({
                 collection: 'dogs',
-                where: { slug: { like: 'summer' } },
+                where: { slug: { equals: '/hunde/summer' } },
             })
         )
     })

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { media, paragraph } from '@/test/fixtures'
-import { RichText } from './RichText'
+import { RichText, safeHref } from './RichText'
 
 describe('RichText', () => {
     it('renders paragraphs and headings', () => {
@@ -101,4 +101,22 @@ describe('RichText', () => {
         const { container: empty } = render(<RichText content={null} />)
         expect(empty).toBeEmptyDOMElement()
     })
+})
+
+describe('safeHref', () => {
+    it.each([
+        '/kontakt',
+        '#wurftagebuch',
+        'https://www.vdh.de',
+        'http://example.com',
+        'mailto:info@example.com',
+        'tel:+41 79 000 00 00',
+    ])('keeps %s', (url) => expect(safeHref(url)).toBe(url))
+
+    it.each([
+        'javascript:alert(1)',
+        ' JavaScript:alert(1)',
+        'java\tscript:alert(1)',
+        'data:text/html,x',
+    ])('drops %j', (url) => expect(safeHref(url)).toBeUndefined())
 })

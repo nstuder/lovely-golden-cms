@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 import { ContentPageTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { findBySlug } from '@/lib/payload'
+import { findBySlugOrRedirect } from '@/lib/payload'
 
-const getPage = (path: string) => findBySlug('pages', path, path)
+const getPage = (path: string) => findBySlugOrRedirect('pages', path)
 
 export const cmsPageMetadata = async (path: string) => {
     const page = await getPage(path)

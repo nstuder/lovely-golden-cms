@@ -1,6 +1,6 @@
 import { LittersOverviewTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { getClient, LOCALE } from '@/lib/payload'
+import { find } from '@/lib/payload'
 
 export const generateMetadata = () =>
     buildMetadata({
@@ -10,10 +10,8 @@ export const generateMetadata = () =>
     })
 
 export default async function LittersPage() {
-    const payload = await getClient()
-    const { docs: litters } = await payload.find({
+    const { docs: litters } = await find({
         collection: 'litters',
-        locale: LOCALE,
         pagination: false,
     })
 

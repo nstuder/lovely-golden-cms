@@ -1,6 +1,6 @@
 import { GalleriesOverviewTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { getClient, LOCALE } from '@/lib/payload'
+import { find } from '@/lib/payload'
 
 export const generateMetadata = () =>
     buildMetadata({
@@ -10,10 +10,8 @@ export const generateMetadata = () =>
     })
 
 export default async function GalleriesPage() {
-    const payload = await getClient()
-    const { docs: galleries } = await payload.find({
+    const { docs: galleries } = await find({
         collection: 'gallery',
-        locale: LOCALE,
         pagination: false,
     })
 

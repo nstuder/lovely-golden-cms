@@ -1,14 +1,14 @@
 import { CmsPage, cmsPageMetadata } from '@/components/pages'
 import { LitterDetailTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { decodeParam, findBySlug } from '@/lib/payload'
+import { decodeParam, findBySlugOrRedirect } from '@/lib/payload'
 
 type Props = { params: Promise<{ slug: string }> }
 
 const load = async ({ params }: Props) => {
     const slug = decodeParam((await params).slug)
     const path = `/wuerfe/${slug}`
-    return { path, litter: await findBySlug('litters', slug, path) }
+    return { path, litter: await findBySlugOrRedirect('litters', path) }
 }
 
 export const generateMetadata = async (props: Props) => {

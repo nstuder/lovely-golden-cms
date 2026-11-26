@@ -37,7 +37,7 @@ describe('CmsPage', () => {
         expect(payloadMock.find).toHaveBeenCalledWith(
             expect.objectContaining({
                 collection: 'pages',
-                where: { slug: { like: '/kontakt' } },
+                where: { slug: { equals: '/kontakt' } },
             })
         )
     })

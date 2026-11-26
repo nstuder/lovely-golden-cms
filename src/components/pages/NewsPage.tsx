@@ -1,6 +1,6 @@
 import { NewsListTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { getClient, LOCALE } from '@/lib/payload'
+import { find } from '@/lib/payload'
 
 export const NEWS_LIMIT = 10
 
@@ -13,10 +13,8 @@ export const newsMetadata = () =>
 
 /** Paginated news list for /aktuelles and /aktuelles/<page>. */
 export const NewsPage = async ({ page }: { page?: number }) => {
-    const payload = await getClient()
-    const news = await payload.find({
+    const news = await find({
         collection: 'news',
-        locale: LOCALE,
         sort: '-publishedAt',
         page: page ?? 1,
         limit: NEWS_LIMIT,

@@ -1,14 +1,14 @@
 import { CmsPage, cmsPageMetadata } from '@/components/pages'
 import { DogDetailTemplate } from '@/components/templates'
 import { buildMetadata } from '@/lib/metadata'
-import { decodeParam, findBySlug } from '@/lib/payload'
+import { decodeParam, findBySlugOrRedirect } from '@/lib/payload'
 
 type Props = { params: Promise<{ slug: string }> }
 
 const load = async ({ params }: Props) => {
     const slug = decodeParam((await params).slug)
     const path = `/hunde/${slug}`
-    return { path, dog: await findBySlug('dogs', slug, path) }
+    return { path, dog: await findBySlugOrRedirect('dogs', path) }
 }
 
 export const generateMetadata = async (props: Props) => {

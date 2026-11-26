@@ -1,19 +1,14 @@
 import type { MetadataRoute } from 'next'
 import { internalSlug } from '@/lib/links'
-import { getClient, LOCALE } from '@/lib/payload'
+import { find, findGlobal } from '@/lib/payload'
 
 export const dynamic = 'force-dynamic'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const payload = await getClient()
     const [navigation, galleries, dogs] = await Promise.all([
-        payload.findGlobal({ slug: 'navigation', locale: LOCALE }),
-        payload.find({
-            collection: 'gallery',
-            locale: LOCALE,
-            pagination: false,
-        }),
-        payload.find({ collection: 'dogs', locale: LOCALE, pagination: false }),
+        findGlobal('navigation'),
+        find({ collection: 'gallery', pagination: false }),
+        find({ collection: 'dogs', pagination: false }),
     ])
 
     const pageUrls = (navigation.items ?? []).flatMap((item) => {
@@ -37,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...galleries.docs.map((doc) => doc.slug),
         ...dogs.docs.map((doc) => doc.slug),
     ]
-        .filter(Boolean)
+        .filter((url): url is string => Boolean(url))
         .map((url) => ({
             url: url.startsWith('/') ? `${process.env.BASE_URL}${url}` : url,
         }))
