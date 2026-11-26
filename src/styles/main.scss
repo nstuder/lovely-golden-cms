@@ -3,8 +3,8 @@
 @font-face {
     font-family: 'Gabrielle';
     src:
-        url('../fonts/gabrielle-webfont.woff2') format('woff2'),
-        url('../fonts/gabrielle-webfont.woff') format('woff');
+        url('/assets/fonts/gabrielle-webfont.woff2') format('woff2'),
+        url('/assets/fonts/gabrielle-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -160,6 +160,28 @@ h6 {
 
     &:hover {
         box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+// 75% wide from md upwards (Bootstrap only has w-25/50/75/100 without breakpoints)
+@include media-breakpoint-up(md) {
+    .w-md-75 {
+        width: 75% !important;
+    }
+}
+
+// Gallery thumbnails open the fullscreen carousel only on large screens
+.gallery-item {
+    margin-bottom: 0;
+
+    @include media-breakpoint-down(lg) {
+        & > a {
+            pointer-events: none;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 1rem;
     }
 }
 

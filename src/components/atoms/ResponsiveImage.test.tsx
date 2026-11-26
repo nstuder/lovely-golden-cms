@@ -4,11 +4,16 @@ import { media } from '@/test/fixtures'
 import { ResponsiveImage } from './ResponsiveImage'
 
 describe('ResponsiveImage', () => {
-    it('renders a desktop and a mobile variant', () => {
+    it('renders one image, full width on mobile and 75% from md upwards', () => {
         render(<ResponsiveImage image={media('a')} />)
-        const [desktop, mobile] = screen.getAllByRole('img')
-        expect(desktop).toHaveClass('d-none', 'd-md-block', 'w-75')
-        expect(mobile).toHaveClass('d-block', 'd-md-none', 'w-100')
+        const img = screen.getByRole('img')
+        expect(img).toHaveClass('d-block', 'mx-auto', 'w-100', 'w-md-75')
+        expect(img).toHaveAttribute('sizes', '(min-width: 768px) 75vw, 100vw')
+    })
+
+    it('takes the rendered width from the caller', () => {
+        render(<ResponsiveImage image={media('a')} sizes="25vw" />)
+        expect(screen.getByRole('img')).toHaveAttribute('sizes', '25vw')
     })
 
     it('renders nothing without image', () => {

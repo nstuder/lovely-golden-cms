@@ -10,7 +10,11 @@ type Props = {
 /** Linked cover image of a gallery (gallery overview). */
 export const GalleryTeaser = ({ href, title, image }: Props) => (
     <a className="col-md-6 block text-center text-decoration-none" href={href}>
-        <Image image={image} className="shadow image-hover" />
+        <Image
+            image={image}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="shadow image-hover"
+        />
         <h2>{title}</h2>
     </a>
 )

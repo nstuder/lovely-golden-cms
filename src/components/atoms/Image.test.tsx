@@ -19,11 +19,27 @@ describe('Image', () => {
         )
     })
 
+    it('assumes full viewport width unless the caller knows better', () => {
+        const { rerender } = render(<Image image={media('a')} />)
+        expect(screen.getByRole('img')).toHaveAttribute('sizes', '100vw')
+        rerender(<Image image={media('a')} sizes="50vw" />)
+        expect(screen.getByRole('img')).toHaveAttribute('sizes', '50vw')
+    })
+
+    it('loads priority images (first header slide) right away', () => {
+        render(<Image image={media('a')} priority />)
+        const img = screen.getByRole('img')
+        expect(img).toHaveAttribute('loading', 'eager')
+        expect(img).toHaveAttribute('fetchpriority', 'high')
+    })
+
     it('skips sizes without url and omits an empty srcset', () => {
         render(
             <Image image={media('x', { sizes: { small: { url: null } } })} />
         )
-        expect(screen.getByRole('img')).not.toHaveAttribute('srcset')
+        const img = screen.getByRole('img')
+        expect(img).not.toHaveAttribute('srcset')
+        expect(img).not.toHaveAttribute('sizes')
     })
 
     it('renders nothing for missing or unpopulated uploads', () => {

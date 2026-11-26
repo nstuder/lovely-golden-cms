@@ -16,11 +16,11 @@ describe('GalleryDetailTemplate', () => {
         expect(
             screen.getByRole('heading', { level: 1, name: 'Welpen' })
         ).toBeInTheDocument()
-        // thumbnail for desktop + mobile
-        expect(screen.getAllByRole('img', { name: 'Alt a' })).toHaveLength(2)
+        // one thumbnail for all screen sizes
+        expect(screen.getAllByRole('img', { name: 'Alt a' })).toHaveLength(1)
         // + slide in the (hidden) fullscreen carousel
         expect(
             screen.getAllByRole('img', { name: 'Alt a', hidden: true })
-        ).toHaveLength(3)
+        ).toHaveLength(2)
     })
 })

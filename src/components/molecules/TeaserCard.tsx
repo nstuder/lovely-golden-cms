@@ -17,6 +17,7 @@ export const TeaserCard = ({ href, title, image }: Props) => (
         >
             <Image
                 image={image}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="shadow image-hover mx-auto d-block w-100"
             />
             <h3>{title}</h3>

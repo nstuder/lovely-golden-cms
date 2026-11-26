@@ -13,7 +13,11 @@ export const ImageGrid = ({ images }: { images?: ImageItem[] | null }) => (
         {images?.map((item, i) => (
             <div className="col-lg-6" key={item.id ?? i}>
                 <figure className="figure">
-                    <Image image={item.image} className="shadow" />
+                    <Image
+                        image={item.image}
+                        sizes="(min-width: 992px) 50vw, 100vw"
+                        className="shadow"
+                    />
                     {item.altAsCaption &&
                         item.image &&
                         typeof item.image === 'object' && (

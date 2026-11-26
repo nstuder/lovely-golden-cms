@@ -12,7 +12,11 @@ export const Footer = ({ configuration }: { configuration: Configuration }) => (
                     className="col-3 col-md-2 block d-flex justify-content-center align-items-center"
                     aria-label={club.name ?? undefined}
                 >
-                    <Image image={club.image} className="h-50 block w-auto" />
+                    <Image
+                        image={club.image}
+                        sizes="(min-width: 768px) 17vw, 25vw"
+                        className="h-50 block w-auto"
+                    />
                 </a>
             ))}
         </div>

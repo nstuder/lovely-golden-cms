@@ -33,6 +33,16 @@ describe('Gallery', () => {
         )
     })
 
+    it('renders one thumbnail per image for all screen sizes', () => {
+        const { container } = render(<Gallery images={images} />)
+        const thumbs = container.querySelectorAll('.gallery-item img')
+        expect(thumbs).toHaveLength(3)
+        expect(thumbs[0]).toHaveAttribute(
+            'sizes',
+            '(min-width: 1200px) 25vw, (min-width: 992px) 33vw, (min-width: 576px) 50vw, 100vw'
+        )
+    })
+
     it('renders an empty modal without images', () => {
         const { container } = render(<Gallery images={null} />)
         expect(container.querySelectorAll('img')).toHaveLength(0)

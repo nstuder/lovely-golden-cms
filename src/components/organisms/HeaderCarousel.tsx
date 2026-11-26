@@ -22,7 +22,12 @@ export const HeaderCarousel = ({
                         key={item.id ?? i}
                         className={`carousel-item ${i === 0 ? 'active' : ''}`}
                     >
-                        <Image image={item.image} className="w-100" />
+                        <Image
+                            image={item.image}
+                            className="w-100"
+                            // largest visible image (LCP), the other slides can wait
+                            priority={i === 0}
+                        />
                     </div>
                 ))}
             </div>

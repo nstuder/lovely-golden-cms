@@ -18,7 +18,11 @@ export const TextWithImage = ({ content, image, right }: Props) => {
     )
     const img = (
         <div className="col-md-6 py-2 my-auto">
-            <Image image={image} className="shadow mx-auto" />
+            <Image
+                image={image}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="shadow mx-auto"
+            />
         </div>
     )
     return (

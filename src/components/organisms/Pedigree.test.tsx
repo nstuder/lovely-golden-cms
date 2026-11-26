@@ -6,13 +6,13 @@ import { Pedigree } from './Pedigree'
 describe('Pedigree', () => {
     it('shows parent images with names next to the table', () => {
         render(<Pedigree {...pedigreeParents} />)
-        // desktop + mobile variant per parent
-        expect(screen.getAllByRole('img', { name: 'Alt father' })).toHaveLength(
-            2
+        expect(screen.getByRole('img', { name: 'Alt father' })).toHaveAttribute(
+            'sizes',
+            '(min-width: 768px) 25vw, 100vw'
         )
-        expect(screen.getAllByRole('img', { name: 'Alt mother' })).toHaveLength(
-            2
-        )
+        expect(
+            screen.getByRole('img', { name: 'Alt mother' })
+        ).toBeInTheDocument()
         expect(screen.getByText('Vater Hund', { selector: 'p' })).toBeVisible()
         expect(screen.getByText('Mutter Hund', { selector: 'p' })).toBeVisible()
         expect(screen.getByRole('table')).toBeInTheDocument()

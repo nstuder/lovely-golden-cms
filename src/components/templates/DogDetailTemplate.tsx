@@ -20,6 +20,7 @@ const ShowResults = ({ dog }: { dog: Dog }) => (
                     <Image
                         key={item.id ?? i}
                         image={item.image}
+                        sizes="(min-width: 768px) 33vw, 100vw"
                         className="shadow w-100 mb-2"
                     />
                 ))}
@@ -100,9 +101,14 @@ export const DogDetailTemplate = ({ dog }: { dog: Dog }) => (
                 <div className="col-md-6 d-md-block d-none">
                     <Image
                         image={dog.headImage}
+                        sizes="(min-width: 768px) 50vw, 100vw"
                         className="mb-2 shadow w-100"
                     />
-                    <Image image={dog.standImage} className="shadow w-100" />
+                    <Image
+                        image={dog.standImage}
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="shadow w-100"
+                    />
                 </div>
                 <div className="col-md-6">
                     <h2>{dog.breedingName}</h2>

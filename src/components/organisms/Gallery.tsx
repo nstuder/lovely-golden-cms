@@ -6,25 +6,22 @@ type Item = { image?: Media | string | null; id?: string | null }
 const MODAL_ID = 'modal_gallery'
 const CAROUSEL_ID = 'carousel_gallery'
 
+const THUMB_SIZES =
+    '(min-width: 1200px) 25vw, (min-width: 992px) 33vw, (min-width: 576px) 50vw, 100vw'
+
+/** Thumbnail: opens the fullscreen carousel at its slide (only from `lg` upwards). */
 const GalleryItem = ({ item, index }: { item: Item; index: number }) => (
-    <>
-        <figure className="col-lg-4 col-xl-3 d-lg-block d-none">
-            <a data-bs-toggle="modal" data-bs-target={`#${MODAL_ID}`} href="#">
-                <div
-                    data-bs-target={`#${CAROUSEL_ID}`}
-                    data-bs-slide-to={index}
-                >
-                    <Image
-                        image={item.image}
-                        className="shadow image-hover mx-auto d-block"
-                    />
-                </div>
-            </a>
-        </figure>
-        <div className="d-lg-none d-block col-sm-6">
-            <Image image={item.image} className="shadow mx-auto d-block" />
-        </div>
-    </>
+    <figure className="gallery-item col-sm-6 col-lg-4 col-xl-3">
+        <a data-bs-toggle="modal" data-bs-target={`#${MODAL_ID}`} href="#">
+            <div data-bs-target={`#${CAROUSEL_ID}`} data-bs-slide-to={index}>
+                <Image
+                    image={item.image}
+                    sizes={THUMB_SIZES}
+                    className="shadow image-hover mx-auto d-block"
+                />
+            </div>
+        </a>
+    </figure>
 )
 
 /** Image grid with fullscreen carousel modal (organisms/gallery.hbs). */

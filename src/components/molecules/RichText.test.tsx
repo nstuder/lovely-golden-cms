@@ -84,7 +84,7 @@ describe('RichText', () => {
             />
         )
         expect(screen.getAllByRole('img', { name: 'Alt upload' })).toHaveLength(
-            2
+            1
         )
     })
 
