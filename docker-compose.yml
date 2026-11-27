@@ -19,7 +19,7 @@ services:
             - 'traefik.http.routers.lovely.tls.certresolver=myresolver'
             - 'traefik.http.services.lovely.loadbalancer.server.port=3000'
             - 'traefik.http.middlewares.lovely.compress=true'
-            - 'traefik.http.middlewares.lovely.plugin.httpCache.maxTtl=300'
+            - 'traefik.http.routers.lovely.middlewares=lovely'
         networks:
             - default
             - traefik
