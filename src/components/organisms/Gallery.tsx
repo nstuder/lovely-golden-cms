@@ -24,7 +24,8 @@ const revealOnLoad = (grid: HTMLDivElement | null) => {
     }
 }
 
-const THUMB_SIZES = '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw'
+const THUMB_SIZES =
+    '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
 
 /**
  * Image grid; a click opens the image in a fullscreen lightbox (native
@@ -73,7 +74,7 @@ export const Gallery = ({ images }: { images?: Item[] | null }) => {
         <>
             <div
                 ref={revealOnLoad}
-                className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4"
+                className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             >
                 {items.map((item, i) => (
                     <button
@@ -86,8 +87,8 @@ export const Gallery = ({ images }: { images?: Item[] | null }) => {
                         <Image
                             image={item.image}
                             sizes={THUMB_SIZES}
-                            // uniform tiles, the lightbox shows the whole picture
-                            className="block aspect-[4/3] w-full object-cover opacity-0 transition duration-500 group-hover:scale-105 data-loaded:opacity-100"
+                            // mobile: whole picture, one per row; larger screens: uniform 4:3 tiles
+                            className="block w-full object-cover sm:aspect-[4/3] opacity-0 transition duration-500 group-hover:scale-105 data-loaded:opacity-100"
                         />
                     </button>
                 ))}
