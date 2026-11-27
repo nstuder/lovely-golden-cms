@@ -10,20 +10,32 @@ type Props = {
     mother?: Mother | null
 }
 
-// 75% of the col-md-4 column
+// 75% of the md:col-span-4 column
 const SIZES = '(min-width: 768px) 25vw, 100vw'
+
+const Parent = ({
+    image,
+    name,
+}: {
+    image?: Media | string | null
+    name?: string | null
+}) => (
+    <figure>
+        <ResponsiveImage image={image} sizes={SIZES} />
+        <figcaption className="mt-2 text-center text-xl font-semibold">
+            {name}
+        </figcaption>
+    </figure>
+)
 
 /** Pedigree table with parent images (pedigree.hbs). */
 export const Pedigree = ({ father, mother }: Props) => (
-    <div className="row align-items-center">
-        <div className="col-md-4">
-            <ResponsiveImage image={father?.fatherImage} sizes={SIZES} />
-            <p className="fs-5 text-center">{father?.name}</p>
-            <br />
-            <ResponsiveImage image={mother?.motherImage} sizes={SIZES} />
-            <p className="fs-5 text-center">{mother?.name}</p>
+    <div className="my-6 grid items-center gap-8 md:grid-cols-12">
+        <div className="flex flex-col gap-8 md:col-span-4">
+            <Parent image={father?.fatherImage} name={father?.name} />
+            <Parent image={mother?.motherImage} name={mother?.name} />
         </div>
-        <div className="table-responsive col-md-8">
+        <div className="overflow-x-auto md:col-span-8">
             <PedigreeTable father={father} mother={mother} />
         </div>
     </div>

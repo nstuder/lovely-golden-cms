@@ -12,7 +12,7 @@ describe('Image', () => {
         expect(img).toHaveAttribute('title', 'Alt summer')
         expect(img).toHaveAttribute('width', '1200')
         expect(img).toHaveAttribute('height', '800')
-        expect(img).toHaveClass('img-fluid', 'shadow')
+        expect(img).toHaveClass('h-auto', 'max-w-full', 'shadow')
         expect(img).toHaveAttribute(
             'srcset',
             '/api/media/file/summer-small.jpg 400w, /api/media/file/summer-medium.jpg 800w'

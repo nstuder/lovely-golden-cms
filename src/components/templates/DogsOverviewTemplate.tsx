@@ -13,26 +13,30 @@ export const DOG_CATEGORIES: { type: Dog['type']; title: string }[] = [
 
 /** /hunde: dogs grouped by category, empty categories are hidden. */
 export const DogsOverviewTemplate = ({ dogs }: { dogs: DogTeaser[] }) => (
-    <section className="container">
+    <section className="container-page">
         <h1>Unsere Hunde</h1>
-        <div className="row text-center justify-content-center">
-            {DOG_CATEGORIES.map(({ type, title }) => {
-                const inCategory = dogs.filter((dog) => dog.type === type)
-                if (!inCategory.length) return null
-                return [
-                    <h2 className="col-12 mt-5" key={type}>
-                        {title}
-                    </h2>,
-                    ...inCategory.map((dog) => (
-                        <TeaserCard
-                            key={dog.id}
-                            href={dog.slug}
-                            title={dog.name}
-                            image={dog.teaserImage}
-                        />
-                    )),
-                ]
-            })}
-        </div>
+        {DOG_CATEGORIES.map(({ type, title }) => {
+            const inCategory = dogs.filter((dog) => dog.type === type)
+            if (!inCategory.length) return null
+            return (
+                <section key={type} className="mt-12">
+                    <h2>{title}</h2>
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+                        {inCategory.map((dog) => (
+                            <div
+                                key={dog.id}
+                                className="w-full md:w-[calc(50%-1rem)]"
+                            >
+                                <TeaserCard
+                                    href={dog.slug}
+                                    title={dog.name}
+                                    image={dog.teaserImage}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )
+        })}
     </section>
 )

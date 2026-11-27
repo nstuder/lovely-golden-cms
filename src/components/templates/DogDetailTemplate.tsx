@@ -14,18 +14,18 @@ import { toLocalDate } from '@/lib/format'
 const ShowResults = ({ dog }: { dog: Dog }) => (
     <>
         <h3>Ausstellungsergebnisse</h3>
-        <div className="row align-items-center">
-            <div className="col-md-4 d-md-block d-none">
+        <div className="grid items-center gap-8 md:grid-cols-12">
+            <div className="hidden flex-col gap-3 md:col-span-4 md:flex">
                 {dog.images?.map((item, i) => (
                     <Image
                         key={item.id ?? i}
                         image={item.image}
                         sizes="(min-width: 768px) 33vw, 100vw"
-                        className="shadow w-100 mb-2"
+                        className="w-full rounded-lg shadow-lg"
                     />
                 ))}
             </div>
-            <div className="table-responsive col-md-8">
+            <div className="md:col-span-8">
                 <DataTable
                     headers={['Ort', 'Datum', 'Klasse', 'Beurteilung']}
                     rows={(dog.shows ?? []).map((show, i) => ({
@@ -48,7 +48,7 @@ const dogTabs = (dog: Dog): Tab[] =>
         {
             id: 'Galerie',
             label: 'Galerie',
-            className: 'container-fluid',
+            className: 'container-full',
             content: (
                 <>
                     <h3>Galerie</h3>
@@ -59,7 +59,7 @@ const dogTabs = (dog: Dog): Tab[] =>
         {
             id: 'Ahnentafel',
             label: 'Ahnentafel',
-            className: 'container-xxl',
+            className: 'container-wide',
             content: (
                 <>
                     <h3>Ahnentafel</h3>
@@ -70,19 +70,19 @@ const dogTabs = (dog: Dog): Tab[] =>
         dog.isShowsActive && {
             id: 'Ausstellungsergebnisse',
             label: 'Ausstellungsergebnisse',
-            className: 'container-xxl',
+            className: 'container-wide',
             content: <ShowResults dog={dog} />,
         },
         dog.isExamsActive && {
             id: 'Prüfungen',
             label: 'Prüfungen',
-            className: 'container',
+            className: 'container-page',
             content: <RichText content={dog.textExams} />,
         },
         dog.isBreedActive && {
             id: 'Nachzucht',
             label: 'Nachzucht',
-            className: 'container',
+            className: 'container-page',
             content: (
                 <>
                     <h3>Nachzucht</h3>
@@ -92,41 +92,31 @@ const dogTabs = (dog: Dog): Tab[] =>
         },
     ])
 
+const PORTRAIT = 'w-full rounded-xl shadow-lg'
+
 /** /hunde/<name>: images, description and tabs of one dog. */
 export const DogDetailTemplate = ({ dog }: { dog: Dog }) => (
     <>
-        <section className="container-xxl">
+        <section className="container-wide">
             <h1>{dog.name}</h1>
-            <div className="row">
-                <div className="col-md-6 d-md-block d-none">
-                    <Image
-                        image={dog.headImage}
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className="mb-2 shadow w-100"
-                    />
-                    <Image
-                        image={dog.standImage}
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className="shadow w-100"
-                    />
-                </div>
-                <div className="col-md-6">
+            {/* mobile: head image, text, stand image; from md: images left, text right */}
+            <div className="grid gap-6 md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-x-10">
+                <Image
+                    image={dog.headImage}
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className={`${PORTRAIT} md:col-start-1 md:row-start-1`}
+                />
+                <div className="md:col-start-2 md:row-span-2 md:row-start-1">
                     <h2>{dog.breedingName}</h2>
-                    <Image
-                        image={dog.headImage}
-                        className="d-block d-md-none mb-2 shadow w-100"
-                    />
                     <RichText content={dog.description} />
-                    <Image
-                        image={dog.standImage}
-                        className="d-block d-md-none shadow w-100"
-                    />
                 </div>
+                <Image
+                    image={dog.standImage}
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className={`${PORTRAIT} md:col-start-1 md:row-start-2 md:self-start`}
+                />
             </div>
         </section>
-        <Tabs
-            tabs={dogTabs(dog)}
-            navClassName="nav nav-tabs font-weight-bold justify-content-center"
-        />
+        <Tabs tabs={dogTabs(dog)} />
     </>
 )

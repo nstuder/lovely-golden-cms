@@ -1,91 +1,126 @@
+'use client'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import type { Media } from '@/cms/payload-types'
-import { CarouselControl, CarouselIndicators, Image } from '@/components/atoms'
+import { CarouselButton, Image } from '@/components/atoms'
+import { useCarousel } from '@/components/behaviors/useCarousel'
 
 type Item = { image?: Media | string | null; id?: string | null }
 
-const MODAL_ID = 'modal_gallery'
-const CAROUSEL_ID = 'carousel_gallery'
+const THUMB_SIZES = '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw'
 
-const THUMB_SIZES =
-    '(min-width: 1200px) 25vw, (min-width: 992px) 33vw, (min-width: 576px) 50vw, 100vw'
+/**
+ * Image grid; a click opens the image in a fullscreen lightbox (native
+ * <dialog>: Escape closes it, focus stays inside) with arrow keys and swipe.
+ */
+export const Gallery = ({ images }: { images?: Item[] | null }) => {
+    const items = images ?? []
+    const dialog = useRef<HTMLDialogElement>(null)
+    const [open, setOpen] = useState(false)
+    const { index, go, next, prev } = useCarousel(items.length)
+    const touchStart = useRef<number | null>(null)
 
-/** Thumbnail: opens the fullscreen carousel at its slide (only from `lg` upwards). */
-const GalleryItem = ({ item, index }: { item: Item; index: number }) => (
-    <figure className="gallery-item col-sm-6 col-lg-4 col-xl-3">
-        <a data-bs-toggle="modal" data-bs-target={`#${MODAL_ID}`} href="#">
-            <div data-bs-target={`#${CAROUSEL_ID}`} data-bs-slide-to={index}>
-                <Image
-                    image={item.image}
-                    sizes={THUMB_SIZES}
-                    className="shadow image-hover mx-auto d-block"
-                />
+    const show = (i: number) => {
+        go(i)
+        setOpen(true)
+        dialog.current?.showModal()
+    }
+    const close = () => dialog.current?.close()
+
+    useEffect(() => {
+        if (!open) return
+        const onKey = (event: KeyboardEvent) => {
+            if (event.key === 'ArrowRight') next()
+            if (event.key === 'ArrowLeft') prev()
+        }
+        document.addEventListener('keydown', onKey)
+        return () => document.removeEventListener('keydown', onKey)
+    }, [open, next, prev])
+
+    const onTouchStart = (event: TouchEvent) => {
+        touchStart.current = event.touches[0]?.clientX ?? null
+    }
+    const onTouchEnd = (event: TouchEvent) => {
+        const start = touchStart.current
+        const end = event.changedTouches[0]?.clientX
+        if (start === null || end === undefined) return
+        if (Math.abs(end - start) > 50) {
+            if (end < start) next()
+            else prev()
+        }
+    }
+
+    const current = items[index]
+
+    return (
+        <>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4">
+                {items.map((item, i) => (
+                    <button
+                        key={item.id ?? i}
+                        type="button"
+                        className="group overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
+                        onClick={() => show(i)}
+                        aria-label={`Bild ${i + 1} vergrößern`}
+                    >
+                        <Image
+                            image={item.image}
+                            sizes={THUMB_SIZES}
+                            // uniform tiles, the lightbox shows the whole picture
+                            className="block aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                    </button>
+                ))}
             </div>
-        </a>
-    </figure>
-)
 
-/** Image grid with fullscreen carousel modal (organisms/gallery.hbs). */
-export const Gallery = ({ images }: { images?: Item[] | null }) => (
-    <>
-        <div className="row g-2 justify-content-evenly align-items-center">
-            {images?.map((item, i) => (
-                <GalleryItem key={item.id ?? i} item={item} index={i} />
-            ))}
-        </div>
-
-        <div
-            className="modal fade"
-            id={MODAL_ID}
-            role="dialog"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog modal-dialog-centered modal-fullscreen">
-                <div className="modal-content bg-transparent">
-                    <div className="modal-header">
+            <dialog
+                ref={dialog}
+                className="m-0 h-dvh max-h-none w-dvw max-w-none bg-black/90 p-0 backdrop:bg-black/60"
+                onClose={() => setOpen(false)}
+                onClick={(event) => {
+                    if (event.target === event.currentTarget) close()
+                }}
+                aria-label="Galerie"
+            >
+                {open && current && (
+                    <div
+                        className="relative grid h-full place-items-center p-4 sm:p-12"
+                        onTouchStart={onTouchStart}
+                        onTouchEnd={onTouchEnd}
+                    >
+                        <Image
+                            key={current.id ?? index}
+                            image={current.image}
+                            priority
+                            className="max-h-[85dvh] w-auto rounded-md object-contain"
+                        />
+                        <p className="absolute bottom-3 text-sm text-white/80">
+                            {index + 1} / {items.length}
+                        </p>
                         <button
                             type="button"
-                            className="btn-close bg-white"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
+                            onClick={close}
+                            aria-label="Schließen"
+                            className="absolute top-3 right-3 grid size-11 place-items-center rounded-full bg-white/15 text-2xl text-white hover:bg-white/30"
+                        >
+                            ×
+                        </button>
+                        {items.length > 1 && (
+                            <>
+                                <CarouselButton
+                                    direction="prev"
+                                    onClick={prev}
+                                    className="absolute top-1/2 left-3 -translate-y-1/2"
+                                />
+                                <CarouselButton
+                                    direction="next"
+                                    onClick={next}
+                                    className="absolute top-1/2 right-3 -translate-y-1/2"
+                                />
+                            </>
+                        )}
                     </div>
-                    <div
-                        id={CAROUSEL_ID}
-                        className="carousel slide mh-100"
-                        data-bs-ride="carousel"
-                    >
-                        <CarouselIndicators
-                            target={CAROUSEL_ID}
-                            keys={(images ?? []).map(
-                                (item, i) => item.id ?? String(i)
-                            )}
-                        />
-                        <div className="carousel-inner">
-                            {images?.map((item, i) => (
-                                <div
-                                    key={item.id ?? i}
-                                    className={`carousel-item carousel-item-modal ${
-                                        i === 0 ? 'active' : ''
-                                    }`}
-                                >
-                                    <Image
-                                        image={item.image}
-                                        className="mx-auto"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                        <CarouselControl
-                            target={CAROUSEL_ID}
-                            direction="prev"
-                        />
-                        <CarouselControl
-                            target={CAROUSEL_ID}
-                            direction="next"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </>
-)
+                )}
+            </dialog>
+        </>
+    )
+}

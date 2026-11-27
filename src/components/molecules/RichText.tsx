@@ -81,4 +81,6 @@ const renderNode = (node: SlateNode): ReactNode => {
 
 /** Renders Slate rich text (ritchText.hbs). */
 export const RichText = ({ content }: { content?: unknown }) =>
-    Array.isArray(content) ? <>{renderNodes(content as SlateNode[])}</> : null
+    Array.isArray(content) ? (
+        <div className="rich-text">{renderNodes(content as SlateNode[])}</div>
+    ) : null

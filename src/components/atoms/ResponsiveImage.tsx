@@ -18,6 +18,6 @@ export const ResponsiveImage = ({
     <Image
         image={image}
         sizes={sizes}
-        className="shadow mx-auto d-block w-100 w-md-75"
+        className="mx-auto block w-full rounded-lg shadow-lg md:w-3/4"
     />
 )

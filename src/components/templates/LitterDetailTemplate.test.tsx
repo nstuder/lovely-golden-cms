@@ -1,13 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { litter } from '@/test/fixtures'
 import { LitterDetailTemplate } from './LitterDetailTemplate'
 
-const tabLabels = () =>
-    screen
-        .getAllByRole('link')
-        .filter((link) => link.getAttribute('data-bs-toggle') === 'tab')
-        .map((link) => link.textContent)
+const tabLabels = () => screen.getAllByRole('tab').map((tab) => tab.textContent)
 
 describe('LitterDetailTemplate', () => {
     it('shows name, collage and description with the pedigree tab', () => {
@@ -56,6 +52,9 @@ describe('LitterDetailTemplate', () => {
             'Gesundheitsergebnisse',
         ])
         expect(document.getElementById('1. Woche')).toHaveTextContent('Geburt')
+        fireEvent.click(
+            screen.getByRole('tab', { name: 'Gesundheitsergebnisse' })
+        )
         expect(screen.getByRole('row', { name: /Anton/ })).toHaveTextContent(
             'AntonRHD A'
         )

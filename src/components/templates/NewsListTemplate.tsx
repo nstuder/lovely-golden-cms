@@ -9,11 +9,9 @@ type Props = {
 
 /** /aktuelles: news timeline with pagination. */
 export const NewsListTemplate = ({ news, pagination }: Props) => (
-    <>
+    <section className="container-page">
         <h1>Aktuelles</h1>
-        <div className="timeline ps-md-0 ps-2 container">
-            <NewsTimeline news={news} />
-        </div>
+        <NewsTimeline news={news} />
         <Pagination {...pagination} basePath="/aktuelles" />
-    </>
+    </section>
 )

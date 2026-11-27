@@ -21,17 +21,13 @@ describe('Header', () => {
             />
         )
         expect(screen.getByRole('navigation')).toBeInTheDocument()
-        expect(screen.getByRole('banner')).toHaveClass('head')
-
-        const slides = container.querySelectorAll('.carousel-item')
-        expect(slides).toHaveLength(2)
-        expect(slides[0]).toHaveClass('active')
-        expect(slides[1]).not.toHaveClass('active')
-        expect(
-            container.querySelectorAll('.carousel-indicators li')
-        ).toHaveLength(2)
+        expect(screen.getByRole('banner')).toHaveAttribute(
+            'aria-roledescription',
+            'carousel'
+        )
+        expect(container.querySelectorAll('header img')).toHaveLength(2)
         expect(
             screen.getByRole('button', { name: 'Nächstes Bild' })
-        ).toHaveAttribute('href', '#carouselDogs')
+        ).toBeInTheDocument()
     })
 })

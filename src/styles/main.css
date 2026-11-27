@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'Gabrielle';
+    src:
+        url('/assets/fonts/gabrielle-webfont.woff2') format('woff2'),
+        url('/assets/fonts/gabrielle-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    /* colors of the former Bootstrap theme (plum = $primary) */
+    --color-plum: #996699;
+    --color-plum-dark: #7a4d7a;
+    --color-plum-light: #efe0ee;
+    --color-blush: #f8eeef;
+    --color-ink: #1a1a1a;
+    --color-rose: #e0aea3;
+    --color-cocoa: #754036;
+
+    --font-display: 'Gabrielle', serif;
+}
+
+@layer base {
+    body {
+        @apply bg-blush text-ink antialiased;
+    }
+
+    /* the handwritten headings of the site */
+    h1,
+    h2,
+    h3 {
+        @apply font-display text-rose mt-4 mb-6 text-center leading-tight;
+        text-shadow: 2px 2px 3px rgb(0 0 0 / 0.35);
+        -webkit-text-stroke: 1px var(--color-cocoa);
+    }
+    h1 {
+        @apply text-5xl md:text-7xl;
+    }
+    h2 {
+        @apply text-4xl md:text-6xl;
+    }
+    h3 {
+        @apply text-3xl md:text-[2.75rem];
+    }
+    h4,
+    h5,
+    h6 {
+        @apply mt-4 mb-2 text-center font-semibold;
+    }
+    h4 {
+        @apply text-2xl;
+    }
+    h5 {
+        @apply text-xl;
+    }
+    h6 {
+        @apply text-lg;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-plum;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+}
+
+/* content widths: text pages, wide pages (dog, litter), full width (galleries) */
+@utility container-page {
+    @apply mx-auto w-full max-w-6xl px-4;
+}
+@utility container-wide {
+    @apply mx-auto w-full max-w-[82.5rem] px-4;
+}
+@utility container-full {
+    @apply w-full px-4;
+}
+
+/* rich text from the CMS: paragraphs, lists, links, quotes */
+@utility rich-text {
+    @apply text-lg leading-relaxed;
+
+    & p {
+        @apply mb-4;
+    }
+    & ul {
+        @apply mb-4 list-disc pl-6 text-left;
+    }
+    & ol {
+        @apply mb-4 list-decimal pl-6 text-left;
+    }
+    & li {
+        @apply mb-1;
+    }
+    & a {
+        @apply text-plum-dark underline decoration-plum/40 underline-offset-2 transition-colors hover:decoration-plum;
+    }
+    & blockquote {
+        @apply my-6 border-l-4 border-plum/60 pl-4 italic;
+    }
+    & code {
+        @apply rounded bg-plum-light px-1 text-base;
+    }
+    & img {
+        @apply my-4;
+    }
+}

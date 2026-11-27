@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { BootstrapClient } from '@/components/behaviors/BootstrapClient'
 import { SiteTemplate } from '@/components/templates'
 import { escapeJsonForScript } from '@/lib/format'
 import { buildMetadata } from '@/lib/metadata'
 import { getLayoutGlobals, getSeo } from '@/lib/payload'
 // compiled by Next.js: hashed file name, cached by browsers for a year
-import '@/styles/main.scss'
+import '@/styles/main.css'
 
 // Content comes from the CMS on every request (like the Express version);
 // this also keeps `next build` independent of the database.
@@ -54,7 +53,6 @@ export default async function FrontendLayout({
                 >
                     {children}
                 </SiteTemplate>
-                <BootstrapClient />
             </body>
         </html>
     )

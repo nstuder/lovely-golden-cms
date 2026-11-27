@@ -9,18 +9,18 @@ type Props = {
 
 /** Linked image with title, used in the dog and litter overviews. */
 export const TeaserCard = ({ href, title, image }: Props) => (
-    <div className="col-md-6">
-        <a
-            href={href ?? undefined}
-            className="text-decoration-none"
-            aria-label={title ?? undefined}
-        >
+    <a
+        href={href ?? undefined}
+        className="group block"
+        aria-label={title ?? undefined}
+    >
+        <div className="overflow-hidden rounded-xl shadow-lg transition-shadow group-hover:shadow-2xl">
             <Image
                 image={image}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="shadow image-hover mx-auto d-block w-100"
+                className="block w-full transition-transform duration-500 group-hover:scale-105"
             />
-            <h3>{title}</h3>
-        </a>
-    </div>
+        </div>
+        <h3>{title}</h3>
+    </a>
 )

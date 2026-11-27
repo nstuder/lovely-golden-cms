@@ -18,18 +18,10 @@ describe('DataTable', () => {
         ).toEqual(['Name', 'R/H'])
         const rows = screen.getAllByRole('row').slice(1)
         expect(within(rows[1]).getByText('Berta')).toBeInTheDocument()
-        expect(screen.getByRole('table')).toHaveClass(
-            'table',
-            'table-striped',
-            'border-primary'
-        )
-    })
-
-    it('accepts custom table classes', () => {
-        render(<DataTable headers={[]} rows={[]} className="table custom" />)
-        expect(screen.getByRole('table')).toHaveAttribute(
-            'class',
-            'table custom'
+        // striped rows, scrollable on small screens
+        expect(rows[1]).toHaveClass('even:bg-plum-light/60')
+        expect(screen.getByRole('table').parentElement).toHaveClass(
+            'overflow-x-auto'
         )
     })
 })

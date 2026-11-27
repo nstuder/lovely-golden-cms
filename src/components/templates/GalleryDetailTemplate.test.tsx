@@ -16,11 +16,9 @@ describe('GalleryDetailTemplate', () => {
         expect(
             screen.getByRole('heading', { level: 1, name: 'Welpen' })
         ).toBeInTheDocument()
-        // one thumbnail for all screen sizes
-        expect(screen.getAllByRole('img', { name: 'Alt a' })).toHaveLength(1)
-        // + slide in the (hidden) fullscreen carousel
+        // the lightbox loads the large image only when opened
         expect(
             screen.getAllByRole('img', { name: 'Alt a', hidden: true })
-        ).toHaveLength(2)
+        ).toHaveLength(1)
     })
 })

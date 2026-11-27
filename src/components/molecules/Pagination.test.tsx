@@ -15,12 +15,11 @@ describe('Pagination', () => {
         )
         const page2 = screen.getByRole('link', { name: 'Seite 2' })
         expect(page2).toHaveAttribute('href', '/aktuelles/2')
-        expect(page2).toHaveAttribute('aria-current', 'true')
-        expect(page2.parentElement).toHaveClass('active')
-        expect(screen.getByRole('link', { name: 'Seite 1' })).toHaveAttribute(
-            'aria-current',
-            'false'
-        )
+        expect(page2).toHaveAttribute('aria-current', 'page')
+        expect(page2).toHaveClass('bg-plum', 'text-white')
+        expect(
+            screen.getByRole('link', { name: 'Seite 1' })
+        ).not.toHaveAttribute('aria-current')
         expect(
             screen.getByRole('link', { name: 'Vorherige Seite' })
         ).toHaveAttribute('href', '/aktuelles/1')
@@ -39,9 +38,8 @@ describe('Pagination', () => {
             />
         )
         expect(screen.getAllByRole('link')).toHaveLength(1)
-        expect(screen.getByRole('link', { name: 'Seite 1' })).toHaveAttribute(
-            'aria-current',
-            'false'
-        )
+        expect(
+            screen.getByRole('link', { name: 'Seite 1' })
+        ).not.toHaveAttribute('aria-current')
     })
 })

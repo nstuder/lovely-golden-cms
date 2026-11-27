@@ -13,8 +13,12 @@ describe('Pedigree', () => {
         expect(
             screen.getByRole('img', { name: 'Alt mother' })
         ).toBeInTheDocument()
-        expect(screen.getByText('Vater Hund', { selector: 'p' })).toBeVisible()
-        expect(screen.getByText('Mutter Hund', { selector: 'p' })).toBeVisible()
+        expect(
+            screen.getByText('Vater Hund', { selector: 'figcaption' })
+        ).toBeVisible()
+        expect(
+            screen.getByText('Mutter Hund', { selector: 'figcaption' })
+        ).toBeVisible()
         expect(screen.getByRole('table')).toBeInTheDocument()
     })
 })

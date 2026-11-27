@@ -9,9 +9,15 @@ type Props = {
 
 /** One line "date + title" in the news box of the home page. */
 export const NewsTeaser = ({ title, publishedAt, link }: Props) => (
-    <p className="text-center fs-5 mb-0">
-        <a href={link || '/aktuelles'} className="link-dark">
-            <strong>{toLocalDate(publishedAt)}</strong> {title}
+    <li>
+        <a
+            href={link || '/aktuelles'}
+            className="flex flex-col gap-x-4 rounded-lg px-4 py-3 transition-colors hover:bg-plum-light sm:flex-row sm:items-baseline"
+        >
+            <strong className="shrink-0 text-plum-dark">
+                {toLocalDate(publishedAt)}
+            </strong>
+            <span>{title}</span>
         </a>
-    </p>
+    </li>
 )

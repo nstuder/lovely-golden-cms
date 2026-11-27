@@ -9,6 +9,6 @@ describe('NavLink', () => {
             'href',
             '/kontakt'
         )
-        expect(screen.getByRole('listitem')).toHaveClass('nav-item')
+        expect(screen.getByRole('listitem')).toBeInTheDocument()
     })
 })

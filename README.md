@@ -1,6 +1,6 @@
 # lovely-golden CMS
 
-Official website for lovely-golden.de using Payload CMS 3, Next.js (App Router, React Server Components) & Bootstrap 5.
+Official website for lovely-golden.de using Payload CMS 3, Next.js (App Router, React Server Components) & Tailwind CSS 4.
 
 Requires Node.js `^22.23.5`, `^24.22.3` or `>=26.13.1`.
 
@@ -26,9 +26,9 @@ Environment (`.env`): `MONGODB_URI`, `PAYLOAD_SECRET`, `BASE_URL`.
     - `organisms` – page sections (navigation, header, footer, gallery, pedigree, content blocks, tabs)
     - `templates` – page layouts that only receive data as props (dog detail, news list, …)
     - `pages` – shared pages that load their own data (CMS page fallback, paginated news)
-    - `behaviors` – client-side code without markup (Bootstrap JS)
+    - `behaviors` – client-side hooks without markup (carousel, URL hash)
 - `src/lib` – data helpers (Payload client, metadata, links, formatting)
-- `src/styles` – SCSS, imported by the frontend layout and compiled by Next.js
+- `src/styles/main.css` – Tailwind CSS (theme: colors, fonts, content widths, rich text), imported by the frontend layout
 
 Every level only uses components from lower levels (or its own level). Each level
 has an `index.ts`, so imports look like `import { Image } from '@/components/atoms'`.

@@ -29,7 +29,7 @@ describe('NewsPage', () => {
         expect(screen.getByRole('article')).toHaveTextContent('Neuigkeit')
         expect(screen.getByRole('link', { name: 'Seite 2' })).toHaveAttribute(
             'aria-current',
-            'true'
+            'page'
         )
         expect(
             screen.getByRole('link', { name: 'Vorherige Seite' })
@@ -44,9 +44,8 @@ describe('NewsPage', () => {
         expect(payloadMock.find).toHaveBeenCalledWith(
             expect.objectContaining({ page: 1 })
         )
-        expect(screen.getByRole('link', { name: 'Seite 1' })).toHaveAttribute(
-            'aria-current',
-            'false'
-        )
+        expect(
+            screen.getByRole('link', { name: 'Seite 1' })
+        ).not.toHaveAttribute('aria-current')
     })
 })

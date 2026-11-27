@@ -7,7 +7,7 @@ export const GalleryDetailTemplate = ({
 }: {
     gallery: Pick<GalleryData, 'name' | 'gallery'>
 }) => (
-    <section className="container-fluid">
+    <section className="container-full">
         <h1>{gallery.name}</h1>
         <Gallery images={gallery.gallery} />
     </section>

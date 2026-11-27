@@ -33,7 +33,9 @@ export const Image = ({ image, className, sizes, priority }: Props) => {
             title={image.alt ?? undefined}
             width={image.width ?? undefined}
             height={image.height ?? undefined}
-            className={['img-fluid', className].filter(Boolean).join(' ')}
+            className={['h-auto max-w-full', className]
+                .filter(Boolean)
+                .join(' ')}
             srcSet={srcSet || undefined}
             sizes={srcSet ? (sizes ?? '100vw') : undefined}
         />

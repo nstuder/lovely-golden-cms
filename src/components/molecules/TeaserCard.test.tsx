@@ -17,6 +17,9 @@ describe('TeaserCard', () => {
         expect(
             screen.getByRole('heading', { level: 3, name: 'Summer' })
         ).toBeInTheDocument()
-        expect(screen.getByRole('img')).toHaveClass('image-hover', 'w-100')
+        expect(screen.getByRole('img')).toHaveClass(
+            'w-full',
+            'group-hover:scale-105'
+        )
     })
 })

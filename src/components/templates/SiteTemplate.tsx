@@ -16,7 +16,7 @@ export const SiteTemplate = ({
 }: Props) => (
     <>
         <Header navigation={navigation} configuration={configuration} />
-        <main id="inhalt" className="my-3">
+        <main id="inhalt" className="my-6">
             {children}
         </main>
         <Footer configuration={configuration} />

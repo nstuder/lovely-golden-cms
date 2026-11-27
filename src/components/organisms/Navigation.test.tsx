@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { Navigation } from './Navigation'
 
@@ -52,6 +52,7 @@ describe('Navigation', () => {
         expect(
             screen.getByRole('button', { name: 'Hunde' })
         ).toBeInTheDocument()
+        fireEvent.click(screen.getByRole('button', { name: 'Hunde' }))
         expect(
             screen.getByRole('link', { name: 'Alle Hunde' })
         ).toHaveAttribute('href', '/hunde')
@@ -65,9 +66,21 @@ describe('Navigation', () => {
         expect(
             screen.getByRole('link', { name: 'Moments of Love Logo - Home' })
         ).toBeInTheDocument()
-        expect(
-            screen.getByRole('button', { name: 'Toggle navigation' })
-        ).toHaveAttribute('data-bs-target', '#mainnav')
+        expect(screen.getByRole('button', { name: 'Menü' })).toBeInTheDocument()
+    })
+
+    it('opens and closes the menu on small screens', () => {
+        render(<Navigation items={[]} />)
+        const toggle = screen.getByRole('button', { name: 'Menü' })
+        const menu = document.getElementById(
+            toggle.getAttribute('aria-controls')!
+        )
+        expect(toggle).toHaveAttribute('aria-expanded', 'false')
+        expect(menu).toHaveClass('hidden', 'lg:flex')
+        fireEvent.click(toggle)
+        expect(toggle).toHaveAttribute('aria-expanded', 'true')
+        expect(menu).toHaveClass('flex')
+        expect(menu).not.toHaveClass('hidden')
     })
 
     it('ignores entries without type', () => {

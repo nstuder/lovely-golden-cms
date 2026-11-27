@@ -7,7 +7,7 @@ type Props = {
 
 /** Generic CMS page: title + content blocks. */
 export const ContentPageTemplate = ({ title, content }: Props) => (
-    <section className="container">
+    <section className="container-page">
         <h1>{title}</h1>
         <ContentBlocks content={content} />
     </section>

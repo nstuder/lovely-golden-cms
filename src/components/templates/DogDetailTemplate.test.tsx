@@ -1,13 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { dog, paragraph } from '@/test/fixtures'
 import { DogDetailTemplate } from './DogDetailTemplate'
 
-const tabLabels = () =>
-    screen
-        .getAllByRole('link')
-        .filter((link) => link.getAttribute('data-bs-toggle') === 'tab')
-        .map((link) => link.textContent)
+const tabLabels = () => screen.getAllByRole('tab').map((tab) => tab.textContent)
 
 describe('DogDetailTemplate', () => {
     it('shows name, breeding name and description', () => {
@@ -24,10 +20,7 @@ describe('DogDetailTemplate', () => {
     it('always has gallery and pedigree tabs', () => {
         render(<DogDetailTemplate dog={dog()} />)
         expect(tabLabels()).toEqual(['Galerie', 'Ahnentafel'])
-        expect(document.getElementById('Galerie')).toHaveClass(
-            'tab-pane',
-            'active'
-        )
+        expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'Galerie')
     })
 
     it('adds the optional tabs when they are active', () => {
@@ -64,6 +57,9 @@ describe('DogDetailTemplate', () => {
             'Prüfungen',
             'Nachzucht',
         ])
+        fireEvent.click(
+            screen.getByRole('tab', { name: 'Ausstellungsergebnisse' })
+        )
         expect(screen.getByRole('row', { name: /Dortmund/ })).toHaveTextContent(
             'Dortmund20.4.2024Offene KlasseV1'
         )

@@ -7,7 +7,7 @@ describe('ResponsiveImage', () => {
     it('renders one image, full width on mobile and 75% from md upwards', () => {
         render(<ResponsiveImage image={media('a')} />)
         const img = screen.getByRole('img')
-        expect(img).toHaveClass('d-block', 'mx-auto', 'w-100', 'w-md-75')
+        expect(img).toHaveClass('block', 'mx-auto', 'w-full', 'md:w-3/4')
         expect(img).toHaveAttribute('sizes', '(min-width: 768px) 75vw, 100vw')
     })
 

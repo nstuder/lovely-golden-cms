@@ -8,7 +8,12 @@ type Props = {
     basePath: string
 }
 
-/** Bootstrap pagination with previous/next arrows. */
+const ITEM =
+    'grid min-w-10 h-10 place-items-center rounded-full px-3 font-semibold transition-colors'
+const IDLE = `${ITEM} bg-white/70 text-plum-dark hover:bg-plum hover:text-white`
+const ACTIVE = `${ITEM} bg-plum text-white`
+
+/** Page numbers with previous/next arrows. */
 export const Pagination = ({
     totalPages,
     activePage,
@@ -16,12 +21,12 @@ export const Pagination = ({
     nextPage,
     basePath,
 }: Props) => (
-    <nav aria-label="Seiten Navigation">
-        <ul className="pagination justify-content-center">
+    <nav aria-label="Seiten Navigation" className="my-8">
+        <ul className="flex flex-wrap justify-center gap-2">
             {prevPage && (
-                <li className="page-item">
+                <li>
                     <a
-                        className="page-link"
+                        className={IDLE}
                         href={`${basePath}/${prevPage}`}
                         aria-label="Vorherige Seite"
                     >
@@ -33,15 +38,12 @@ export const Pagination = ({
                 const number = index + 1
                 const isActive = number === activePage
                 return (
-                    <li
-                        key={number}
-                        className={`page-item ${isActive ? 'active' : ''}`}
-                    >
+                    <li key={number}>
                         <a
-                            className="page-link"
+                            className={isActive ? ACTIVE : IDLE}
                             href={`${basePath}/${number}`}
                             aria-label={`Seite ${number}`}
-                            aria-current={isActive ? 'true' : 'false'}
+                            aria-current={isActive ? 'page' : undefined}
                         >
                             {number}
                         </a>
@@ -49,9 +51,9 @@ export const Pagination = ({
                 )
             })}
             {nextPage && (
-                <li className="page-item">
+                <li>
                     <a
-                        className="page-link"
+                        className={IDLE}
                         href={`${basePath}/${nextPage}`}
                         aria-label="Nächste Seite"
                     >

@@ -10,34 +10,15 @@ type Props = {
 }
 
 /** Rich text next to an image ("text-with-image" block). */
-export const TextWithImage = ({ content, image, right }: Props) => {
-    const text = (
-        <div className="col-md-6 my-auto">
-            <RichText content={content} />
-        </div>
-    )
-    const img = (
-        <div className="col-md-6 py-2 my-auto">
+export const TextWithImage = ({ content, image, right }: Props) => (
+    <div className="my-6 grid items-center gap-6 md:grid-cols-2">
+        <div className={right ? 'md:order-2' : undefined}>
             <Image
                 image={image}
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="shadow mx-auto"
+                className="mx-auto rounded-lg shadow-lg"
             />
         </div>
-    )
-    return (
-        <div className="row">
-            {right ? (
-                <>
-                    {text}
-                    {img}
-                </>
-            ) : (
-                <>
-                    {img}
-                    {text}
-                </>
-            )}
-        </div>
-    )
-}
+        <RichText content={content} />
+    </div>
+)

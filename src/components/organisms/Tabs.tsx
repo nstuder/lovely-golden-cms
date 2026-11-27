@@ -1,53 +1,78 @@
-import type { ReactNode } from 'react'
-import { TabLink } from '@/components/atoms'
+'use client'
+import { useState, type KeyboardEvent } from 'react'
+import { useLocationHash } from '@/components/behaviors/useLocationHash'
+import type { Tab } from './tab'
 
-export type Tab = {
-    /** id of the pane, also used as URL hash */
-    id: string
-    label: string
-    /** extra classes of the pane, e.g. `container` */
-    className?: string
-    content: ReactNode
-}
+const tabKey = (id: string) => `tab-${id}`
 
-/** Drops tabs that are switched off (`false`, `null`, `undefined`). */
-export const compactTabs = (tabs: (Tab | false | null | undefined)[]): Tab[] =>
-    tabs.filter((tab): tab is Tab => Boolean(tab))
+/**
+ * Tabs in a colored bar, the first one is active. The active tab is kept in
+ * the URL hash (shareable, e.g. /wuerfe/f-wurf#Wurftagebuch); arrow keys
+ * switch between tabs.
+ */
+export const Tabs = ({ tabs }: { tabs: Tab[] }) => {
+    const hash = useLocationHash()
+    const [chosen, setChosen] = useState<string>()
+    const active =
+        chosen ?? tabs.find((tab) => tab.id === hash)?.id ?? tabs[0]?.id
 
-type Props = {
-    tabs: Tab[]
-    /** classes of the tab list */
-    navClassName: string
-    navRole?: string
-}
+    const select = (id: string) => {
+        setChosen(id)
+        history.replaceState(null, '', `#${encodeURIComponent(id)}`)
+    }
 
-/** Bootstrap tabs in a colored bar, the first tab is active. */
-export const Tabs = ({ tabs, navClassName, navRole }: Props) => (
-    <>
-        <div className="bg-primary mt-3">
-            <ul className={navClassName} role={navRole}>
-                {tabs.map((tab, i) => (
-                    <TabLink
-                        key={tab.id}
-                        target={tab.id}
-                        label={tab.label}
-                        active={i === 0}
-                    />
-                ))}
-            </ul>
-        </div>
-        <div className="tab-content">
-            {tabs.map((tab, i) => (
+    const onKeyDown = (event: KeyboardEvent, i: number) => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key]
+        if (!step) return
+        const next = tabs[(i + step + tabs.length) % tabs.length]
+        select(next.id)
+        document.getElementById(tabKey(next.id))?.focus()
+    }
+
+    return (
+        <>
+            <div className="mt-6 bg-plum/95">
+                <div
+                    role="tablist"
+                    className="container-wide flex flex-wrap justify-center gap-1 py-2"
+                >
+                    {tabs.map((tab, i) => {
+                        const selected = tab.id === active
+                        return (
+                            <button
+                                key={tab.id}
+                                id={tabKey(tab.id)}
+                                type="button"
+                                role="tab"
+                                aria-selected={selected}
+                                aria-controls={tab.id}
+                                tabIndex={selected ? 0 : -1}
+                                onClick={() => select(tab.id)}
+                                onKeyDown={(event) => onKeyDown(event, i)}
+                                className={`rounded-full px-4 py-1.5 font-semibold transition-colors ${
+                                    selected
+                                        ? 'bg-blush text-plum-dark shadow'
+                                        : 'text-white/90 hover:bg-white/15 hover:text-white'
+                                }`}
+                            >
+                                {tab.label}
+                            </button>
+                        )
+                    })}
+                </div>
+            </div>
+            {tabs.map((tab) => (
                 <div
                     key={tab.id}
-                    className={['tab-pane', i === 0 && 'active', tab.className]
-                        .filter(Boolean)
-                        .join(' ')}
                     id={tab.id}
+                    role="tabpanel"
+                    aria-labelledby={tabKey(tab.id)}
+                    hidden={tab.id !== active}
+                    className={tab.className}
                 >
                     {tab.content}
                 </div>
             ))}
-        </div>
-    </>
-)
+        </>
+    )
+}

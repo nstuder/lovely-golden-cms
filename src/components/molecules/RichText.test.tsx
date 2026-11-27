@@ -90,14 +90,14 @@ describe('RichText', () => {
 
     it('renders empty text nodes as empty paragraph without text', () => {
         const { container } = render(<RichText content={[paragraph('')]} />)
-        expect(container.innerHTML).toBe('<p></p>')
+        expect(container.innerHTML).toBe('<div class="rich-text"><p></p></div>')
     })
 
     it('ignores unknown node types and non-array content', () => {
         const { container } = render(
             <RichText content={[{ type: 'video', children: [] }]} />
         )
-        expect(container).toBeEmptyDOMElement()
+        expect(container.firstElementChild).toBeEmptyDOMElement()
         const { container: empty } = render(<RichText content={null} />)
         expect(empty).toBeEmptyDOMElement()
     })

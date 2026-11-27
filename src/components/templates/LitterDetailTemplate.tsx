@@ -12,16 +12,13 @@ import {
 const HealthResults = ({ puppies }: { puppies: Litter['puppies'] }) => (
     <>
         <h3>Gesundheitsergebnisse</h3>
-        <div className="table-responsive">
-            <DataTable
-                className="table table-striped table-bordered border-primary text-center"
-                headers={['Name', 'R/H', 'Gesundheitsergebnisse']}
-                rows={(puppies ?? []).map((puppy, i) => ({
-                    key: puppy.id ?? String(i),
-                    cells: [puppy.name, puppy.gender, puppy.health],
-                }))}
-            />
-        </div>
+        <DataTable
+            headers={['Name', 'R/H', 'Gesundheitsergebnisse']}
+            rows={(puppies ?? []).map((puppy, i) => ({
+                key: puppy.id ?? String(i),
+                cells: [puppy.name, puppy.gender, puppy.health],
+            }))}
+        />
     </>
 )
 
@@ -30,7 +27,7 @@ const litterTabs = (litter: Litter): Tab[] =>
         {
             id: 'Ahnentafel',
             label: 'Ahnentafel',
-            className: 'container-fluid',
+            className: 'container-wide',
             content: (
                 <>
                     <h3>Ahnentafel</h3>
@@ -44,15 +41,11 @@ const litterTabs = (litter: Litter): Tab[] =>
                 !!tab.name && {
                     id: tab.name,
                     label: tab.name,
-                    className: 'container',
+                    className: 'container-page',
                     content: (
                         <>
                             <h3>{tab.name}</h3>
-                            <div className="text-left">
-                                <div className="timeline ps-md-0 ps-2">
-                                    <NewsTimeline news={tab.news} />
-                                </div>
-                            </div>
+                            <NewsTimeline news={tab.news} />
                         </>
                     ),
                 }
@@ -60,7 +53,7 @@ const litterTabs = (litter: Litter): Tab[] =>
         litter.isActive && {
             id: 'Gesundheitsergebnisse',
             label: 'Gesundheitsergebnisse',
-            className: 'container',
+            className: 'container-page',
             content: <HealthResults puppies={litter.puppies} />,
         },
     ])
@@ -69,24 +62,20 @@ const litterTabs = (litter: Litter): Tab[] =>
 export const LitterDetailTemplate = ({ litter }: { litter: Litter }) => (
     <>
         <h1>{litter.name}</h1>
-        <section className="container-xxl">
-            <div className="row align-items-center">
-                <div className="col-md-8">
+        <section className="container-wide">
+            <div className="grid items-center gap-8 md:grid-cols-12">
+                <div className="md:col-span-8">
                     <Image
                         image={litter.collage}
                         sizes="(min-width: 768px) 67vw, 100vw"
-                        className="shadow"
+                        className="w-full rounded-xl shadow-lg"
                     />
                 </div>
-                <div className="col-md-3">
+                <div className="md:col-span-4">
                     <RichText content={litter.description} />
                 </div>
             </div>
         </section>
-        <Tabs
-            tabs={litterTabs(litter)}
-            navClassName="nav nav-tabs font-weight-bold text-white justify-content-center"
-            navRole="tablist"
-        />
+        <Tabs tabs={litterTabs(litter)} />
     </>
 )

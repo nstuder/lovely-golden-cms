@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { media, paragraph } from '@/test/fixtures'
 import { TextWithImage } from './TextWithImage'
 
-const columns = (right: boolean) => {
+const imageColumn = (right?: boolean) => {
     const { container } = render(
         <TextWithImage
             content={[paragraph('Text')]}
@@ -11,17 +11,16 @@ const columns = (right: boolean) => {
             right={right}
         />
     )
-    return Array.from(container.querySelectorAll('.row > div')).map((col) =>
-        col.querySelector('img') ? 'image' : 'text'
-    )
+    expect(screen.getByText('Text')).toBeInTheDocument()
+    return container.querySelector('img')?.parentElement
 }
 
 describe('TextWithImage', () => {
-    it('shows the image on the left by default', () => {
-        expect(columns(false)).toEqual(['image', 'text'])
+    it('shows the image on the left by default (first on mobile)', () => {
+        expect(imageColumn(false)).not.toHaveClass('md:order-2')
     })
 
     it('shows the image on the right if requested', () => {
-        expect(columns(true)).toEqual(['text', 'image'])
+        expect(imageColumn(true)).toHaveClass('md:order-2')
     })
 })

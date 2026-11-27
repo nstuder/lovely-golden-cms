@@ -90,7 +90,7 @@ describe('LivePreview', () => {
         expect(
             screen.getByRole('heading', { level: 2, name: 'Summer of Love' })
         ).toBeInTheDocument()
-        expect(screen.getByRole('link', { name: 'Ahnentafel' })).toBeVisible()
+        expect(screen.getByRole('tab', { name: 'Ahnentafel' })).toBeVisible()
     })
 
     it('shows the home page with the latest news', () => {

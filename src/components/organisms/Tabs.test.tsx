@@ -1,45 +1,62 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
-import { compactTabs, Tabs } from './Tabs'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { compactTabs } from './tab'
+import { Tabs } from './Tabs'
+
+const tabs = [
+    {
+        id: 'Galerie',
+        label: 'Galerie',
+        className: 'container-full',
+        content: <p>Bilder</p>,
+    },
+    { id: 'Ahnentafel', label: 'Ahnentafel', content: 'Tabelle' },
+    { id: 'Prüfungen', label: 'Prüfungen', content: 'Ergebnisse' },
+]
 
 describe('Tabs', () => {
-    it('renders the tab bar and panes, the first one active', () => {
-        const { container } = render(
-            <Tabs
-                navClassName="nav nav-tabs"
-                navRole="tablist"
-                tabs={[
-                    {
-                        id: 'Galerie',
-                        label: 'Galerie',
-                        className: 'container-fluid',
-                        content: <p>Bilder</p>,
-                    },
-                    {
-                        id: 'Ahnentafel',
-                        label: 'Ahnentafel',
-                        content: 'Tabelle',
-                    },
-                ]}
-            />
-        )
-        expect(screen.getByRole('tablist')).toHaveClass('nav', 'nav-tabs')
-        expect(screen.getByRole('link', { name: 'Galerie' })).toHaveClass(
-            'active'
-        )
-        expect(
-            screen.getByRole('link', { name: 'Ahnentafel' })
-        ).not.toHaveClass('active')
+    afterEach(() => history.replaceState(null, '', '/'))
 
-        const panes = container.querySelectorAll('.tab-content > .tab-pane')
-        expect(panes).toHaveLength(2)
-        expect(panes[0]).toHaveAttribute('id', 'Galerie')
-        expect(panes[0]).toHaveAttribute(
-            'class',
-            'tab-pane active container-fluid'
+    it('shows the first tab, the other panels are hidden', () => {
+        render(<Tabs tabs={tabs} />)
+        expect(screen.getByRole('tab', { name: 'Galerie' })).toHaveAttribute(
+            'aria-selected',
+            'true'
         )
-        expect(panes[0]).toHaveTextContent('Bilder')
-        expect(panes[1]).toHaveAttribute('class', 'tab-pane')
+        const panel = screen.getByRole('tabpanel')
+        expect(panel).toHaveAttribute('id', 'Galerie')
+        expect(panel).toHaveClass('container-full')
+        expect(panel).toHaveTextContent('Bilder')
+        expect(screen.getByText('Tabelle')).not.toBeVisible()
+    })
+
+    it('switches on click and keeps the tab in the URL hash', () => {
+        render(<Tabs tabs={tabs} />)
+        fireEvent.click(screen.getByRole('tab', { name: 'Ahnentafel' }))
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Tabelle')
+        expect(window.location.hash).toBe('#Ahnentafel')
+    })
+
+    it('opens the tab named in the URL hash', () => {
+        history.replaceState(null, '', '/#Pr%C3%BCfungen')
+        render(<Tabs tabs={tabs} />)
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Ergebnisse')
+    })
+
+    it('ignores unknown hashes', () => {
+        history.replaceState(null, '', '/#inhalt')
+        render(<Tabs tabs={tabs} />)
+        expect(screen.getByRole('tabpanel')).toHaveTextContent('Bilder')
+    })
+
+    it('moves between tabs with the arrow keys', () => {
+        render(<Tabs tabs={tabs} />)
+        const first = screen.getByRole('tab', { name: 'Galerie' })
+        fireEvent.keyDown(first, { key: 'ArrowLeft' })
+        const last = screen.getByRole('tab', { name: 'Prüfungen' })
+        expect(last).toHaveAttribute('aria-selected', 'true')
+        expect(last).toHaveFocus()
+        expect(first).toHaveAttribute('tabindex', '-1')
     })
 })
 
