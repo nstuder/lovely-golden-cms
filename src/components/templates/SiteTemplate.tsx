@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Configuration, Navigation } from '@/cms/payload-types'
-import { Footer, Header } from '@/components/organisms'
+import { BackToTop, Footer, Header } from '@/components/organisms'
 
 type Props = {
     navigation: Navigation
@@ -20,5 +20,6 @@ export const SiteTemplate = ({
             {children}
         </main>
         <Footer configuration={configuration} />
+        <BackToTop />
     </>
 )

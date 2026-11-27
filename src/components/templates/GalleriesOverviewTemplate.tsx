@@ -11,7 +11,7 @@ export const GalleriesOverviewTemplate = ({
 }) => (
     <section className="container-wide">
         <h1>Galerie</h1>
-        <div className="grid gap-x-8 gap-y-2 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
             {galleries.map((gallery) => (
                 <GalleryTeaser
                     key={gallery.id}

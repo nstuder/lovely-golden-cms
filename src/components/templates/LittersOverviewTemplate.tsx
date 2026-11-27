@@ -11,7 +11,7 @@ export const LittersOverviewTemplate = ({
 }) => (
     <section className="container-page">
         <h1>Würfe</h1>
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+        <div className="flex flex-wrap justify-center gap-8">
             {litters.map((litter) => (
                 <div key={litter.id} className="w-full md:w-[calc(50%-1rem)]">
                     <TeaserCard

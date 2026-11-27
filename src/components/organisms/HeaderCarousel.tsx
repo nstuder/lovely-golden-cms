@@ -46,6 +46,11 @@ export const HeaderCarousel = ({
                     </div>
                 ))}
             </div>
+            {/* soft transition into the page background */}
+            <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-5 bg-linear-to-t from-blush to-transparent sm:h-10 lg:h-14"
+                aria-hidden="true"
+            />
             {slides.length > 1 && (
                 <>
                     <CarouselButton

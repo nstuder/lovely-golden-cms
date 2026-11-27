@@ -11,7 +11,7 @@ type Props = {
 
 /** Rich text next to an image ("text-with-image" block). */
 export const TextWithImage = ({ content, image, right }: Props) => (
-    <div className="my-6 grid items-center gap-6 md:grid-cols-2">
+    <div className="grid items-center gap-6 md:grid-cols-2">
         <div className={right ? 'md:order-2' : undefined}>
             <Image
                 image={image}

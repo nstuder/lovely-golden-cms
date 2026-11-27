@@ -16,10 +16,10 @@ export const NewsTimeline = ({ news }: { news?: NewsEntry[] | null }) => (
                     aria-hidden="true"
                 />
                 <article>
-                    <header className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 text-xl">
+                    <header className="mb-2 flex flex-wrap items-center justify-between gap-y-1 gap-x-4 text-xl">
                         <strong>{entry.title}</strong>
                         <time
-                            className="text-base text-plum-dark"
+                            className="rounded-full bg-plum-light px-3 py-0.5 text-sm font-medium text-plum-dark"
                             dateTime={entry.publishedAt ?? undefined}
                         >
                             {toLocalDate(entry.publishedAt)}

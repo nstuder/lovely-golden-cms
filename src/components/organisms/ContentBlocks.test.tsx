@@ -30,8 +30,10 @@ describe('ContentBlocks', () => {
             screen.getByRole('img', { name: 'Alt grid' })
         ).toBeInTheDocument()
         expect(screen.getByRole('table')).toBeInTheDocument()
-        // no wrapper elements around the blocks
-        expect(container.children).toHaveLength(4)
+        // one wrapper (spacing), the blocks directly inside it
+        expect(container.children).toHaveLength(1)
+        expect(container.firstElementChild).toHaveClass('blocks')
+        expect(container.firstElementChild?.children).toHaveLength(4)
     })
 
     it('ignores unknown blocks and empty content', () => {

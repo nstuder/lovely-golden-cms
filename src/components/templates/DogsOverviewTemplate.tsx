@@ -21,7 +21,7 @@ export const DogsOverviewTemplate = ({ dogs }: { dogs: DogTeaser[] }) => (
             return (
                 <section key={type} className="mt-12">
                     <h2>{title}</h2>
-                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+                    <div className="flex flex-wrap justify-center gap-8">
                         {inCategory.map((dog) => (
                             <div
                                 key={dog.id}

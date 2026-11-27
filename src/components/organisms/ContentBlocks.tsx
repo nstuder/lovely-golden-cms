@@ -27,10 +27,17 @@ const renderBlock = (block: Block) => {
 }
 
 /** Renders the `content` blocks field (content-block.hbs). */
-export const ContentBlocks = ({ content }: { content?: Block[] | null }) => (
-    <>
-        {content?.map((block, i) => (
-            <Fragment key={block.id ?? i}>{renderBlock(block)}</Fragment>
-        ))}
-    </>
-)
+export const ContentBlocks = ({ content }: { content?: Block[] | null }) => {
+    const rendered = (content ?? [])
+        .map((block, i) => [block.id ?? i, renderBlock(block)] as const)
+        .filter(([, element]) => element !== null)
+    if (!rendered.length) return null
+    // wrapper only for the spacing between the blocks (utility `blocks`)
+    return (
+        <div className="blocks">
+            {rendered.map(([key, element]) => (
+                <Fragment key={key}>{element}</Fragment>
+            ))}
+        </div>
+    )
+}

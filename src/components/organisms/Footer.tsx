@@ -16,7 +16,7 @@ export const stripCopyright = (footnote?: string | null) =>
 
 /** Club logos + copyright with the current year (partials/footer.hbs). */
 export const Footer = ({ configuration }: { configuration: Configuration }) => (
-    <footer className="mt-12 bg-plum/95 px-4 pt-6 pb-4 text-white">
+    <footer className="mt-16 bg-plum/95 px-4 pt-10 pb-6 text-white">
         <div className="container-page flex items-center justify-evenly gap-4">
             {configuration.clubs?.map((club, i) => (
                 <a
@@ -33,7 +33,7 @@ export const Footer = ({ configuration }: { configuration: Configuration }) => (
                 </a>
             ))}
         </div>
-        <div className="mt-6 text-center text-sm text-white/90">
+        <div className="container-page mt-8 border-t border-white/20 pt-5 text-center text-sm text-white/90">
             © {new Date().getFullYear()}{' '}
             {stripCopyright(configuration.footnote)}
             <span aria-hidden="true"> · </span>

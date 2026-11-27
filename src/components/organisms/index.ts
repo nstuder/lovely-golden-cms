@@ -1,3 +1,4 @@
+export { BackToTop } from './BackToTop'
 export { ContentBlocks, type Block } from './ContentBlocks'
 export { Footer } from './Footer'
 export { Gallery } from './Gallery'

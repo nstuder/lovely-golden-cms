@@ -6,6 +6,24 @@ import { useCarousel } from '@/components/behaviors/useCarousel'
 
 type Item = { image?: Media | string | null; id?: string | null }
 
+/** Thumbnails fade in once loaded (also those loaded before hydration). */
+const revealOnLoad = (grid: HTMLDivElement | null) => {
+    if (!grid) return
+    const reveal = (img: HTMLImageElement) => {
+        img.dataset.loaded = ''
+    }
+    grid.querySelectorAll('img').forEach((img) => img.complete && reveal(img))
+    const onLoad = (event: Event) => {
+        if (event.target instanceof HTMLImageElement) reveal(event.target)
+    }
+    grid.addEventListener('load', onLoad, true)
+    grid.addEventListener('error', onLoad, true)
+    return () => {
+        grid.removeEventListener('load', onLoad, true)
+        grid.removeEventListener('error', onLoad, true)
+    }
+}
+
 const THUMB_SIZES = '(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw'
 
 /**
@@ -53,12 +71,15 @@ export const Gallery = ({ images }: { images?: Item[] | null }) => {
 
     return (
         <>
-            <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4">
+            <div
+                ref={revealOnLoad}
+                className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4"
+            >
                 {items.map((item, i) => (
                     <button
                         key={item.id ?? i}
                         type="button"
-                        className="group overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-xl"
+                        className="group overflow-hidden rounded-lg bg-plum-light shadow-md transition-shadow hover:shadow-xl"
                         onClick={() => show(i)}
                         aria-label={`Bild ${i + 1} vergrößern`}
                     >
@@ -66,7 +87,7 @@ export const Gallery = ({ images }: { images?: Item[] | null }) => {
                             image={item.image}
                             sizes={THUMB_SIZES}
                             // uniform tiles, the lightbox shows the whole picture
-                            className="block aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="block aspect-[4/3] w-full object-cover opacity-0 transition duration-500 group-hover:scale-105 data-loaded:opacity-100"
                         />
                     </button>
                 ))}
