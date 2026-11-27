@@ -24,6 +24,12 @@ const Configuration: GlobalConfig = {
                         {
                             name: 'footnote',
                             label: { de: 'Fußnote', en: 'footnote' },
+                            admin: {
+                                description: {
+                                    de: '© und das aktuelle Jahr werden automatisch davor gesetzt, z. B. nur "Moments of Love".',
+                                    en: '© and the current year are added automatically, e.g. just "Moments of Love".',
+                                },
+                            },
                             type: 'text',
                             localized: true,
                         },
